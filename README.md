@@ -1,2 +1,2 @@
-# amaz-corp-mobile
+# amaz_corp_mobile
  
