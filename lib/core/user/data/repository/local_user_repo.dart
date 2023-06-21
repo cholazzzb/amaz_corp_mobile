@@ -7,6 +7,9 @@ part 'local_user_repo.g.dart';
 abstract class LocalUserRepo {
   Future<Token?> getToken();
   Future<void> setToken(Token token);
+
+  Future<bool> isLoggedIn();
+  Future<void> setIsLoggedIn(bool isLoggedIn);
 }
 
 @Riverpod(keepAlive: true)

@@ -1,8 +1,6 @@
-import 'package:amaz_corp_mobile/feature/user/screen/login_screen.dart';
 import 'package:amaz_corp_mobile/shared/layout.dart';
 import 'package:flutter/material.dart';
-
-import 'package:amaz_corp_mobile/feature/user/screen/register_screen.dart';
+import 'package:go_router/go_router.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({super.key});
@@ -26,25 +24,13 @@ class WelcomeScreen extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   ElevatedButton.icon(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const RegisterScreen(),
-                        ),
-                      );
-                    },
+                    onPressed: () => context.go('/register'),
                     icon: const Icon(Icons.app_registration),
                     label: const Text('Register'),
                   ),
                   const SizedBox(width: 12.0),
                   ElevatedButton.icon(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const LoginScreen(),
-                        ),
-                      );
-                    },
+                    onPressed: () => context.go('/login'),
                     icon: const Icon(Icons.login),
                     label: const Text('Login'),
                   )

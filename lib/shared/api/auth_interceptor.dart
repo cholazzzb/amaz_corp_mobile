@@ -8,7 +8,9 @@ class AuthInterceptor extends Interceptor {
 
   @override
   Future<void> onRequest(
-      RequestOptions options, RequestInterceptorHandler handler) async {
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) async {
     final token = await localUserRepo.getToken();
     options.headers['Authorization'] = 'Bearer $token';
 

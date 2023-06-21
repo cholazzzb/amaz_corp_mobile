@@ -1,11 +1,11 @@
 import 'package:amaz_corp_mobile/core/user/domain/entity/credential_entity.dart';
 import 'package:amaz_corp_mobile/feature/user/controller/login_controller.dart';
-import 'package:amaz_corp_mobile/feature/user/screen/register_screen.dart';
 import 'package:amaz_corp_mobile/shared/async_value_ui.dart';
 import 'package:amaz_corp_mobile/shared/component/primary_button.dart';
 import 'package:amaz_corp_mobile/shared/layout.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
   const LoginScreen({
@@ -26,8 +26,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   String get username => _usernameController.text;
   String get password => _passwordController.text;
 
-  bool _submitted = false;
-
   @override
   void dispose() {
     _usernameController.dispose();
@@ -35,10 +33,9 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     super.dispose();
   }
 
-  Future<void> _submit() async {
-    setState(() => _submitted = true);
+  Future<void> _submit(VoidCallback onSuccess) async {
     final controller = ref.read(loginControllerProvider.notifier);
-    await controller.login(Credential(username, password));
+    await controller.login(Credential(username, password), onSuccess);
   }
 
   @override
@@ -76,20 +73,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   ElevatedButton.icon(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => const RegisterScreen(),
-                        ),
-                      );
-                    },
+                    onPressed: () => context.go('/register'),
                     icon: const Icon(Icons.app_registration),
                     label: const Text('Register'),
                   ),
                   PrimaryButton(
                     text: 'Login',
                     isLoading: state.isLoading,
-                    onPressed: _submit,
+                    onPressed: () => _submit(() => context.go('/location')),
                   )
                 ],
               )
