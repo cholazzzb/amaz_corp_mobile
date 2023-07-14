@@ -16,4 +16,17 @@ class AuthInterceptor extends Interceptor {
 
     return super.onRequest(options, handler);
   }
+
+  @override
+  Future<void> onResponse(
+    Response response,
+    ResponseInterceptorHandler handler,
+  ) async {
+    bool isUnauthorized = response.statusCode == 401;
+    if (isUnauthorized) {
+      await localUserRepo.setIsLoggedIn(false);
+      await localUserRepo.setToken("");
+    }
+    return super.onResponse(response, handler);
+  }
 }

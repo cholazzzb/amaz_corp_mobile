@@ -5,6 +5,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 enum FssKey {
   token,
   isLoggedIn,
+  memberId,
 }
 
 class FssLocalUserRepo implements LocalUserRepo {
@@ -24,8 +25,8 @@ class FssLocalUserRepo implements LocalUserRepo {
     try {
       await storage.write(key: FssKey.token.name, value: token);
       return;
-    } on Exception catch (err) {
-      print("err save token: $err");
+    } on Exception {
+      //
     }
   }
 
@@ -44,8 +45,26 @@ class FssLocalUserRepo implements LocalUserRepo {
       String value = isLoggedIn ? "true" : "false";
       await storage.write(key: FssKey.isLoggedIn.name, value: value);
       return;
-    } on Exception catch (err) {
-      print("err save token: $err");
+    } on Exception {
+      //
+    }
+  }
+
+  @override
+  Future<String> getMemberId() async {
+    String? res = await storage.read(key: FssKey.memberId.name);
+    if (res == null) {
+      return "";
+    }
+    return res;
+  }
+
+  @override
+  Future<void> setMemberId(String memberId) async {
+    try {
+      await storage.write(key: FssKey.memberId.name, value: memberId);
+    } on Exception {
+      //
     }
   }
 }

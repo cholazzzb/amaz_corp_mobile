@@ -12,10 +12,12 @@ class LoginController extends _$LoginController {
 
   Future<void> login(Credential credential, VoidCallback onSuccess) async {
     state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() => _login(credential));
-    if (!state.hasError) {
-      onSuccess();
-    }
+    state = await AsyncValue.guard(() => _login(credential)).then(
+      (value) {
+        onSuccess.call();
+        return value;
+      },
+    );
   }
 
   Future<void> _login(Credential credential) async {

@@ -1,6 +1,8 @@
 secrets
+.env
 
 # Generated
+*.freezed.dart
 *.g.dart
 
 # Miscellaneous

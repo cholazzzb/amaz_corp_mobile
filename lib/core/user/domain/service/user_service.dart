@@ -19,6 +19,16 @@ class UserService {
       credential.password,
     );
     localUserRepo.setToken(result.right);
+    localUserRepo.setIsLoggedIn(true);
+  }
+
+  Future<void> register(Credential credential) async {
+    final remoteUserRepo = ref.read(remoteUserRepoProvider);
+
+    await remoteUserRepo.postRegister(
+      credential.username,
+      credential.password,
+    );
   }
 }
 

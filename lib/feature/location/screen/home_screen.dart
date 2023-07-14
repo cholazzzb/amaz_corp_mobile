@@ -8,6 +8,10 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Layout(title: 'Home', child: ListLocation());
+    return const Layout(
+      title: 'Home',
+      selectedIdx: 0,
+      child: ListLocation(),
+    );
   }
 }

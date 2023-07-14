@@ -7,10 +7,12 @@ class PrimaryButton extends StatelessWidget {
     required this.text,
     this.isLoading = false,
     this.onPressed,
+    this.disabled = false,
   });
   final String text;
   final bool isLoading;
   final VoidCallback? onPressed;
+  final bool disabled;
 
   @override
   Widget build(BuildContext context) {

@@ -1,7 +1,10 @@
 import 'package:amaz_corp_mobile/core/user/domain/entity/credential_entity.dart';
+import 'package:amaz_corp_mobile/feature/user/controller/register_controller.dart';
 import 'package:amaz_corp_mobile/feature/user/screen/login_screen.dart';
 import 'package:amaz_corp_mobile/shared/layout.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 enum Status {
   idle,
@@ -10,20 +13,36 @@ enum Status {
   error,
 }
 
-class RegisterScreen extends StatefulWidget {
-  void onRegister(Credential credential) {}
-
+class RegisterScreen extends ConsumerStatefulWidget {
   const RegisterScreen({
     super.key,
+    this.onRegister,
   });
 
+  final VoidCallback? onRegister;
+
   @override
-  State<RegisterScreen> createState() => _RegisterScreenState();
+  ConsumerState<RegisterScreen> createState() => _RegisterScreenState();
 }
 
-class _RegisterScreenState extends State<RegisterScreen> {
+class _RegisterScreenState extends ConsumerState<RegisterScreen> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
+
+  String get username => _usernameController.text;
+  String get password => _passwordController.text;
+
+  @override
+  void dispose() {
+    _usernameController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _submit(VoidCallback? onSuccess) async {
+    final controller = ref.read(registerControllerProvider.notifier);
+    await controller.register(Credential(username, password), onSuccess);
+  }
 
   final _formKey = GlobalKey<FormState>();
   String? usernameValidator(String? value) {
@@ -40,6 +59,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
   Widget build(BuildContext context) {
     return Layout(
       title: 'Register',
+      selectedIdx: 0,
       child: Center(
         child: Padding(
           padding: const EdgeInsets.all(32.0),
@@ -75,12 +95,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ElevatedButton.icon(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        widget.onRegister(
-                          Credential(
-                            _usernameController.value.text,
-                            _passwordController.value.text,
-                          ),
-                        );
+                        _submit(() => context.push("/locations"));
                       }
                     },
                     icon: const Icon(Icons.app_registration),

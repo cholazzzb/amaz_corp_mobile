@@ -10,6 +10,9 @@ abstract class LocalUserRepo {
 
   Future<bool> isLoggedIn();
   Future<void> setIsLoggedIn(bool isLoggedIn);
+
+  Future<String> getMemberId();
+  Future<void> setMemberId(String memberId);
 }
 
 @Riverpod(keepAlive: true)

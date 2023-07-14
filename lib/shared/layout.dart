@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class Layout extends StatelessWidget {
-  final Widget child;
-  final String title;
-
   const Layout({
+    super.key,
     required this.child,
     required this.title,
-    super.key,
+    required this.selectedIdx,
   });
+
+  final Widget child;
+  final String title;
+  final int selectedIdx;
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +24,17 @@ class Layout extends StatelessWidget {
         child: child,
       ),
     );
+
+    void onItemTapped(int index, BuildContext context) {
+      switch (index) {
+        case 0:
+          context.go('/');
+        case 1:
+          context.go('/login');
+        case 2:
+          context.go('/locations');
+      }
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -51,11 +65,12 @@ class Layout extends StatelessWidget {
                       label: 'Friends',
                     ),
                     BottomNavigationBarItem(
-                      icon: Icon(Icons.face),
-                      label: 'Welcome',
+                      icon: Icon(Icons.place),
+                      label: 'Locations',
                     ),
                   ],
-                  currentIndex: 0,
+                  currentIndex: selectedIdx,
+                  onTap: (idx) => onItemTapped(idx, context),
                 ),
               )
             ],

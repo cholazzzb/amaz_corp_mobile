@@ -48,6 +48,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
     return Layout(
       title: 'Login',
+      selectedIdx: 0,
       child: Center(
         child: Padding(
           padding: const EdgeInsets.all(32.0),
@@ -73,14 +74,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   ElevatedButton.icon(
-                    onPressed: () => context.go('/register'),
+                    onPressed: () => context.push('/register'),
                     icon: const Icon(Icons.app_registration),
                     label: const Text('Register'),
                   ),
                   PrimaryButton(
                     text: 'Login',
                     isLoading: state.isLoading,
-                    onPressed: () => _submit(() => context.go('/location')),
+                    onPressed: () => _submit(() => context.push('/locations')),
                   )
                 ],
               )

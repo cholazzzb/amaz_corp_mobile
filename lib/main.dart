@@ -1,9 +1,11 @@
 import 'package:amaz_corp_mobile/feature/user/screen/welcome_screen.dart';
 import 'package:amaz_corp_mobile/routing/app_router.dart';
+import 'package:amaz_corp_mobile/shared/env.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
+  Environment();
   runApp(const ProviderScope(child: MyApp()));
 }
 
@@ -12,7 +14,7 @@ class MyApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final goRouter = ref.watch(goRouterProvider);
+    final goRouter = ref.read(goRouterProvider);
     return MaterialApp.router(
       title: 'Amaz Corp',
       theme: ThemeData(

@@ -1,40 +1,58 @@
-import 'package:amaz_corp_mobile/core/location/domain/service/location_service.dart';
-import 'package:amaz_corp_mobile/feature/user/screen/login_screen.dart';
-import 'package:amaz_corp_mobile/shared/exception/auth_exception.dart';
+import 'package:amaz_corp_mobile/feature/location/widget/my_location.dart';
+import 'package:amaz_corp_mobile/feature/location/widget/public_location.dart';
+import 'package:amaz_corp_mobile/shared/layout.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class ListLocation extends ConsumerWidget {
+class ListLocation extends StatefulWidget {
   const ListLocation({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final locationAsync = ref.watch(getAllLocationsProvider(
-      () => Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => const LoginScreen(),
-        ),
-      ),
-    ));
-    return locationAsync.when(
-      data: (data) => const Center(child: Text('Data')),
-      error: (e, st) {
-        if (e == UnauthorizedException) {
-          print("PUFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF!");
-          return Center(
-            child: Text(
-              e.toString(),
-            ),
-          );
-        }
-        return Center(
-          child: Text(
-            e.toString(),
+  State<ListLocation> createState() => _ListLocationState();
+}
+
+enum LocationType {
+  public,
+  mine,
+}
+
+class _ListLocationState extends State<ListLocation> {
+  LocationType selected = LocationType.public;
+
+  @override
+  Widget build(BuildContext context) {
+    return Layout(
+      title: 'List Location',
+      selectedIdx: 2,
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SegmentedButton<LocationType>(
+                segments: const <ButtonSegment<LocationType>>[
+                  ButtonSegment<LocationType>(
+                      value: LocationType.public,
+                      label: Text('Public'),
+                      icon: Icon(Icons.location_searching)),
+                  ButtonSegment<LocationType>(
+                      value: LocationType.mine,
+                      label: Text('Your'),
+                      icon: Icon(Icons.location_city)),
+                ],
+                selected: <LocationType>{selected},
+                onSelectionChanged: (Set<LocationType> newSelection) {
+                  setState(() {
+                    selected = newSelection.first;
+                  });
+                },
+              ),
+            ],
           ),
-        );
-      },
-      loading: () => const Center(
-        child: CircularProgressIndicator(),
+          switch (selected) {
+            LocationType.public => const PublicLocation(),
+            LocationType.mine => const MyLocation(),
+          },
+        ],
       ),
     );
   }
