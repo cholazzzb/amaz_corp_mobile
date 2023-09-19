@@ -1,7 +1,9 @@
+import 'package:amaz_corp_mobile/core/remoteconfig/service/force_update_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class Layout extends StatelessWidget {
+class Layout extends ConsumerWidget {
   const Layout({
     super.key,
     required this.child,
@@ -14,7 +16,18 @@ class Layout extends StatelessWidget {
   final int selectedIdx;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final forceUpdateAsync = ref.watch(checkForceUpdateProvider);
+    forceUpdateAsync.when(
+      data: (needForceUpdate) {
+        if (needForceUpdate) {
+          context.go("/force-update");
+        }
+      },
+      error: (e, st) {},
+      loading: () {},
+    );
+
     ColorScheme colorScheme = Theme.of(context).colorScheme;
 
     Widget childWithTheme = ColoredBox(

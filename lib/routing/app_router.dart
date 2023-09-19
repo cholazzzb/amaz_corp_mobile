@@ -1,5 +1,6 @@
 import 'package:amaz_corp_mobile/core/user/data/repository/local_user_repo.dart';
 import 'package:amaz_corp_mobile/feature/location/widget/list_location.dart';
+import 'package:amaz_corp_mobile/feature/remoteconfig/screen/force_update_screen.dart';
 import 'package:amaz_corp_mobile/feature/user/screen/login_screen.dart';
 import 'package:amaz_corp_mobile/feature/user/screen/register_screen.dart';
 import 'package:amaz_corp_mobile/main.dart';
@@ -14,6 +15,7 @@ enum AppRoute {
   location,
   login,
   register,
+  forceUpdate,
 }
 
 @Riverpod(keepAlive: true)
@@ -61,6 +63,11 @@ GoRouter goRouter(GoRouterRef ref) {
             path: 'locations',
             name: AppRoute.location.name,
             builder: (context, state) => const ListLocation(),
+          ),
+          GoRoute(
+            path: 'force-update',
+            name: AppRoute.forceUpdate.name,
+            builder: (context, state) => const ForceUpdateScreen(),
           )
         ],
       ),
