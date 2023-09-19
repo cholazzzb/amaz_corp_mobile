@@ -18,7 +18,8 @@ abstract class RemoteUserRepo {
 
 @riverpod
 RemoteUserRepo remoteUserRepo(RemoteUserRepoRef ref) {
-  final baseUrl = Environment().baseUrl;
+  final baseUrl = Environment.getBaseUrl();
+
   return HttpRemoteUserRepo(
     DioFactory(
       baseUrl: baseUrl,

@@ -24,7 +24,7 @@ abstract class RemoteLocationRepo {
 RemoteLocationRepo remoteLocationRepo(
   RemoteLocationRepoRef ref,
 ) {
-  final baseUrl = Environment().baseUrl;
+  final baseUrl = Environment.getBaseUrl();
 
   return HttpRemoteLocationRepo(
     DioFactory(
