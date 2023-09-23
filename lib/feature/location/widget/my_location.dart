@@ -1,3 +1,4 @@
+import 'package:amaz_corp_mobile/core/location/domain/entity/building_entity.dart';
 import 'package:amaz_corp_mobile/core/location/domain/service/location_service.dart';
 import 'package:amaz_corp_mobile/feature/location/controller/location_controller.dart';
 import 'package:amaz_corp_mobile/feature/location/widget/my_location_card.dart';
@@ -24,7 +25,13 @@ class MyLocation extends ConsumerWidget {
               final building = data[index];
 
               void onPressDetail() {
-                context.goNamed(AppRoute.roomID.name, extra: building);
+                context.goNamed(
+                  AppRoute.roomID.name,
+                  extra: Building(
+                    id: building.id,
+                    name: building.name,
+                  ),
+                );
               }
 
               Future<void> onPressedLeave() async {
