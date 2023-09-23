@@ -10,24 +10,24 @@ class LocationController extends _$LocationController {
   FutureOr<void> build() {}
 
   Future<void> joinBuilding({
-    required String memberId,
-    required String buildingId,
+    required String name,
+    required String buildingID,
     VoidCallback? onSuccess,
   }) async {
     state = const AsyncValue.loading();
-    state = await AsyncValue.guard(
-      () => _joinBuilding(memberId, buildingId).then(
-        (value) {
-          onSuccess?.call();
-          return value;
-        },
-      ),
-    );
+
+    try {
+      await _joinBuilding(name, buildingID);
+      onSuccess?.call();
+      state = const AsyncValue.data(null);
+    } catch (err, stack) {
+      state = AsyncValue.error(err, stack);
+    }
   }
 
-  Future<void> _joinBuilding(String memberId, String buildingId) async {
+  Future<void> _joinBuilding(String name, String buildingId) async {
     final locationService = ref.read(locationServiceProvider);
-    await locationService.joinBuilding(memberId, buildingId);
+    await locationService.joinBuilding(name, buildingId);
   }
 
   Future<void> leaveBuilding({

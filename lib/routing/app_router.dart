@@ -1,4 +1,6 @@
+import 'package:amaz_corp_mobile/core/location/domain/entity/building_entity.dart';
 import 'package:amaz_corp_mobile/core/user/data/repository/local_user_repo.dart';
+import 'package:amaz_corp_mobile/feature/building/building_screen.dart';
 import 'package:amaz_corp_mobile/feature/location/widget/list_location.dart';
 import 'package:amaz_corp_mobile/feature/remoteconfig/screen/force_update_screen.dart';
 import 'package:amaz_corp_mobile/feature/user/screen/login_screen.dart';
@@ -13,6 +15,7 @@ part 'app_router.g.dart';
 enum AppRoute {
   home,
   location,
+  roomID,
   login,
   register,
   forceUpdate,
@@ -63,6 +66,16 @@ GoRouter goRouter(GoRouterRef ref) {
             path: 'locations',
             name: AppRoute.location.name,
             builder: (context, state) => const ListLocation(),
+          ),
+          GoRoute(
+            path: 'building/list-room',
+            name: AppRoute.roomID.name,
+            builder: (context, state) {
+              Building building = state.extra as Building;
+              return BuildingScreen(
+                building: building,
+              );
+            },
           ),
           GoRoute(
             path: 'force-update',

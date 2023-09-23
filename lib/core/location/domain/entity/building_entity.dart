@@ -7,10 +7,23 @@ part 'building_entity.g.dart';
 class Building with _$Building {
   @JsonSerializable(explicitToJson: true)
   const factory Building({
-    @JsonKey(name: 'Id') required String id,
-    @JsonKey(name: 'Name') required String name,
+    @JsonKey(name: 'id') required String id,
+    @JsonKey(name: 'name') required String name,
   }) = _Building;
 
   factory Building.fromJSON(Map<String, dynamic> json) =>
       _$$_BuildingFromJson(json);
+}
+
+@freezed
+class BuildingMember with _$BuildingMember {
+  @JsonSerializable(explicitToJson: true)
+  const factory BuildingMember({
+    @JsonKey(name: 'buildingID') required String id,
+    @JsonKey(name: 'buildingName') required String name,
+    @JsonKey(name: 'memberID') required String memberID,
+  }) = _BuildingMember;
+
+  factory BuildingMember.fromJSON(Map<String, dynamic> json) =>
+      _$$_BuildingMemberFromJson(json);
 }

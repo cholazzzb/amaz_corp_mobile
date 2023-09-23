@@ -31,13 +31,15 @@ class _ListLocationState extends State<ListLocation> {
               SegmentedButton<LocationType>(
                 segments: const <ButtonSegment<LocationType>>[
                   ButtonSegment<LocationType>(
-                      value: LocationType.public,
-                      label: Text('Public'),
-                      icon: Icon(Icons.location_searching)),
+                    value: LocationType.public,
+                    label: Text('Public'),
+                    icon: Icon(Icons.location_searching),
+                  ),
                   ButtonSegment<LocationType>(
-                      value: LocationType.mine,
-                      label: Text('Your'),
-                      icon: Icon(Icons.location_city)),
+                    value: LocationType.mine,
+                    label: Text('Yours'),
+                    icon: Icon(Icons.location_city),
+                  ),
                 ],
                 selected: <LocationType>{selected},
                 onSelectionChanged: (Set<LocationType> newSelection) {
