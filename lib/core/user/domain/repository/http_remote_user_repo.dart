@@ -37,7 +37,7 @@ class HttpRemoteUserRepo implements RemoteUserRepo {
   }
 
   @override
-  Future<Either<Exception, Token>> postLogin(
+  Future<Token> postLogin(
     String userName,
     String password,
   ) async {
@@ -49,15 +49,11 @@ class HttpRemoteUserRepo implements RemoteUserRepo {
     };
     String body = json.encode(rawBody);
 
-    try {
-      final res = await _dio.post(
-        uri,
-        data: body,
-      );
-      final auth = AuthDTO.fromJSON(res.data);
-      return Right(auth.token ?? '');
-    } on Exception catch (err) {
-      return Left(Exception(err));
-    }
+    final res = await _dio.post(
+      uri,
+      data: body,
+    );
+    final auth = AuthDTO.fromJSON(res.data);
+    return auth.token ?? '';
   }
 }

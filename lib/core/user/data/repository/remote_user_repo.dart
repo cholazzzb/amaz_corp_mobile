@@ -13,7 +13,7 @@ abstract class RemoteUserRepo {
     String username,
     String password,
   );
-  Future<Either<Exception, Token>> postLogin(String username, String password);
+  Future<Token> postLogin(String username, String password);
 }
 
 @riverpod

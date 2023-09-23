@@ -14,11 +14,12 @@ class UserService {
     final localUserRepo = ref.watch(localUserRepoProvider);
     final remoteUserRepo = ref.read(remoteUserRepoProvider);
 
-    final result = await remoteUserRepo.postLogin(
+    final token = await remoteUserRepo.postLogin(
       credential.username,
       credential.password,
     );
-    localUserRepo.setToken(result.right);
+
+    localUserRepo.setToken(token);
     localUserRepo.setIsLoggedIn(true);
   }
 

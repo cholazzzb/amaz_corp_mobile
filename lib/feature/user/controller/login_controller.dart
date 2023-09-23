@@ -10,14 +10,19 @@ class LoginController extends _$LoginController {
   @override
   FutureOr<void> build() {}
 
-  Future<void> login(Credential credential, VoidCallback onSuccess) async {
+  Future<void> login(
+    Credential credential,
+    VoidCallback onSuccess,
+  ) async {
     state = const AsyncValue.loading();
-    state = await AsyncValue.guard(() => _login(credential)).then(
-      (value) {
-        onSuccess.call();
-        return value;
-      },
-    );
+
+    try {
+      await _login(credential);
+      onSuccess.call();
+      state = const AsyncValue.data(null);
+    } catch (err, stack) {
+      state = AsyncValue.error(err, stack);
+    }
   }
 
   Future<void> _login(Credential credential) async {

@@ -1,6 +1,7 @@
 import 'package:amaz_corp_mobile/core/user/domain/entity/credential_entity.dart';
 import 'package:amaz_corp_mobile/feature/user/controller/login_controller.dart';
 import 'package:amaz_corp_mobile/shared/async_value_ui.dart';
+import 'package:amaz_corp_mobile/shared/component/bottom_sheet/error_bottom_sheet.dart';
 import 'package:amaz_corp_mobile/shared/component/primary_button.dart';
 import 'package:amaz_corp_mobile/shared/layout.dart';
 import 'package:flutter/material.dart';
@@ -42,9 +43,19 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   Widget build(BuildContext context) {
     ref.listen<AsyncValue>(
       loginControllerProvider,
-      (previous, state) => state.showAlertDialogOnError(context),
+      (previous, state) => state.showErrorBottomSheet(
+        context,
+        child: ErrorBottomSheet(
+          errorMessage: state.error.toString(),
+          onPressClose: () => Navigator.pop(context),
+        ),
+      ),
     );
     final state = ref.watch(loginControllerProvider);
+
+    void onSuccess() {
+      context.push('/locations');
+    }
 
     return Layout(
       title: 'Login',
@@ -81,7 +92,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                   PrimaryButton(
                     text: 'Login',
                     isLoading: state.isLoading,
-                    onPressed: () => _submit(() => context.push('/locations')),
+                    onPressed: () => _submit(onSuccess),
                   )
                 ],
               )
