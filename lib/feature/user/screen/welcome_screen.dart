@@ -34,9 +34,9 @@ class WelcomeScreen extends StatelessWidget {
                     onPressed: () => context.push('/login'),
                     icon: const Icon(Icons.login),
                     label: const Text('Login'),
-                  )
+                  ),
                 ],
-              )
+              ),
             ],
           ),
         ),
