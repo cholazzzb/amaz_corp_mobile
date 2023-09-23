@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class Layout extends ConsumerWidget {
-  const Layout({
+class WithNavigationLayout extends ConsumerWidget {
+  const WithNavigationLayout({
     super.key,
     required this.child,
     required this.title,
@@ -21,7 +21,7 @@ class Layout extends ConsumerWidget {
     forceUpdateAsync.when(
       data: (needForceUpdate) {
         if (needForceUpdate) {
-          context.go("/force-update");
+          // context.go("/force-update");
         }
       },
       error: (e, st) {},
@@ -41,24 +41,13 @@ class Layout extends ConsumerWidget {
     void onItemTapped(int index, BuildContext context) {
       switch (index) {
         case 0:
-          context.go('/');
-        case 1:
-          context.go('/login');
-        case 2:
           context.go('/locations');
+        case 1:
+          context.go('/profile');
       }
     }
 
     return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(title),
-      ),
       body: LayoutBuilder(
         builder: (context, constraints) {
           return Column(
@@ -70,16 +59,12 @@ class Layout extends ConsumerWidget {
                 child: BottomNavigationBar(
                   items: const [
                     BottomNavigationBarItem(
-                      icon: Icon(Icons.home),
-                      label: 'Home',
-                    ),
-                    BottomNavigationBarItem(
-                      icon: Icon(Icons.people),
-                      label: 'Friends',
-                    ),
-                    BottomNavigationBarItem(
                       icon: Icon(Icons.place),
                       label: 'Locations',
+                    ),
+                    BottomNavigationBarItem(
+                      icon: Icon(Icons.person),
+                      label: 'Profile',
                     ),
                   ],
                   currentIndex: selectedIdx,

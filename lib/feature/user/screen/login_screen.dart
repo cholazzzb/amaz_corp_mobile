@@ -3,7 +3,7 @@ import 'package:amaz_corp_mobile/feature/user/controller/login_controller.dart';
 import 'package:amaz_corp_mobile/shared/async_value_ui.dart';
 import 'package:amaz_corp_mobile/shared/component/bottom_sheet/error_bottom_sheet.dart';
 import 'package:amaz_corp_mobile/shared/component/primary_button.dart';
-import 'package:amaz_corp_mobile/shared/layout.dart';
+import 'package:amaz_corp_mobile/shared/layout/plain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -57,15 +57,17 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       context.push('/locations');
     }
 
-    return Layout(
-      title: 'Login',
-      selectedIdx: 0,
+    return PlainLayout(
       child: Center(
         child: Padding(
           padding: const EdgeInsets.all(32.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Text(
+                'Amaz Corp',
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
               Text('Login', style: Theme.of(context).textTheme.headlineMedium),
               Column(
                 children: [

@@ -1,7 +1,7 @@
 import 'package:amaz_corp_mobile/core/location/domain/entity/building_entity.dart';
 import 'package:amaz_corp_mobile/feature/building/widget/list_member.dart';
 import 'package:amaz_corp_mobile/feature/building/widget/list_room.dart';
-import 'package:amaz_corp_mobile/shared/layout.dart';
+import 'package:amaz_corp_mobile/shared/layout/with_navigation.dart';
 import 'package:flutter/material.dart';
 
 enum Tab {
@@ -23,7 +23,7 @@ class _BuildingScreenState extends State<BuildingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Layout(
+    return WithNavigationLayout(
       title: "List Room",
       selectedIdx: 0,
       child: Column(

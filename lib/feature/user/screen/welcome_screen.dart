@@ -1,4 +1,4 @@
-import 'package:amaz_corp_mobile/shared/layout.dart';
+import 'package:amaz_corp_mobile/shared/layout/plain.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -7,9 +7,7 @@ class WelcomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Layout(
-      title: 'Welcome',
-      selectedIdx: 0,
+    return PlainLayout(
       child: Center(
         child: Padding(
           padding: const EdgeInsets.all(32.0),

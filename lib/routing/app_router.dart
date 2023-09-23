@@ -2,7 +2,8 @@ import 'package:amaz_corp_mobile/core/location/domain/entity/building_entity.dar
 import 'package:amaz_corp_mobile/core/user/data/repository/local_user_repo.dart';
 import 'package:amaz_corp_mobile/feature/building/building_screen.dart';
 import 'package:amaz_corp_mobile/feature/location/widget/list_location.dart';
-import 'package:amaz_corp_mobile/feature/remoteconfig/screen/force_update_screen.dart';
+import 'package:amaz_corp_mobile/feature/profile/profile_screen.dart';
+import 'package:amaz_corp_mobile/feature/remoteconfig/force_update_screen.dart';
 import 'package:amaz_corp_mobile/feature/user/screen/login_screen.dart';
 import 'package:amaz_corp_mobile/feature/user/screen/register_screen.dart';
 import 'package:amaz_corp_mobile/main.dart';
@@ -13,11 +14,12 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'app_router.g.dart';
 
 enum AppRoute {
-  home,
+  welcome,
   location,
   roomID,
   login,
   register,
+  profile,
   forceUpdate,
 }
 
@@ -28,16 +30,17 @@ GoRouter goRouter(GoRouterRef ref) {
     initialLocation: '/',
     redirect: (BuildContext context, GoRouterState state) async {
       final bool isLoggedIn = await localUserRepo.isLoggedIn();
-      final bool loggingIn = state.matchedLocation == '/login';
+      final bool notLoggedRoute =
+          state.matchedLocation == '/' || state.matchedLocation == '/login';
 
       if (!isLoggedIn) {
         return '/login';
       }
 
       // if the user is logged in but still on the login page, send them to
-      // the home page
-      if (loggingIn) {
-        return '/';
+      // the welcome page
+      if (notLoggedRoute) {
+        return '/locations';
       }
 
       return null;
@@ -47,7 +50,7 @@ GoRouter goRouter(GoRouterRef ref) {
     routes: [
       GoRoute(
         path: '/',
-        name: AppRoute.home.name,
+        name: AppRoute.welcome.name,
         builder: (context, state) => const MyHomePage(
           title: "Welcome to Amaz",
         ),
@@ -76,6 +79,11 @@ GoRouter goRouter(GoRouterRef ref) {
                 building: building,
               );
             },
+          ),
+          GoRoute(
+            path: 'profile',
+            name: AppRoute.profile.name,
+            builder: (context, state) => const ProfileScreen(),
           ),
           GoRoute(
             path: 'force-update',

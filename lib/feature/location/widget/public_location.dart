@@ -26,14 +26,11 @@ class _PublicLocationState extends ConsumerState<PublicLocation> {
   }
 
   Future<void> _onPressJoin(String name, Building building) async {
-    final controller = ref.read(locationControllerProvider.notifier);
+    final controller = ref.read(joinBuildingControllerProvider.notifier);
     await controller.joinBuilding(
       name: name,
       buildingID: building.id,
       onSuccess: () {
-        setState(() {
-          currentBuildingId = building.id;
-        });
         context.goNamed(AppRoute.roomID.name, extra: building);
       },
     );

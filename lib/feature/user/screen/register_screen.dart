@@ -1,7 +1,7 @@
 import 'package:amaz_corp_mobile/core/user/domain/entity/credential_entity.dart';
 import 'package:amaz_corp_mobile/feature/user/controller/register_controller.dart';
 import 'package:amaz_corp_mobile/feature/user/screen/login_screen.dart';
-import 'package:amaz_corp_mobile/shared/layout.dart';
+import 'package:amaz_corp_mobile/shared/layout/plain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -57,15 +57,17 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Layout(
-      title: 'Register',
-      selectedIdx: 0,
+    return PlainLayout(
       child: Center(
         child: Padding(
           padding: const EdgeInsets.all(32.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Text(
+                'Amaz Corp',
+                style: Theme.of(context).textTheme.headlineLarge,
+              ),
               Text(
                 'Register',
                 style: Theme.of(context).textTheme.headlineMedium,

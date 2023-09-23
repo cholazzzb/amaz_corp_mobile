@@ -5,9 +5,9 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'location_controller.g.dart';
 
 @riverpod
-class LocationController extends _$LocationController {
+class JoinBuildingController extends _$JoinBuildingController {
   @override
-  FutureOr<void> build() {}
+  FutureOr<void> build() => Future.value();
 
   Future<void> joinBuilding({
     required String name,
@@ -15,20 +15,22 @@ class LocationController extends _$LocationController {
     VoidCallback? onSuccess,
   }) async {
     state = const AsyncValue.loading();
-
-    try {
+    state = await AsyncValue.guard(() async {
       await _joinBuilding(name, buildingID);
       onSuccess?.call();
-      state = const AsyncValue.data(null);
-    } catch (err, stack) {
-      state = AsyncValue.error(err, stack);
-    }
+    });
   }
 
   Future<void> _joinBuilding(String name, String buildingId) async {
     final locationService = ref.read(locationServiceProvider);
     await locationService.joinBuilding(name, buildingId);
   }
+}
+
+@riverpod
+class LeaveBuildingController extends _$LeaveBuildingController {
+  @override
+  Future<void> build() => Future.value();
 
   Future<void> leaveBuilding({
     required String memberId,
@@ -36,14 +38,10 @@ class LocationController extends _$LocationController {
     VoidCallback? onSuccess,
   }) async {
     state = const AsyncValue.loading();
-    state = await AsyncValue.guard(
-      () => _leaveBuilding(memberId, buildingId).then(
-        (value) {
-          onSuccess?.call();
-          return value;
-        },
-      ),
-    );
+    state = await AsyncValue.guard(() async {
+      await _leaveBuilding(memberId, buildingId);
+      onSuccess?.call();
+    });
   }
 
   Future<void> _leaveBuilding(String memberId, String buildingId) async {

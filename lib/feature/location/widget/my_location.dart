@@ -29,7 +29,7 @@ class MyLocation extends ConsumerWidget {
 
               Future<void> onPressedLeave() async {
                 final controller =
-                    ref.read(locationControllerProvider.notifier);
+                    ref.read(leaveBuildingControllerProvider.notifier);
                 await controller.leaveBuilding(
                   memberId: building.memberID,
                   buildingId: building.id,

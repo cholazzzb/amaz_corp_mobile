@@ -1,6 +1,6 @@
 import 'package:amaz_corp_mobile/feature/location/widget/my_location.dart';
 import 'package:amaz_corp_mobile/feature/location/widget/public_location.dart';
-import 'package:amaz_corp_mobile/shared/layout.dart';
+import 'package:amaz_corp_mobile/shared/layout/with_navigation.dart';
 import 'package:flutter/material.dart';
 
 class ListLocation extends StatefulWidget {
@@ -20,9 +20,9 @@ class _ListLocationState extends State<ListLocation> {
 
   @override
   Widget build(BuildContext context) {
-    return Layout(
+    return WithNavigationLayout(
       title: 'List Location',
-      selectedIdx: 2,
+      selectedIdx: 0,
       child: Column(
         children: [
           Row(
