@@ -27,6 +27,14 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   String get username => _usernameController.text;
   String get password => _passwordController.text;
 
+  bool _showPassword = false;
+
+  @override
+  void initState() {
+    _showPassword = false;
+    super.initState();
+  }
+
   @override
   void dispose() {
     _usernameController.dispose();
@@ -71,14 +79,24 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
               Text('Login', style: Theme.of(context).textTheme.headlineMedium),
               Column(
                 children: [
-                  TextField(
+                  TextFormField(
                     decoration: const InputDecoration(labelText: 'Username'),
                     controller: _usernameController,
                   ),
-                  TextField(
-                    decoration: const InputDecoration(labelText: 'Password'),
-                    obscureText: true,
+                  TextFormField(
                     controller: _passwordController,
+                    obscureText: !_showPassword,
+                    decoration: InputDecoration(
+                      labelText: 'Password',
+                      suffixIcon: IconButton(
+                        icon: _showPassword
+                            ? const Icon(Icons.remove_red_eye_outlined)
+                            : const Icon(Icons.remove_red_eye_rounded),
+                        onPressed: () => setState(() {
+                          _showPassword = !_showPassword;
+                        }),
+                      ),
+                    ),
                   )
                 ],
               ),
