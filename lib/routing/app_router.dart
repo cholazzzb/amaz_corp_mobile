@@ -35,6 +35,8 @@ enum RoomRoute {
   tasks,
 }
 
+final publicRoute = {"/", "/register", "/login"};
+
 @Riverpod(keepAlive: true)
 GoRouter goRouter(GoRouterRef ref) {
   final localUserRepo = ref.watch(localUserRepoProvider);
@@ -42,14 +44,17 @@ GoRouter goRouter(GoRouterRef ref) {
     initialLocation: '/',
     redirect: (BuildContext context, GoRouterState state) async {
       final bool isLoggedIn = await localUserRepo.isLoggedIn();
-      // final bool notLoggedRoute =
-      //     state.matchedLocation == '/' || state.matchedLocation == '/login';
+      bool isPublicLocation = publicRoute.contains(state.matchedLocation);
 
-      if (!isLoggedIn) {
+      if (!isLoggedIn && !isPublicLocation) {
         return '/login';
       }
 
-      return '/building/rooms';
+      if (isLoggedIn && isPublicLocation) {
+        return '/building/schedules';
+      }
+
+      return null;
     },
     // TODO: Add ErrorBuilder
     // errorBuilder: (context, state) => ,
