@@ -82,4 +82,9 @@ class FssLocalUserRepo implements LocalUserRepo {
   Future<void> setActiveBuildingID(String buildingID) async {
     await storage.write(key: FssKey.buildingID.name, value: buildingID);
   }
+
+  @override
+  Future<void> clearStorage() async {
+    await storage.deleteAll();
+  }
 }

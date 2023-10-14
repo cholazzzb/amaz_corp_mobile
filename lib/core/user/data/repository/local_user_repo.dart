@@ -16,6 +16,8 @@ abstract class LocalUserRepo {
 
   Future<String> getActiveBuildingID();
   Future<void> setActiveBuildingID(String buildingID);
+
+  Future<void> clearStorage();
 }
 
 @Riverpod(keepAlive: true)
