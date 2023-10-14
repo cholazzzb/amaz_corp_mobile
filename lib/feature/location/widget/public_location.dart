@@ -78,7 +78,7 @@ class _PublicLocationState extends ConsumerState<PublicLocation> {
             baseColor: Colors.red,
             highlightColor: Colors.yellow,
             child: const Text(
-              'Shimmer',
+              'Loading',
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 40.0,

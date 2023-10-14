@@ -1,9 +1,9 @@
-import 'package:amaz_corp_mobile/core/location/domain/entity/building_entity.dart';
-import 'package:amaz_corp_mobile/core/user/data/repository/local_user_repo.dart';
 import 'package:amaz_corp_mobile/feature/building/building_screen.dart';
 import 'package:amaz_corp_mobile/feature/location/widget/list_location.dart';
 import 'package:amaz_corp_mobile/feature/profile/profile_screen.dart';
 import 'package:amaz_corp_mobile/feature/remoteconfig/force_update_screen.dart';
+import 'package:amaz_corp_mobile/feature/schedule/schedule_screen.dart';
+import 'package:amaz_corp_mobile/feature/task/task_screen.dart';
 import 'package:amaz_corp_mobile/feature/user/screen/login_screen.dart';
 import 'package:amaz_corp_mobile/feature/user/screen/register_screen.dart';
 import 'package:amaz_corp_mobile/main.dart';
@@ -17,31 +17,42 @@ enum AppRoute {
   welcome,
   location,
   roomID,
+  scheduleID,
+  tasksID,
   login,
   register,
   profile,
   forceUpdate,
 }
 
+enum LocationRoute {
+  rooms,
+}
+
+enum RoomRoute {
+  schedules,
+  tasks,
+}
+
 @Riverpod(keepAlive: true)
 GoRouter goRouter(GoRouterRef ref) {
-  final localUserRepo = ref.watch(localUserRepoProvider);
+  // final localUserRepo = ref.watch(localUserRepoProvider);
   return GoRouter(
     initialLocation: '/',
     redirect: (BuildContext context, GoRouterState state) async {
-      final bool isLoggedIn = await localUserRepo.isLoggedIn();
-      final bool notLoggedRoute =
-          state.matchedLocation == '/' || state.matchedLocation == '/login';
+      // final bool isLoggedIn = await localUserRepo.isLoggedIn();
+      // final bool notLoggedRoute =
+      //     state.matchedLocation == '/' || state.matchedLocation == '/login';
 
-      if (!isLoggedIn) {
-        return '/login';
-      }
+      // if (!isLoggedIn) {
+      //   return '/login';
+      // }
 
       // if the user is logged in but still on the login page, send them to
       // the welcome page
-      if (notLoggedRoute) {
-        return '/locations';
-      }
+      // if (notLoggedRoute) {
+      //   return '/building/rooms';
+      // }
 
       return null;
     },
@@ -71,14 +82,19 @@ GoRouter goRouter(GoRouterRef ref) {
             builder: (context, state) => const ListLocation(),
           ),
           GoRoute(
-            path: 'building/list-room',
+            path: 'building/rooms',
             name: AppRoute.roomID.name,
-            builder: (context, state) {
-              Building building = state.extra as Building;
-              return BuildingScreen(
-                building: building,
-              );
-            },
+            builder: (context, state) => const BuildingScreen(),
+          ),
+          GoRoute(
+            path: 'building/schedules',
+            name: RoomRoute.schedules.name,
+            builder: (context, state) => const ScheduleScreen(),
+          ),
+          GoRoute(
+            path: 'building/tasks',
+            name: AppRoute.tasksID.name,
+            builder: (context, state) => const TaskScreen(),
           ),
           GoRoute(
             path: 'profile',

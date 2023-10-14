@@ -6,6 +6,7 @@ enum FssKey {
   token,
   isLoggedIn,
   memberId,
+  buildingID,
 }
 
 class FssLocalUserRepo implements LocalUserRepo {
@@ -66,5 +67,19 @@ class FssLocalUserRepo implements LocalUserRepo {
     } on Exception {
       //
     }
+  }
+
+  @override
+  Future<String> getActiveBuildingID() async {
+    String? res = await storage.read(key: FssKey.buildingID.name);
+    if (res == null) {
+      return "";
+    }
+    return res;
+  }
+
+  @override
+  Future<void> setActiveBuildingID(String buildingID) async {
+    await storage.write(key: FssKey.buildingID.name, value: buildingID);
   }
 }

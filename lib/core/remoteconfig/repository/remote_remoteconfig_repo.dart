@@ -16,5 +16,7 @@ RemoteRemoteconfigRepo remoteRemoteconfigRepo(
 ) {
   final baseUrl = Environment.getBaseUrl();
 
-  return HttpRemoteRemoteconfigRepo(DioFactory(baseUrl: baseUrl).create());
+  return HttpRemoteRemoteconfigRepo(
+    DioFactory(baseUrl: baseUrl).create(),
+  );
 }

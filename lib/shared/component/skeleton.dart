@@ -22,7 +22,7 @@ class Skeleton extends StatelessWidget {
         child: Container(
           width: width,
           height: height,
-          color: Colors.blue,
+          color: Colors.grey,
         ),
       ),
     );

@@ -19,7 +19,9 @@ class DioFactory {
             localUserRepo: FssLocalUserRepo(),
           ),
         );
+        break;
       case null:
+        break;
     }
     return dio;
   }

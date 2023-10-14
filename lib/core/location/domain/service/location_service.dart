@@ -52,20 +52,12 @@ LocationService locationService(LocationServiceRef ref) {
 Future<List<Building>> getAllLocations(
   GetAllLocationsRef ref,
 ) async {
-  try {
-    return await ref.read(remoteLocationRepoProvider).getAllLocations();
-  } on Exception {
-    return [];
-  }
+  return await ref.read(remoteLocationRepoProvider).getAllLocations();
 }
 
-@riverpod
+@Riverpod(keepAlive: true)
 Future<List<BuildingMember>> getMyLocations(GetMyLocationsRef ref) async {
-  try {
-    return await ref.read(locationServiceProvider).getMyLocations();
-  } on Exception {
-    return [];
-  }
+  return await ref.read(locationServiceProvider).getMyLocations();
 }
 
 @riverpod
@@ -73,6 +65,17 @@ Future<List<Room>> getListRoomsByBuildingID(
   GetListRoomsByBuildingIDRef ref,
   String buildingID,
 ) async {
+  return await ref
+      .read(remoteLocationRepoProvider)
+      .getListRoomsByBuildingID(buildingID);
+}
+
+@riverpod
+Future<List<Room>> getListRoom(
+  GetListRoomRef ref,
+) async {
+  LocalUserRepo lur = ref.watch(localUserRepoProvider);
+  String buildingID = await lur.getActiveBuildingID();
   return await ref
       .read(remoteLocationRepoProvider)
       .getListRoomsByBuildingID(buildingID);

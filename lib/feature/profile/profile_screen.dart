@@ -6,9 +6,9 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WithNavigationLayout(
+    return const WithNavigationLayout(
       title: "Profile",
-      selectedIdx: 1,
+      selectedIdx: 2,
       child: ProfileBody(),
     );
   }
@@ -21,7 +21,7 @@ class ProfileBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return const Center(
       child: Padding(
         padding: EdgeInsets.all(32.0),
         child: Column(

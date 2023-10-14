@@ -1,6 +1,7 @@
 import 'package:amaz_corp_mobile/core/user/data/repository/local_user_repo.dart';
 import 'package:amaz_corp_mobile/core/user/data/repository/remote_user_repo.dart';
 import 'package:amaz_corp_mobile/core/user/domain/entity/credential_entity.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -30,6 +31,13 @@ class UserService {
       credential.username,
       credential.password,
     );
+  }
+
+  Future<void> logout(VoidCallback cb) async {
+    final localUserRepo = ref.watch(localUserRepoProvider);
+    localUserRepo.setToken("");
+    localUserRepo.setIsLoggedIn(false);
+    cb.call();
   }
 }
 
