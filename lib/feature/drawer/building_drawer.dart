@@ -77,31 +77,23 @@ class _BuildingDrawerState extends ConsumerState<BuildingDrawer> {
         ).toList(),
       );
 
-      return ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          DrawerHeader(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const EndDrawerButton(),
-                    const Text('My Building'),
-                    IconButton(
-                        onPressed: logout, icon: const Icon(Icons.logout)),
-                  ],
-                ),
-              ],
+      return Center(
+        child: Column(
+          children: [
+            BuildingDrawerWidget(
+              logout: logout,
             ),
-          ),
-          xList,
-          PrimaryButton(
-            text: 'Search Building',
-            onPressed: () => {context.goNamed(AppRoute.location.name)},
-          )
-        ],
+            Expanded(
+              child: Column(
+                children: [xList],
+              ),
+            ),
+            PrimaryButton(
+              text: 'Search Building',
+              onPressed: () => {context.goNamed(AppRoute.location.name)},
+            ),
+          ],
+        ),
       );
     }
 
@@ -112,5 +104,33 @@ class _BuildingDrawerState extends ConsumerState<BuildingDrawer> {
     );
 
     return Drawer(child: drawer);
+  }
+}
+
+class BuildingDrawerWidget extends StatelessWidget {
+  const BuildingDrawerWidget({
+    super.key,
+    required this.logout,
+  });
+
+  final VoidCallback logout;
+
+  @override
+  Widget build(BuildContext context) {
+    return DrawerHeader(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const EndDrawerButton(),
+              const Text('My Building'),
+              IconButton(onPressed: logout, icon: const Icon(Icons.logout)),
+            ],
+          ),
+        ],
+      ),
+    );
   }
 }
