@@ -1,3 +1,4 @@
+import 'package:amaz_corp_mobile/core/user/data/repository/local_user_repo.dart';
 import 'package:amaz_corp_mobile/feature/building/building_screen.dart';
 import 'package:amaz_corp_mobile/feature/location/widget/list_location.dart';
 import 'package:amaz_corp_mobile/feature/profile/profile_screen.dart';
@@ -36,25 +37,19 @@ enum RoomRoute {
 
 @Riverpod(keepAlive: true)
 GoRouter goRouter(GoRouterRef ref) {
-  // final localUserRepo = ref.watch(localUserRepoProvider);
+  final localUserRepo = ref.watch(localUserRepoProvider);
   return GoRouter(
     initialLocation: '/',
     redirect: (BuildContext context, GoRouterState state) async {
-      // final bool isLoggedIn = await localUserRepo.isLoggedIn();
+      final bool isLoggedIn = await localUserRepo.isLoggedIn();
       // final bool notLoggedRoute =
       //     state.matchedLocation == '/' || state.matchedLocation == '/login';
 
-      // if (!isLoggedIn) {
-      //   return '/login';
-      // }
+      if (!isLoggedIn) {
+        return '/login';
+      }
 
-      // if the user is logged in but still on the login page, send them to
-      // the welcome page
-      // if (notLoggedRoute) {
-      //   return '/building/rooms';
-      // }
-
-      return null;
+      return '/building/rooms';
     },
     // TODO: Add ErrorBuilder
     // errorBuilder: (context, state) => ,
