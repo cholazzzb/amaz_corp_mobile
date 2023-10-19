@@ -87,9 +87,11 @@ GoRouter goRouter(GoRouterRef ref) {
             builder: (context, state) => const BuildingScreen(),
           ),
           GoRoute(
-            path: 'building/schedules',
+            path: 'schedules/:scheduleID',
             name: RoomRoute.schedules.name,
-            builder: (context, state) => const ScheduleScreen(),
+            builder: (context, state) => ScheduleScreen(
+              scheduleID: state.pathParameters['scheduleID'],
+            ),
           ),
           GoRoute(
             path: 'building/tasks',

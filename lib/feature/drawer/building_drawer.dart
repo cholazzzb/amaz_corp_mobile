@@ -1,9 +1,13 @@
 import 'package:amaz_corp_mobile/core/location/domain/entity/building_entity.dart';
 import 'package:amaz_corp_mobile/core/location/domain/service/building_service.dart';
 import 'package:amaz_corp_mobile/core/user/domain/service/user_service.dart';
+import 'package:amaz_corp_mobile/feature/drawer/building_drawer_controller.dart';
+import 'package:amaz_corp_mobile/feature/drawer/widget/building_drawer_header.dart';
+import 'package:amaz_corp_mobile/feature/drawer/widget/building_expansion_panel_body.dart';
 import 'package:amaz_corp_mobile/routing/app_router.dart';
 import 'package:amaz_corp_mobile/shared/component/primary_button.dart';
 import 'package:amaz_corp_mobile/shared/component/skeleton.dart';
+import 'package:amaz_corp_mobile/shared/constant/app_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -22,6 +26,8 @@ class _BuildingDrawerState extends ConsumerState<BuildingDrawer> {
   Widget build(BuildContext context) {
     final myBuildingAsync = ref.watch(getMyBuildingsProvider);
     final userService = ref.watch(userServiceProvider);
+    final buildingDrawerController =
+        ref.watch(buildingDrawerControllerProvider.notifier);
 
     void logout() {
       userService.logout(() {
@@ -50,29 +56,25 @@ class _BuildingDrawerState extends ConsumerState<BuildingDrawer> {
               expandedIDs.add(buildingID);
             }
           });
+          if (isExpaned) {
+            buildingDrawerController.updateListRoomByBuildingID(buildingID);
+          }
         },
         children: buildings.map<ExpansionPanel>(
           (bm) {
             final selected = bm.id == selectedBuildingID;
 
             return ExpansionPanel(
-              isExpanded: expandedIDs.contains(bm.id),
-              headerBuilder: (BuildContext context, bool isExpanded) {
-                return Text(bm.name);
-              },
-              body: ListTile(
-                selected: selected,
-                selectedColor: Colors.black,
-                selectedTileColor: Colors.amber,
-                title: Text(bm.name),
-                onTap: () {
-                  ref
-                      .watch(buildingServiceProvider)
-                      .updateSelectedBuilding(bm.id);
-                  Navigator.of(context).pop();
+                isExpanded: expandedIDs.contains(bm.id),
+                headerBuilder: (BuildContext context, bool isExpanded) {
+                  return Row(
+                    children: [
+                      const Padding(padding: EdgeInsets.all(Sizes.p12)),
+                      Text(bm.name)
+                    ],
+                  );
                 },
-              ),
-            );
+                body: BuildingExpansionPanelBody(buildingID: bm.id));
           },
         ).toList(),
       );
@@ -80,7 +82,7 @@ class _BuildingDrawerState extends ConsumerState<BuildingDrawer> {
       return Center(
         child: Column(
           children: [
-            BuildingDrawerWidget(
+            BuildingDrawerHeader(
               logout: logout,
             ),
             Expanded(
@@ -104,33 +106,5 @@ class _BuildingDrawerState extends ConsumerState<BuildingDrawer> {
     );
 
     return Drawer(child: drawer);
-  }
-}
-
-class BuildingDrawerWidget extends StatelessWidget {
-  const BuildingDrawerWidget({
-    super.key,
-    required this.logout,
-  });
-
-  final VoidCallback logout;
-
-  @override
-  Widget build(BuildContext context) {
-    return DrawerHeader(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const EndDrawerButton(),
-              const Text('My Building'),
-              IconButton(onPressed: logout, icon: const Icon(Icons.logout)),
-            ],
-          ),
-        ],
-      ),
-    );
   }
 }

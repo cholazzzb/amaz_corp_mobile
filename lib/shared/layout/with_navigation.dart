@@ -52,7 +52,10 @@ class WithNavigationLayout extends ConsumerWidget {
     void onItemTapped(int index, BuildContext context) {
       switch (index) {
         case 0:
-          context.goNamed(RoomRoute.schedules.name);
+          context.goNamed(
+            RoomRoute.schedules.name,
+            pathParameters: {'scheduleID': ''},
+          );
           break;
         case 1:
           context.goNamed(AppRoute.tasksID.name);
@@ -66,6 +69,9 @@ class WithNavigationLayout extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(title: Text(title)),
       drawer: const BuildingDrawer(),
+      onDrawerChanged: (isOpened) {
+        ref.invalidate(getMyBuildingsProvider);
+      },
       bottomNavigationBar: BottomNavigationBar(
         items: const [
           BottomNavigationBarItem(
