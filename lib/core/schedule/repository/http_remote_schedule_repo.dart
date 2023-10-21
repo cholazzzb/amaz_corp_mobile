@@ -8,7 +8,7 @@ class HttpRemoteScheduleRepo implements RemoteScheduleRepoQuery {
   final Dio _dio;
 
   @override
-  Future<List<Schedule>> getScheduleIDByRoomID(String roomID) async {
+  Future<List<Schedule>> getListScheduleByRoomID(String roomID) async {
     String uri = 'api/v1/schedules/rooms/$roomID';
 
     final response = await _dio.get(uri);

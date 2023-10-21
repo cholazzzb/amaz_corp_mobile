@@ -48,7 +48,7 @@ class BuildingExpansionPanelBody extends ConsumerWidget {
                     onPressed: () {
                       context.goNamed(
                         RoomRoute.schedules.name,
-                        pathParameters: {'scheduleID': ''},
+                        pathParameters: {'roomID': room.id},
                       );
                     },
                     child: const Text('See'),

@@ -1,21 +1,25 @@
+import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
+
 import 'package:amaz_corp_mobile/core/user/data/repository/local_user_repo.dart';
 import 'package:amaz_corp_mobile/feature/building/building_screen.dart';
+import 'package:amaz_corp_mobile/feature/home/home_screen.dart';
 import 'package:amaz_corp_mobile/feature/location/widget/list_location.dart';
 import 'package:amaz_corp_mobile/feature/profile/profile_screen.dart';
 import 'package:amaz_corp_mobile/feature/remoteconfig/force_update_screen.dart';
+import 'package:amaz_corp_mobile/feature/schedule/list_schedule_screen.dart';
 import 'package:amaz_corp_mobile/feature/schedule/schedule_screen.dart';
 import 'package:amaz_corp_mobile/feature/task/task_screen.dart';
 import 'package:amaz_corp_mobile/feature/user/screen/login_screen.dart';
 import 'package:amaz_corp_mobile/feature/user/screen/register_screen.dart';
 import 'package:amaz_corp_mobile/main.dart';
-import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'app_router.g.dart';
 
 enum AppRoute {
   welcome,
+  home,
   location,
   roomID,
   scheduleID,
@@ -32,6 +36,7 @@ enum LocationRoute {
 
 enum RoomRoute {
   schedules,
+  scheduleID,
   tasks,
 }
 
@@ -51,7 +56,7 @@ GoRouter goRouter(GoRouterRef ref) {
       }
 
       if (isLoggedIn && isPublicLocation) {
-        return '/building/schedules';
+        return '/home';
       }
 
       return null;
@@ -62,7 +67,7 @@ GoRouter goRouter(GoRouterRef ref) {
       GoRoute(
         path: '/',
         name: AppRoute.welcome.name,
-        builder: (context, state) => const MyHomePage(
+        builder: (context, state) => const LandingPage(
           title: "Welcome to Amaz",
         ),
         routes: [
@@ -77,6 +82,11 @@ GoRouter goRouter(GoRouterRef ref) {
             builder: (context, state) => const RegisterScreen(),
           ),
           GoRoute(
+            path: 'home',
+            name: AppRoute.home.name,
+            builder: (context, state) => const HomeScreen(),
+          ),
+          GoRoute(
             path: 'locations',
             name: AppRoute.location.name,
             builder: (context, state) => const ListLocation(),
@@ -87,8 +97,22 @@ GoRouter goRouter(GoRouterRef ref) {
             builder: (context, state) => const BuildingScreen(),
           ),
           GoRoute(
-            path: 'schedules/:scheduleID',
+            path: 'rooms/:roomID/schedules',
             name: RoomRoute.schedules.name,
+            redirect: (BuildContext context, GoRouterState state) {
+              final roomID = state.pathParameters["roomID"];
+              if (roomID == null) {
+                return 'home';
+              }
+              return null;
+            },
+            builder: (context, state) => ListScheduleScreen(
+              roomID: state.pathParameters['roomID']!,
+            ),
+          ),
+          GoRoute(
+            path: 'schedules/:scheduleID',
+            name: RoomRoute.scheduleID.name,
             builder: (context, state) => ScheduleScreen(
               scheduleID: state.pathParameters['scheduleID'],
             ),

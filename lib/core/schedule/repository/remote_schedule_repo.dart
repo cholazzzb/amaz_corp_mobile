@@ -7,7 +7,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'remote_schedule_repo.g.dart';
 
 abstract class RemoteScheduleRepoQuery {
-  Future<List<Schedule>> getScheduleIDByRoomID(String roomID);
+  Future<List<Schedule>> getListScheduleByRoomID(String roomID);
 }
 
 @riverpod

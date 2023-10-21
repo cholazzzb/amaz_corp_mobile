@@ -65,16 +65,17 @@ class _BuildingDrawerState extends ConsumerState<BuildingDrawer> {
             final selected = bm.id == selectedBuildingID;
 
             return ExpansionPanel(
-                isExpanded: expandedIDs.contains(bm.id),
-                headerBuilder: (BuildContext context, bool isExpanded) {
-                  return Row(
-                    children: [
-                      const Padding(padding: EdgeInsets.all(Sizes.p12)),
-                      Text(bm.name)
-                    ],
-                  );
-                },
-                body: BuildingExpansionPanelBody(buildingID: bm.id));
+              isExpanded: expandedIDs.contains(bm.id),
+              headerBuilder: (BuildContext context, bool isExpanded) {
+                return Row(
+                  children: [
+                    const Padding(padding: EdgeInsets.all(Sizes.p12)),
+                    Text(bm.name)
+                  ],
+                );
+              },
+              body: BuildingExpansionPanelBody(buildingID: bm.id),
+            );
           },
         ).toList(),
       );

@@ -1,13 +1,26 @@
+import 'package:amaz_corp_mobile/app.dart';
 import 'package:amaz_corp_mobile/feature/user/screen/welcome_screen.dart';
 import 'package:amaz_corp_mobile/routing/app_router.dart';
 import 'package:amaz_corp_mobile/shared/env.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:hive/hive.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:path_provider/path_provider.dart';
 
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
+void main() async {
   loadEnv();
-  runApp(const ProviderScope(child: MyApp()));
+  final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+
+  final dir = await getApplicationDocumentsDirectory();
+  Hive.init(dir.path);
+
+  runApp(
+    const ProviderScope(
+      child: LoadApp(),
+    ),
+  );
 }
 
 class MyApp extends ConsumerWidget {
@@ -42,8 +55,8 @@ class MyApp extends ConsumerWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  const MyHomePage({super.key, required this.title});
+class LandingPage extends StatelessWidget {
+  const LandingPage({super.key, required this.title});
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect

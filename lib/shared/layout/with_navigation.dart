@@ -1,22 +1,25 @@
 import 'package:amaz_corp_mobile/core/location/domain/service/building_service.dart';
 import 'package:amaz_corp_mobile/core/remoteconfig/service/force_update_service.dart';
 import 'package:amaz_corp_mobile/feature/drawer/building_drawer.dart';
+import 'package:amaz_corp_mobile/feature/drawer/menu_drawer.dart';
 import 'package:amaz_corp_mobile/routing/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 class WithNavigationLayout extends ConsumerWidget {
+  final Widget child;
+  final String title;
+  final int selectedIdx;
+  final Widget? floatingActionButton;
+
   const WithNavigationLayout({
     super.key,
     required this.child,
     required this.title,
     required this.selectedIdx,
+    this.floatingActionButton,
   });
-
-  final Widget child;
-  final String title;
-  final int selectedIdx;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -68,28 +71,32 @@ class WithNavigationLayout extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(title: Text(title)),
+      drawerEnableOpenDragGesture: true,
       drawer: const BuildingDrawer(),
+      endDrawerEnableOpenDragGesture: true,
+      endDrawer: const MenuDrawer(),
       onDrawerChanged: (isOpened) {
         ref.invalidate(getMyBuildingsProvider);
       },
-      bottomNavigationBar: BottomNavigationBar(
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_month),
-            label: 'Schedules',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.task),
-            label: 'Tasks',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Rooms',
-          ),
-        ],
-        currentIndex: selectedIdx,
-        onTap: (idx) => onItemTapped(idx, context),
-      ),
+      floatingActionButton: floatingActionButton,
+      // bottomNavigationBar: BottomNavigationBar(
+      //   items: const [
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.calendar_month),
+      //       label: 'Schedules',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.task),
+      //       label: 'Tasks',
+      //     ),
+      //     BottomNavigationBarItem(
+      //       icon: Icon(Icons.person),
+      //       label: 'Rooms',
+      //     ),
+      //   ],
+      //   currentIndex: selectedIdx,
+      //   onTap: (idx) => onItemTapped(idx, context),
+      // ),
       body: LayoutBuilder(
         builder: (context, constraints) {
           return Column(
