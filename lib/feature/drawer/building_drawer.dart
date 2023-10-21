@@ -35,15 +35,15 @@ class _BuildingDrawerState extends ConsumerState<BuildingDrawer> {
       });
     }
 
-    Widget loadingWidget() {
-      return const Skeleton();
+    List<Widget> loadingWidget() {
+      return [const Skeleton()];
     }
 
-    Widget errorWidget(Object err, StackTrace st) {
-      return const Text('Error');
+    List<Widget> errorWidget(Object err, StackTrace st) {
+      return [const Text('Error')];
     }
 
-    Widget successWidget((String, List<BuildingMember>) data) {
+    List<Widget> successWidget((String, List<BuildingMember>) data) {
       final (selectedBuildingID, buildings) = data;
 
       ExpansionPanelList xList = ExpansionPanelList(
@@ -79,32 +79,36 @@ class _BuildingDrawerState extends ConsumerState<BuildingDrawer> {
         ).toList(),
       );
 
-      return Center(
-        child: Column(
-          children: [
-            BuildingDrawerHeader(
-              logout: logout,
-            ),
-            Expanded(
-              child: Column(
-                children: [xList],
-              ),
-            ),
-            PrimaryButton(
-              text: 'Search Building',
-              onPressed: () => {context.goNamed(AppRoute.location.name)},
-            ),
-          ],
+      return [
+        Expanded(
+          child: Column(
+            children: [xList],
+          ),
         ),
-      );
+        PrimaryButton(
+          text: 'Search Building',
+          onPressed: () => {context.goNamed(AppRoute.location.name)},
+        )
+      ];
     }
 
-    Widget drawer = myBuildingAsync.when(
+    List<Widget> drawer = myBuildingAsync.when(
       loading: loadingWidget,
       error: errorWidget,
       data: successWidget,
     );
 
-    return Drawer(child: drawer);
+    return Drawer(
+      child: Center(
+        child: Column(
+          children: [
+            BuildingDrawerHeader(
+              logout: logout,
+            ),
+            ...drawer,
+          ],
+        ),
+      ),
+    );
   }
 }
