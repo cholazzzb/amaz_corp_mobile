@@ -8,6 +8,11 @@ part 'schedule_service.g.dart';
 class ScheduleService {
   ScheduleService(this.ref);
   final Ref ref;
+
+  Future<void> addSchedule(AddScheduleReq req) async {
+    final repo = ref.read(remoteScheduleRepoProvider);
+    await repo.addSchedule(req);
+  }
 }
 
 @Riverpod(keepAlive: true)

@@ -11,7 +11,7 @@ class ScheduleController extends _$ScheduleController {
   Future<void> getScheduleIDByRoomID(String roomID) async {
     final schs = await ref
         .watch(remoteScheduleRepoProvider)
-        .getScheduleIDByRoomID(roomID);
+        .getListScheduleByRoomID(roomID);
 
     if (schs.isNotEmpty) {
       state = schs[0].id;

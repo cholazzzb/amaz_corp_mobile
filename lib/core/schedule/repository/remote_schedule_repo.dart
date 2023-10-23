@@ -10,6 +10,10 @@ abstract class RemoteScheduleRepoQuery {
   Future<List<Schedule>> getListScheduleByRoomID(String roomID);
 }
 
+abstract class RemoteScheduleRepoCommand {
+  Future<void> addSchedule(AddScheduleReq req);
+}
+
 @riverpod
 HttpRemoteScheduleRepo remoteScheduleRepo(
   RemoteScheduleRepoRef ref,

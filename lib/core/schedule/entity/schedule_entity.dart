@@ -15,3 +15,12 @@ class Schedule with _$Schedule {
   factory Schedule.fromJSON(Map<String, dynamic> json) =>
       _$$_ScheduleFromJson(json);
 }
+
+@Freezed(toJson: true)
+class AddScheduleReq with _$AddScheduleReq {
+  @JsonSerializable(explicitToJson: true)
+  const factory AddScheduleReq({
+    @JsonKey(name: 'name') required String scheduleName,
+    @JsonKey(name: 'roomID') required String roomID,
+  }) = _AddScheduleReq;
+}

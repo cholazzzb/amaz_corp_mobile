@@ -1,3 +1,4 @@
+import 'package:amaz_corp_mobile/feature/schedule/add_schedule_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -37,6 +38,7 @@ enum LocationRoute {
 enum RoomRoute {
   schedules,
   scheduleID,
+  scheduleAdd,
   tasks,
 }
 
@@ -110,11 +112,18 @@ GoRouter goRouter(GoRouterRef ref) {
               roomID: state.pathParameters['roomID']!,
             ),
           ),
+          // GoRoute(
+          //   path: 'schedules/:scheduleID/task',
+          //   name: RoomRoute.scheduleID.name,
+          //   builder: (context, state) => ScheduleScreen(
+          //     scheduleID: state.pathParameters['scheduleID'],
+          //   ),
+          // ),
           GoRoute(
-            path: 'schedules/:scheduleID',
-            name: RoomRoute.scheduleID.name,
-            builder: (context, state) => ScheduleScreen(
-              scheduleID: state.pathParameters['scheduleID'],
+            path: 'schedules/add',
+            name: RoomRoute.scheduleAdd.name,
+            builder: (context, state) => AddScheduleScreen(
+              roomID: state.extra as String,
             ),
           ),
           GoRoute(

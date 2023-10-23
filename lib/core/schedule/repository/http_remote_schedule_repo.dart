@@ -1,8 +1,11 @@
-import 'package:amaz_corp_mobile/core/schedule/entity/schedule_entity.dart';
-import 'package:amaz_corp_mobile/core/schedule/repository/remote_schedule_repo.dart';
+import 'dart:convert';
 import 'package:dio/dio.dart';
 
-class HttpRemoteScheduleRepo implements RemoteScheduleRepoQuery {
+import 'package:amaz_corp_mobile/core/schedule/entity/schedule_entity.dart';
+import 'package:amaz_corp_mobile/core/schedule/repository/remote_schedule_repo.dart';
+
+class HttpRemoteScheduleRepo
+    implements RemoteScheduleRepoQuery, RemoteScheduleRepoCommand {
   const HttpRemoteScheduleRepo(this._dio);
 
   final Dio _dio;
@@ -18,5 +21,16 @@ class HttpRemoteScheduleRepo implements RemoteScheduleRepoQuery {
         .toList()
         .cast<Schedule>();
     return schedules;
+  }
+
+  @override
+  Future<void> addSchedule(AddScheduleReq req) async {
+    String uri = 'api/v1/schedules';
+
+    String body = json.encode(req.toJson());
+
+    await _dio.post(uri, data: body);
+
+    return;
   }
 }
