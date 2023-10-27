@@ -1,3 +1,4 @@
+import 'package:amaz_corp_mobile/routing/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -7,6 +8,7 @@ import 'package:amaz_corp_mobile/feature/schedule/add_schedule_fab_widget.dart';
 import 'package:amaz_corp_mobile/shared/component/skeleton.dart';
 import 'package:amaz_corp_mobile/shared/constant/app_size.dart';
 import 'package:amaz_corp_mobile/shared/layout/with_navigation.dart';
+import 'package:go_router/go_router.dart';
 
 class ListScheduleScreen extends ConsumerWidget {
   final String roomID;
@@ -59,9 +61,20 @@ class ListSchedule extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(Sizes.p16),
                 child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(sch.name),
-                    // Text(sch.id),
+                    ElevatedButton(
+                      child: const Text('See Tasks'),
+                      onPressed: () {
+                        context.goNamed(
+                          RoomRoute.scheduleID.name,
+                          pathParameters: {
+                            'scheduleID': sch.id,
+                          },
+                        );
+                      },
+                    )
                   ],
                 ),
               ),

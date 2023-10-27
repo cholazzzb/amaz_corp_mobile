@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import 'package:amaz_corp_mobile/core/schedule/entity/schedule_entity.dart';
 import 'package:amaz_corp_mobile/feature/schedule/controller/add_schedule_controller.dart';
+import 'package:amaz_corp_mobile/routing/app_router.dart';
 import 'package:amaz_corp_mobile/shared/async_value_ui.dart';
 import 'package:amaz_corp_mobile/shared/component/bottom_sheet/error_bottom_sheet.dart';
 import 'package:amaz_corp_mobile/shared/component/primary_button.dart';
@@ -40,6 +41,7 @@ class _AddScheduleScreenState extends ConsumerState<AddScheduleScreen> {
         scheduleName: scheduleName,
         roomID: widget.roomID,
       ),
+      onSuccess: onSuccess,
     );
   }
 
@@ -58,7 +60,12 @@ class _AddScheduleScreenState extends ConsumerState<AddScheduleScreen> {
     final state = ref.watch(addScheduleControllerProvider);
 
     void onSuccess() {
-      context.push('/location');
+      context.goNamed(
+        RoomRoute.schedules.name,
+        pathParameters: {
+          "roomID": widget.roomID,
+        },
+      );
     }
 
     return WithNavigationLayout(
@@ -71,6 +78,7 @@ class _AddScheduleScreenState extends ConsumerState<AddScheduleScreen> {
             children: [
               TextFormField(
                 decoration: const InputDecoration(labelText: 'Schedule Name'),
+                controller: _scheduleNameController,
               ),
               const SizedBox(
                 height: Sizes.p12,
