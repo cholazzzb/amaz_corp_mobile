@@ -3,7 +3,7 @@ import 'package:amaz_corp_mobile/core/location/domain/service/location_service.d
 import 'package:amaz_corp_mobile/feature/location/controller/location_controller.dart';
 import 'package:amaz_corp_mobile/feature/location/widget/join_building_bottom_sheet.dart';
 import 'package:amaz_corp_mobile/feature/location/widget/location_card.dart';
-import 'package:amaz_corp_mobile/routing/app_router.dart';
+import 'package:amaz_corp_mobile/routing/location_router.dart';
 import 'package:amaz_corp_mobile/shared/component/skeleton.dart';
 import 'package:amaz_corp_mobile/shared/constant/app_size.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +31,7 @@ class _PublicLocationState extends ConsumerState<PublicLocation> {
       name: name,
       buildingID: building.id,
       onSuccess: () {
-        context.goNamed(AppRoute.roomID.name, extra: building);
+        context.goNamed(LocationRouteName.roomID.name, extra: building);
       },
     );
   }

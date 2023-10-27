@@ -1,5 +1,5 @@
 import 'package:amaz_corp_mobile/feature/drawer/building_drawer_controller.dart';
-import 'package:amaz_corp_mobile/routing/app_router.dart';
+import 'package:amaz_corp_mobile/routing/schedule_router.dart';
 import 'package:amaz_corp_mobile/shared/component/skeleton.dart';
 import 'package:amaz_corp_mobile/shared/constant/app_size.dart';
 import 'package:flutter/material.dart';
@@ -47,7 +47,7 @@ class BuildingExpansionPanelBody extends ConsumerWidget {
                   child: ElevatedButton(
                     onPressed: () {
                       context.goNamed(
-                        RoomRoute.schedules.name,
+                        ScheduleRouteName.schedules.name,
                         pathParameters: {'roomID': room.id},
                       );
                     },

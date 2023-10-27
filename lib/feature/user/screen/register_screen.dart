@@ -1,6 +1,6 @@
 import 'package:amaz_corp_mobile/core/user/domain/entity/credential_entity.dart';
 import 'package:amaz_corp_mobile/feature/user/controller/register_controller.dart';
-import 'package:amaz_corp_mobile/routing/app_router.dart';
+import 'package:amaz_corp_mobile/routing/user_router.dart';
 import 'package:amaz_corp_mobile/shared/layout/plain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -114,7 +114,11 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   ElevatedButton.icon(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        _submit(() => context.goNamed(AppRoute.login.name));
+                        _submit(
+                          () => context.goNamed(
+                            UserRouteName.login.name,
+                          ),
+                        );
                       }
                     },
                     icon: const Icon(Icons.app_registration),
@@ -123,7 +127,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   const SizedBox(width: 12.0),
                   ElevatedButton.icon(
                     onPressed: () {
-                      context.goNamed(AppRoute.login.name);
+                      context.goNamed(UserRouteName.login.name);
                     },
                     icon: const Icon(Icons.login),
                     label: const Text('Login'),

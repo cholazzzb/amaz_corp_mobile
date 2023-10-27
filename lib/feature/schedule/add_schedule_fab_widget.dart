@@ -1,7 +1,6 @@
+import 'package:amaz_corp_mobile/routing/schedule_router.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
-import 'package:amaz_corp_mobile/routing/app_router.dart';
 
 class AddScheduleFAB extends StatelessWidget {
   final String roomID;
@@ -18,8 +17,10 @@ class AddScheduleFAB extends StatelessWidget {
       child: const Icon(Icons.add),
       onPressed: () {
         context.goNamed(
-          RoomRoute.scheduleAdd.name,
-          extra: roomID,
+          ScheduleRouteName.scheduleAdd.name,
+          pathParameters: {
+            "roomID": roomID,
+          },
         );
       },
     );

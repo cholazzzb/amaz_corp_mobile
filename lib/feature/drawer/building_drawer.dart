@@ -4,7 +4,8 @@ import 'package:amaz_corp_mobile/core/user/domain/service/user_service.dart';
 import 'package:amaz_corp_mobile/feature/drawer/building_drawer_controller.dart';
 import 'package:amaz_corp_mobile/feature/drawer/widget/building_drawer_header.dart';
 import 'package:amaz_corp_mobile/feature/drawer/widget/building_expansion_panel_body.dart';
-import 'package:amaz_corp_mobile/routing/app_router.dart';
+import 'package:amaz_corp_mobile/routing/location_router.dart';
+import 'package:amaz_corp_mobile/routing/user_router.dart';
 import 'package:amaz_corp_mobile/shared/component/primary_button.dart';
 import 'package:amaz_corp_mobile/shared/component/skeleton.dart';
 import 'package:amaz_corp_mobile/shared/constant/app_size.dart';
@@ -31,7 +32,7 @@ class _BuildingDrawerState extends ConsumerState<BuildingDrawer> {
 
     void logout() {
       userService.logout(() {
-        context.goNamed(AppRoute.login.name);
+        context.goNamed(UserRouteName.login.name);
       });
     }
 
@@ -88,7 +89,7 @@ class _BuildingDrawerState extends ConsumerState<BuildingDrawer> {
         ),
         PrimaryButton(
           text: 'Search Building',
-          onPressed: () => {context.goNamed(AppRoute.location.name)},
+          onPressed: () => {context.goNamed(LocationRouteName.location.name)},
         )
       ];
     }

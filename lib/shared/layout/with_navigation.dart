@@ -3,6 +3,7 @@ import 'package:amaz_corp_mobile/core/remoteconfig/service/force_update_service.
 import 'package:amaz_corp_mobile/feature/drawer/building_drawer.dart';
 import 'package:amaz_corp_mobile/feature/drawer/menu_drawer.dart';
 import 'package:amaz_corp_mobile/routing/app_router.dart';
+import 'package:amaz_corp_mobile/routing/schedule_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -56,12 +57,12 @@ class WithNavigationLayout extends ConsumerWidget {
       switch (index) {
         case 0:
           context.goNamed(
-            RoomRoute.schedules.name,
+            ScheduleRouteName.schedules.name,
             pathParameters: {'scheduleID': ''},
           );
           break;
         case 1:
-          context.goNamed(AppRoute.tasksID.name);
+          context.goNamed(ScheduleRouteName.tasks.name);
           break;
         case 2:
           context.goNamed(AppRoute.profile.name);

@@ -2,7 +2,7 @@ import 'package:amaz_corp_mobile/core/location/domain/entity/building_entity.dar
 import 'package:amaz_corp_mobile/core/location/domain/service/location_service.dart';
 import 'package:amaz_corp_mobile/feature/location/controller/location_controller.dart';
 import 'package:amaz_corp_mobile/feature/location/widget/my_location_card.dart';
-import 'package:amaz_corp_mobile/routing/app_router.dart';
+import 'package:amaz_corp_mobile/routing/location_router.dart';
 import 'package:amaz_corp_mobile/shared/constant/app_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -26,7 +26,7 @@ class MyLocation extends ConsumerWidget {
 
               void onPressDetail() {
                 context.goNamed(
-                  AppRoute.roomID.name,
+                  LocationRouteName.roomID.name,
                   extra: Building(
                     id: building.id,
                     name: building.name,

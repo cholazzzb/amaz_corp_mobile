@@ -1,15 +1,14 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
-
 import 'package:amaz_corp_mobile/core/schedule/entity/schedule_entity.dart';
 import 'package:amaz_corp_mobile/feature/schedule/controller/add_schedule_controller.dart';
-import 'package:amaz_corp_mobile/routing/app_router.dart';
+import 'package:amaz_corp_mobile/routing/schedule_router.dart';
 import 'package:amaz_corp_mobile/shared/async_value_ui.dart';
 import 'package:amaz_corp_mobile/shared/component/bottom_sheet/error_bottom_sheet.dart';
 import 'package:amaz_corp_mobile/shared/component/primary_button.dart';
 import 'package:amaz_corp_mobile/shared/constant/app_size.dart';
 import 'package:amaz_corp_mobile/shared/layout/with_navigation.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class AddScheduleScreen extends ConsumerStatefulWidget {
   final String roomID;
@@ -61,7 +60,7 @@ class _AddScheduleScreenState extends ConsumerState<AddScheduleScreen> {
 
     void onSuccess() {
       context.goNamed(
-        RoomRoute.schedules.name,
+        ScheduleRouteName.schedules.name,
         pathParameters: {
           "roomID": widget.roomID,
         },
