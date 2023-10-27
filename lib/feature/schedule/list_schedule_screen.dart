@@ -22,6 +22,10 @@ class ListScheduleScreen extends ConsumerWidget {
     final listScheduleAsync =
         ref.watch(getListScheduleByRoomIDProvider(roomID));
 
+    Future<void> onRefresh() async {
+      final _ = ref.refresh(getListScheduleByRoomIDProvider(roomID));
+    }
+
     Widget res = listScheduleAsync.when(
       loading: () => const Skeleton(),
       error: (err, st) => const Text("Error"),
@@ -29,6 +33,7 @@ class ListScheduleScreen extends ConsumerWidget {
           ? const EmptySchedule()
           : ListSchedule(
               schedules: data,
+              onRefresh: onRefresh,
             ),
     );
 
@@ -45,18 +50,27 @@ class ListScheduleScreen extends ConsumerWidget {
 
 class ListSchedule extends StatelessWidget {
   final List<Schedule> schedules;
+  final Future<void> Function() onRefresh;
 
   const ListSchedule({
     super.key,
     required this.schedules,
+    required this.onRefresh,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: schedules
-          .map(
-            (sch) => Card(
+    return Expanded(
+      flex: 1,
+      child: RefreshIndicator(
+        onRefresh: onRefresh,
+        child: ListView.builder(
+          shrinkWrap: true,
+          itemCount: schedules.length,
+          padding: const EdgeInsets.symmetric(horizontal: Sizes.p8),
+          itemBuilder: (BuildContext context, int index) {
+            final sch = schedules[index];
+            return Card(
               child: Padding(
                 padding: const EdgeInsets.all(Sizes.p16),
                 child: Row(
@@ -77,9 +91,10 @@ class ListSchedule extends StatelessWidget {
                   ],
                 ),
               ),
-            ),
-          )
-          .toList(),
+            );
+          },
+        ),
+      ),
     );
   }
 }
