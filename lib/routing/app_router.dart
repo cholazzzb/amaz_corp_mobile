@@ -1,4 +1,3 @@
-import 'package:amaz_corp_mobile/feature/schedule/add_schedule_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -9,8 +8,8 @@ import 'package:amaz_corp_mobile/feature/home/home_screen.dart';
 import 'package:amaz_corp_mobile/feature/location/widget/list_location.dart';
 import 'package:amaz_corp_mobile/feature/profile/profile_screen.dart';
 import 'package:amaz_corp_mobile/feature/remoteconfig/force_update_screen.dart';
+import 'package:amaz_corp_mobile/feature/schedule/add_schedule_screen.dart';
 import 'package:amaz_corp_mobile/feature/schedule/list_schedule_screen.dart';
-import 'package:amaz_corp_mobile/feature/schedule/schedule_screen.dart';
 import 'package:amaz_corp_mobile/feature/task/task_screen.dart';
 import 'package:amaz_corp_mobile/feature/user/screen/login_screen.dart';
 import 'package:amaz_corp_mobile/feature/user/screen/register_screen.dart';
@@ -104,7 +103,7 @@ GoRouter goRouter(GoRouterRef ref) {
             redirect: (BuildContext context, GoRouterState state) {
               final roomID = state.pathParameters["roomID"];
               if (roomID == null) {
-                return 'home';
+                return '/home';
               }
               return null;
             },
@@ -112,24 +111,26 @@ GoRouter goRouter(GoRouterRef ref) {
               roomID: state.pathParameters['roomID']!,
             ),
           ),
-          // GoRoute(
-          //   path: 'schedules/:scheduleID/task',
-          //   name: RoomRoute.scheduleID.name,
-          //   builder: (context, state) => ScheduleScreen(
-          //     scheduleID: state.pathParameters['scheduleID'],
-          //   ),
-          // ),
+          GoRoute(
+            path: 'schedules/:scheduleID/tasks',
+            name: RoomRoute.scheduleID.name,
+            redirect: (BuildContext context, GoRouterState state) {
+              final scheduleID = state.pathParameters["scheduleID"];
+              if (scheduleID == null) {
+                return '/home';
+              }
+              return null;
+            },
+            builder: (context, state) => TaskScreen(
+              scheduleID: state.pathParameters['scheduleID']!,
+            ),
+          ),
           GoRoute(
             path: 'schedules/add',
             name: RoomRoute.scheduleAdd.name,
             builder: (context, state) => AddScheduleScreen(
               roomID: state.extra as String,
             ),
-          ),
-          GoRoute(
-            path: 'building/tasks',
-            name: AppRoute.tasksID.name,
-            builder: (context, state) => const TaskScreen(),
           ),
           GoRoute(
             path: 'profile',
