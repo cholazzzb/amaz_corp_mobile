@@ -1,4 +1,6 @@
-import 'package:amaz_corp_mobile/db/database.dart';
+import 'package:amaz_corp_mobile/core/location/domain/repository/hive_location_repo.dart';
+import 'package:amaz_corp_mobile/core/location/domain/repository/local_location_repo.dart';
+import 'package:amaz_corp_mobile/db.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -7,7 +9,9 @@ part 'app_dependencies.g.dart';
 
 @Riverpod(keepAlive: true)
 Future<AppDependencies> appDependencies(AppDependenciesRef ref) async {
-  return AppDependencies(database: Database());
+  HiveBuildingRepo locationRepo =
+      await ref.watch(hiveBuildingRepoProvider.future);
+  return AppDependencies(database: Database(locationRepo: locationRepo));
 }
 
 @freezed

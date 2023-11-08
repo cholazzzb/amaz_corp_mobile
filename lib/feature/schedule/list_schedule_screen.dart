@@ -31,9 +31,13 @@ class ListScheduleScreen extends ConsumerWidget {
       error: (err, st) => const Text("Error"),
       data: (data) => data.isEmpty
           ? const EmptySchedule()
-          : ListSchedule(
-              schedules: data,
-              onRefresh: onRefresh,
+          : Row(
+              children: [
+                ListSchedule(
+                  schedules: data,
+                  onRefresh: onRefresh,
+                ),
+              ],
             ),
     );
 

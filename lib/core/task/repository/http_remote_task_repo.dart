@@ -1,8 +1,10 @@
+import 'dart:convert';
+
 import 'package:amaz_corp_mobile/core/task/entity/task_entity.dart';
 import 'package:amaz_corp_mobile/core/task/repository/remote_task_repo.dart';
 import 'package:dio/dio.dart';
 
-class HttpRemoteTaskRepo implements RemoteTaskRepoQuery {
+class HttpRemoteTaskRepo implements RemoteTaskRepoQuery, RemoteTaskRepoCommand {
   const HttpRemoteTaskRepo(this._dio);
 
   final Dio _dio;
@@ -19,5 +21,27 @@ class HttpRemoteTaskRepo implements RemoteTaskRepoQuery {
         .cast<Task>();
 
     return tasks;
+  }
+
+  @override
+  Future<void> postAddTask(AddTaskReq req) async {
+    String uri = 'api/v1/tasks';
+
+    String body = json.encode(req.toJson());
+
+    await _dio.post(uri, data: body);
+
+    return;
+  }
+
+  @override
+  Future<void> putEditTask(String taskID, AddTaskReq req) async {
+    String uri = 'api/v1/tasks/$taskID';
+
+    String body = json.encode(req.toJson());
+
+    await _dio.post(uri, data: body);
+
+    return;
   }
 }

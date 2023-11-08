@@ -8,6 +8,11 @@ part 'task_service.g.dart';
 class TaskService {
   TaskService(this.ref);
   final Ref ref;
+
+  Future<void> addTask(AddTaskReq req) async {
+    final repo = ref.read(remoteTaskRepoProvider);
+    await repo.postAddTask(req);
+  }
 }
 
 @Riverpod(keepAlive: true)

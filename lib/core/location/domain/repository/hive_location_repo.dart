@@ -15,17 +15,17 @@ class HiveBuildingRepo
 
   @override
   void setSelectedBuildingID(String selectedBuildingID) {
-    storage.put(HiveBuilding.selectedBuildingID, selectedBuildingID);
+    storage.put(HiveBuilding.selectedBuildingID.name, selectedBuildingID);
   }
 
   @override
   void setSelectedRoomID(String selectedRoomID) {
-    storage.put(HiveBuilding.selectedRoomID, selectedRoomID);
+    storage.put(HiveBuilding.selectedRoomID.name, selectedRoomID);
   }
 
   @override
   String getSelectedBuildingID() {
-    final String? res = storage.get(HiveBuilding.selectedBuildingID);
+    final String? res = storage.get(HiveBuilding.selectedBuildingID.name);
     if (res == null) {
       return "";
     }
@@ -34,7 +34,7 @@ class HiveBuildingRepo
 
   @override
   String getSelectedRoomID() {
-    final String? res = storage.get(HiveBuilding.selectedRoomID);
+    final String? res = storage.get(HiveBuilding.selectedRoomID.name);
     if (res == null) {
       return "";
     }

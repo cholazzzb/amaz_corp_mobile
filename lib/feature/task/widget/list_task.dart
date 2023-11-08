@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class ListTask extends ConsumerWidget {
-  const ListTask({super.key, required this.scheduleID});
-
   final String scheduleID;
+
+  const ListTask({super.key, required this.scheduleID});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -31,12 +31,24 @@ class ListTask extends ConsumerWidget {
         child: RefreshIndicator(
           onRefresh: onPressRefetch,
           child: ListView.builder(
-            padding: const EdgeInsets.symmetric(vertical: Sizes.p16),
+            padding: const EdgeInsets.symmetric(
+              vertical: Sizes.p16,
+              horizontal: Sizes.p8,
+            ),
             shrinkWrap: true,
             itemCount: data.length,
             itemBuilder: (BuildContext context, int index) {
-              final item = data[index];
-              return Text(item.name);
+              final task = data[index];
+              return Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(Sizes.p16),
+                  child: Row(
+                    children: [
+                      Text(task.name),
+                    ],
+                  ),
+                ),
+              );
             },
           ),
         ),

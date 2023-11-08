@@ -11,8 +11,9 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'location_service.g.dart';
 
 class LocationService {
-  LocationService(this.ref);
   final Ref ref;
+
+  LocationService(this.ref);
 
   Future<void> joinBuilding(
     String name,

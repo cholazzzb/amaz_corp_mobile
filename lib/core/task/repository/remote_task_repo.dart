@@ -10,6 +10,11 @@ abstract class RemoteTaskRepoQuery {
   Future<List<Task>> getListTaskByScheduleID(String scheduleID);
 }
 
+abstract class RemoteTaskRepoCommand {
+  Future<void> postAddTask(AddTaskReq req);
+  Future<void> putEditTask(String taskID, AddTaskReq req);
+}
+
 @riverpod
 HttpRemoteTaskRepo remoteTaskRepo(
   RemoteTaskRepoRef ref,
