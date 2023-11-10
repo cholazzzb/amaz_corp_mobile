@@ -15,7 +15,7 @@ class HttpRemoteTaskRepo implements RemoteTaskRepoQuery, RemoteTaskRepoCommand {
 
     final response = await _dio.get(uri);
 
-    final List<Task> tasks = response.data['tasks']!
+    final List<Task> tasks = response.data["data"]!
         .map((task) => Task.fromJSON(task))
         .toList()
         .cast<Task>();
