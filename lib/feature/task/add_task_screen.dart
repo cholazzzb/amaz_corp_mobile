@@ -14,6 +14,7 @@ import 'package:amaz_corp_mobile/shared/layout/with_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 
 class AddTaskScreen extends ConsumerStatefulWidget {
   final String scheduleID;
@@ -47,9 +48,12 @@ class _AddTaskScreenState extends ConsumerState<AddTaskScreen> {
   }
 
   Future<void> _submit(VoidCallback onSuccess) async {
+    final formatter = DateFormat('E, d MMM yyyy HH:mm:ss');
+    final formatted = "${formatter.format(startTime.toUtc())} GMT";
+
     final req = AddTaskReq(
       scheduleID: widget.scheduleID,
-      startTime: startTime.toString(),
+      startTime: formatted,
       name: taskName,
       durationDay: int.parse(durationDay),
       ownerID: ownerID,
