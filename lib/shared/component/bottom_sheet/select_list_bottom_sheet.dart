@@ -45,11 +45,17 @@ class SingleSelectList {
                   itemCount: list.length,
                   itemBuilder: (_, index) {
                     final item = list[index];
-                    return Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(Sizes.p8),
-                        child: Text(selectValue(item)),
+                    return InkWell(
+                      child: Card(
+                        child: Padding(
+                          padding: const EdgeInsets.all(Sizes.p8),
+                          child: Text(selectValue(item)),
+                        ),
                       ),
+                      onTap: () {
+                        onSelect(item);
+                        Navigator.pop(context);
+                      },
                     );
                   },
                 ),
