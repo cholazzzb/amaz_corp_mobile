@@ -87,9 +87,21 @@ class _BuildingDrawerState extends ConsumerState<BuildingDrawer> {
             children: [xList],
           ),
         ),
-        PrimaryButton(
-          text: 'Search Building',
-          onPressed: () => {context.goNamed(LocationRouteName.location.name)},
+        Container(
+          decoration: BoxDecoration(color: Colors.grey.shade100),
+          child: Padding(
+            padding: const EdgeInsets.all(Sizes.p8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                PrimaryButton(
+                  text: 'Search Building',
+                  onPressed: () =>
+                      {context.goNamed(LocationRouteName.location.name)},
+                ),
+              ],
+            ),
+          ),
         )
       ];
     }
