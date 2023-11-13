@@ -51,6 +51,7 @@ class MyApp extends ConsumerWidget {
         useMaterial3: true,
       ),
       routerConfig: goRouter,
+      debugShowCheckedModeBanner: false,
     );
   }
 }
