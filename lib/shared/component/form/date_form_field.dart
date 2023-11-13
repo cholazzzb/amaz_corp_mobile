@@ -44,19 +44,39 @@ class DateFormField extends StatelessWidget {
           children: [
             Stack(
               children: [
-                _buildDateSelectListTile(shape, context, formState),
-                if (currentValue != null) _buildFloatingLabel(context),
+                DateSelectListTile(
+                  label: _label,
+                  dayOf100Years: _dayOf100Years,
+                  onChanged: onChanged,
+                  shape: shape,
+                  context: context,
+                  formState: formState,
+                ),
+                if (currentValue != null)
+                  FloatingLabel(label: label, context: context),
               ],
             ),
-            if (formState.hasError) _buildErrorText(formState, context),
+            if (formState.hasError)
+              ErrorText(formState: formState, context: context),
           ],
         );
       },
     );
   }
+}
 
-  Widget _buildErrorText(
-      FormFieldState<DateTime> formState, BuildContext context) {
+class ErrorText extends StatelessWidget {
+  const ErrorText({
+    super.key,
+    required this.formState,
+    required this.context,
+  });
+
+  final FormFieldState<DateTime> formState;
+  final BuildContext context;
+
+  @override
+  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(
         vertical: Sizes.p8,
@@ -68,16 +88,32 @@ class DateFormField extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget _buildDateSelectListTile(
-    InputBorder shape,
-    BuildContext context,
-    FormFieldState<DateTime> formState,
-  ) {
+class DateSelectListTile extends StatelessWidget {
+  const DateSelectListTile({
+    super.key,
+    required String label,
+    required Duration dayOf100Years,
+    required this.onChanged,
+    required this.shape,
+    required this.context,
+    required this.formState,
+  })  : _label = label,
+        _dayOf100Years = dayOf100Years;
+
+  final String _label;
+  final Duration _dayOf100Years;
+  final ValueChanged<DateTime> onChanged;
+  final InputBorder shape;
+  final BuildContext context;
+  final FormFieldState<DateTime> formState;
+
+  @override
+  Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: Sizes.p4),
       child: ListTile(
-        contentPadding: const EdgeInsets.symmetric(horizontal: 16.0),
         shape: shape,
         trailing: const Icon(
           Icons.date_range,
@@ -100,14 +136,23 @@ class DateFormField extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget _buildFloatingLabel(BuildContext context) {
+class FloatingLabel extends StatelessWidget {
+  const FloatingLabel({
+    super.key,
+    required this.label,
+    required this.context,
+  });
+
+  final String label;
+  final BuildContext context;
+
+  @override
+  Widget build(BuildContext context) {
     return Positioned(
-      left: 12.0,
-      top: -2.0,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: Sizes.p8),
-        color: Theme.of(context).scaffoldBackgroundColor,
         child: Text(
           label,
           style: Theme.of(context).inputDecorationTheme.helperStyle,
