@@ -40,6 +40,21 @@ class SingleSelectList {
           child: Column(
             children: [
               Icon(Icons.remove, color: Colors.grey[600]),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(Sizes.p8),
+                    child: Text(title),
+                  ),
+                  IconButton(
+                    icon: const Icon(Icons.close),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                  ),
+                ],
+              ),
               Expanded(
                 child: ListView.builder(
                   itemCount: list.length,
