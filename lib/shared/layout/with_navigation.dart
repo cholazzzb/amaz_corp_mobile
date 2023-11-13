@@ -28,7 +28,7 @@ class WithNavigationLayout extends ConsumerWidget {
     forceUpdateAsync.when(
       data: (needForceUpdate) {
         if (needForceUpdate) {
-          // context.go("/force-update");
+          // context.goNamed(AppRoute.forceUpdate.name);
         }
       },
       error: (e, st) {},
@@ -43,14 +43,6 @@ class WithNavigationLayout extends ConsumerWidget {
         duration: const Duration(milliseconds: 200),
         child: child,
       ),
-    );
-
-    final myBuildingAsync = ref.watch(getMyBuildingsProvider);
-
-    Widget asyncChild = myBuildingAsync.when(
-      data: (params) => childWithTheme,
-      error: (error, st) => const Text('Error'),
-      loading: () => const Text('Loading'),
     );
 
     void onItemTapped(int index, BuildContext context) {
@@ -103,7 +95,7 @@ class WithNavigationLayout extends ConsumerWidget {
           return Column(
             children: [
               Expanded(
-                child: asyncChild,
+                child: childWithTheme,
               ),
             ],
           );

@@ -24,7 +24,7 @@ class ShimmerState extends State<Shimmer> with SingleTickerProviderStateMixin {
     return switch (defaultTargetPlatform) {
       TargetPlatform.android => androidLightShimmerGradient,
       TargetPlatform.iOS => iOSLightShimmerGradient,
-      _ => throw 'Unexpected platform $defaultTargetPlatform',
+      _ => androidLightShimmerGradient,
     };
   }
 
