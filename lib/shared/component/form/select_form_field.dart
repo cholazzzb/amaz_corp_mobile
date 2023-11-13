@@ -8,7 +8,7 @@ class SelectFormField<T> extends StatelessWidget {
   final bool loading;
   final String errorMessage;
   final String title;
-  final String selectedValue;
+  final T selectedValue;
   final void Function(T selectedValue) onSelect;
   final List<T> list;
   final String Function(T value) selectValue;
@@ -31,6 +31,14 @@ class SelectFormField<T> extends StatelessWidget {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: Sizes.p8),
+              child: Row(
+                children: [
+                  Text(title),
+                ],
+              ),
+            ),
             Container(
               decoration: BoxDecoration(
                 border: Border.all(color: Colors.grey),
@@ -41,7 +49,7 @@ class SelectFormField<T> extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(selectedValue),
+                    Text(selectValue(selectedValue)),
                     IconButton(
                       icon: const Icon(Icons.arrow_drop_down),
                       onPressed: () {

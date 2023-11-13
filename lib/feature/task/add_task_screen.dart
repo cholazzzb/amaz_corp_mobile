@@ -16,6 +16,14 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 
+const emptyMember = Member(
+  id: '',
+  userID: '',
+  name: '',
+  roomID: '',
+  status: '',
+);
+
 class AddTaskScreen extends ConsumerStatefulWidget {
   final String scheduleID;
 
@@ -37,9 +45,9 @@ class _AddTaskScreenState extends ConsumerState<AddTaskScreen> {
   String get durationDay => _durationDayController.text.isNotEmpty
       ? _durationDayController.text
       : "0";
-  String ownerID = "Initial ownerID";
-  String assigneeID = "Initial assigneeID";
-  String status = "Initial status";
+  Member ownerID = emptyMember;
+  Member assigneeID = emptyMember;
+  Member status = emptyMember;
 
   @override
   void dispose() {
@@ -56,9 +64,9 @@ class _AddTaskScreenState extends ConsumerState<AddTaskScreen> {
       startTime: formatted,
       name: taskName,
       durationDay: int.parse(durationDay),
-      ownerID: ownerID,
-      assigneeID: assigneeID,
-      status: status,
+      ownerID: ownerID.id,
+      assigneeID: assigneeID.id,
+      status: status.id,
     );
     final controller = ref.read(addTaskControllerProvider.notifier);
     await controller.addTask(req: req);
@@ -145,7 +153,7 @@ class _AddTaskScreenState extends ConsumerState<AddTaskScreen> {
               selectValue: (value) => value.name,
               onSelect: (selectedValue) {
                 setState(() {
-                  ownerID = selectedValue.id;
+                  ownerID = selectedValue;
                 });
               },
             ),
@@ -161,7 +169,7 @@ class _AddTaskScreenState extends ConsumerState<AddTaskScreen> {
               selectValue: (value) => value.name,
               onSelect: (selectedValue) {
                 setState(() {
-                  assigneeID = selectedValue.id;
+                  assigneeID = selectedValue;
                 });
               },
             ),
@@ -177,7 +185,7 @@ class _AddTaskScreenState extends ConsumerState<AddTaskScreen> {
               selectValue: (value) => value.name,
               onSelect: (selectedValue) {
                 setState(() {
-                  status = selectedValue.id;
+                  status = selectedValue;
                 });
               },
             ),
