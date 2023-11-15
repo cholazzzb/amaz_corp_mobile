@@ -17,4 +17,8 @@ watch:
 	@dart run build_runner watch -d
 
 clean:
+	#[[Deleting previous abb file and update local.properties versionCode]]
+	@flutter clean
+
+clean-cache:
 	@flutter pub cache clean
