@@ -5,7 +5,7 @@ import 'package:amaz_corp_mobile/shared/async_value_ui.dart';
 import 'package:amaz_corp_mobile/shared/component/bottom_sheet/error_bottom_sheet.dart';
 import 'package:amaz_corp_mobile/shared/component/primary_button.dart';
 import 'package:amaz_corp_mobile/shared/constant/app_size.dart';
-import 'package:amaz_corp_mobile/shared/layout/with_navigation.dart';
+import 'package:amaz_corp_mobile/shared/layout/with_navigation_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -67,29 +67,42 @@ class _AddScheduleScreenState extends ConsumerState<AddScheduleScreen> {
       );
     }
 
-    return WithNavigationLayout(
+    return WithNavigationCustomLayout(
       title: 'Add Schedule',
       selectedIdx: 0,
-      child: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(Sizes.p16),
-          child: Column(
-            children: [
-              TextFormField(
-                decoration: const InputDecoration(labelText: 'Schedule Name'),
-                controller: _scheduleNameController,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            //https://stackoverflow.com/questions/54027270/how-to-create-a-scroll-view-with-fixed-footer-with-flutter
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(Sizes.p16),
+                child: Column(
+                  children: [
+                    TextFormField(
+                      decoration: const InputDecoration(
+                        labelText: 'Schedule Name',
+                      ),
+                      controller: _scheduleNameController,
+                    ),
+                    const SizedBox(
+                      height: Sizes.p12,
+                    ),
+                  ],
+                ),
               ),
-              const SizedBox(
-                height: Sizes.p12,
-              ),
-              PrimaryButton(
-                text: 'Add Schedule',
-                isLoading: state.isLoading,
-                onPressed: () => _submit(onSuccess),
-              )
-            ],
+            ),
           ),
-        ),
+          Padding(
+            padding: const EdgeInsets.all(Sizes.p8),
+            child: PrimaryButton(
+              text: 'Add Schedule',
+              isLoading: state.isLoading,
+              onPressed: () => _submit(onSuccess),
+            ),
+          ),
+        ],
       ),
     );
   }

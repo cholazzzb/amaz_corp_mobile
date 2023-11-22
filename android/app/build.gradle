@@ -30,7 +30,7 @@ if (keystorePropertiesFile.exists()) {
 
 android {
     namespace "corp.toro.amaz_corp_mobile"
-    compileSdkVersion flutter.compileSdkVersion
+    compileSdkVersion 33 // 33 is minimum requirement for onesignal 5
     ndkVersion flutter.ndkVersion
 
     compileOptions {

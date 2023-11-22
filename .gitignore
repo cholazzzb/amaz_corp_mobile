@@ -1,6 +1,3 @@
-# Release
-upload-keystore.jks
-
 secrets
 .env
 .env.dev

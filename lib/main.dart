@@ -3,18 +3,26 @@ import 'package:amaz_corp_mobile/feature/user/screen/welcome_screen.dart';
 import 'package:amaz_corp_mobile/routing/app_router.dart';
 import 'package:amaz_corp_mobile/shared/env.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hive/hive.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 
 void main() async {
-  loadEnv();
+  await loadEnv();
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
   final dir = await getApplicationDocumentsDirectory();
   Hive.init(dir.path);
+
+  if (Environment.getEnv() == ENV.dev.name) {
+    OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
+  }
+
+  OneSignal.initialize('corp.toro.amaz_corp_mobile');
+  OneSignal.Notifications.requestPermission(true);
 
   runApp(
     const ProviderScope(
