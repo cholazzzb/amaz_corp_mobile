@@ -10,7 +10,7 @@ import 'package:amaz_corp_mobile/shared/component/form/select_form_field.dart';
 import 'package:amaz_corp_mobile/shared/component/primary_button.dart';
 import 'package:amaz_corp_mobile/shared/constant/app_size.dart';
 import 'package:amaz_corp_mobile/shared/extension/numerical_range_formatter.dart';
-import 'package:amaz_corp_mobile/shared/layout/with_navigation.dart';
+import 'package:amaz_corp_mobile/shared/layout/with_navigation_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -102,99 +102,111 @@ class _AddTaskScreenState extends ConsumerState<AddTaskScreen> {
 
     final listMember = ref.watch(getListMemberByBuildingIDProvider(buildingID));
 
-    return WithNavigationLayout(
+    return WithNavigationCustomLayout(
       title: 'Add Task',
       selectedIdx: 0,
-      child: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(Sizes.p16),
-          child: Column(children: [
-            TextFormField(
-              controller: _nameController,
-              decoration: const InputDecoration(labelText: 'Task Name'),
-            ),
-            const SizedBox(
-              height: Sizes.p12,
-            ),
-            DateFormField(
-              onChanged: (dateTime) {
-                setState(() {
-                  startTime = dateTime;
-                });
-              },
-              currentValue: startTime,
-              validator: null,
-              label: 'StartTime',
-            ),
-            const SizedBox(
-              height: Sizes.p12,
-            ),
-            TextFormField(
-              controller: _durationDayController,
-              decoration: const InputDecoration(
-                labelText: 'Duration (day)',
-                hintText: "Enter a number",
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(Sizes.p16),
+                child: Column(
+                  children: [
+                    TextFormField(
+                      controller: _nameController,
+                      decoration: const InputDecoration(labelText: 'Task Name'),
+                    ),
+                    const SizedBox(
+                      height: Sizes.p12,
+                    ),
+                    DateFormField(
+                      onChanged: (dateTime) {
+                        setState(() {
+                          startTime = dateTime;
+                        });
+                      },
+                      currentValue: startTime,
+                      validator: null,
+                      label: 'StartTime',
+                    ),
+                    const SizedBox(
+                      height: Sizes.p12,
+                    ),
+                    TextFormField(
+                      controller: _durationDayController,
+                      decoration: const InputDecoration(
+                        labelText: 'Duration (day)',
+                        hintText: "Enter a number",
+                      ),
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly,
+                        NumericalRangeFormatter(min: 0, max: 14)
+                      ],
+                    ),
+                    const SizedBox(
+                      height: Sizes.p12,
+                    ),
+                    SelectFormField<Member>(
+                      loading: listMember.isLoading,
+                      errorMessage: listMember.error.toString(),
+                      title: "Owner",
+                      selectedValue: ownerID,
+                      list: listMember.value ?? [],
+                      selectValue: (value) => value.name,
+                      onSelect: (selectedValue) {
+                        setState(() {
+                          ownerID = selectedValue;
+                        });
+                      },
+                    ),
+                    const SizedBox(
+                      height: Sizes.p12,
+                    ),
+                    SelectFormField<Member>(
+                      loading: listMember.isLoading,
+                      errorMessage: listMember.error.toString(),
+                      title: "Assignee",
+                      selectedValue: assigneeID,
+                      list: listMember.value ?? [],
+                      selectValue: (value) => value.name,
+                      onSelect: (selectedValue) {
+                        setState(() {
+                          assigneeID = selectedValue;
+                        });
+                      },
+                    ),
+                    const SizedBox(
+                      height: Sizes.p12,
+                    ),
+                    SelectFormField<Member>(
+                      loading: listMember.isLoading,
+                      errorMessage: listMember.error.toString(),
+                      title: "Status",
+                      selectedValue: status,
+                      list: listMember.value ?? [],
+                      selectValue: (value) => value.name,
+                      onSelect: (selectedValue) {
+                        setState(() {
+                          status = selectedValue;
+                        });
+                      },
+                    ),
+                  ],
+                ),
               ),
-              keyboardType: TextInputType.number,
-              inputFormatters: [
-                FilteringTextInputFormatter.digitsOnly,
-                NumericalRangeFormatter(min: 0, max: 14)
-              ],
             ),
-            const SizedBox(
-              height: Sizes.p12,
-            ),
-            SelectFormField<Member>(
-              loading: listMember.isLoading,
-              errorMessage: listMember.error.toString(),
-              title: "Owner",
-              selectedValue: ownerID,
-              list: listMember.value ?? [],
-              selectValue: (value) => value.name,
-              onSelect: (selectedValue) {
-                setState(() {
-                  ownerID = selectedValue;
-                });
-              },
-            ),
-            const SizedBox(
-              height: Sizes.p12,
-            ),
-            SelectFormField<Member>(
-              loading: listMember.isLoading,
-              errorMessage: listMember.error.toString(),
-              title: "Assignee",
-              selectedValue: assigneeID,
-              list: listMember.value ?? [],
-              selectValue: (value) => value.name,
-              onSelect: (selectedValue) {
-                setState(() {
-                  assigneeID = selectedValue;
-                });
-              },
-            ),
-            const SizedBox(
-              height: Sizes.p12,
-            ),
-            SelectFormField<Member>(
-              loading: listMember.isLoading,
-              errorMessage: listMember.error.toString(),
-              title: "Status",
-              selectedValue: status,
-              list: listMember.value ?? [],
-              selectValue: (value) => value.name,
-              onSelect: (selectedValue) {
-                setState(() {
-                  status = selectedValue;
-                });
-              },
-            ),
-            PrimaryButton(
+          ),
+          Padding(
+            padding: const EdgeInsets.all(Sizes.p8),
+            child: PrimaryButton(
               text: "Submit",
               onPressed: submit,
-            )
-          ]),
-        ),
+            ),
+          )
+        ],
       ),
     );
   }
