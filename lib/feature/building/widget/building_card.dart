@@ -3,8 +3,8 @@ import 'package:amaz_corp_mobile/shared/constant/app_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class LocationCard extends ConsumerWidget {
-  const LocationCard({
+class BuildingCard extends ConsumerWidget {
+  const BuildingCard({
     super.key,
     required this.name,
     required this.buildingId,

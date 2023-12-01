@@ -1,6 +1,6 @@
 import 'package:amaz_corp_mobile/feature/building/building_screen.dart';
 import 'package:amaz_corp_mobile/feature/home/home_screen.dart';
-import 'package:amaz_corp_mobile/feature/location/widget/list_location.dart';
+import 'package:amaz_corp_mobile/feature/building/list_building_screen.dart';
 import 'package:go_router/go_router.dart';
 
 enum LocationRouteName {
@@ -20,7 +20,7 @@ class LocationRoute {
       GoRoute(
         path: 'locations',
         name: LocationRouteName.location.name,
-        builder: (context, state) => const ListLocation(),
+        builder: (context, state) => const ListBuildingScreen(),
       ),
       GoRoute(
         path: 'building/rooms',

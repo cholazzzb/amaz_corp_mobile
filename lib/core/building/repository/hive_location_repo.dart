@@ -1,4 +1,4 @@
-import 'package:amaz_corp_mobile/core/location/domain/repository/local_location_repo.dart';
+import 'package:amaz_corp_mobile/core/building/repository/local_location_repo.dart';
 import 'package:hive/hive.dart';
 
 enum HiveBuilding {

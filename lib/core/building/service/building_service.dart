@@ -1,5 +1,5 @@
-import 'package:amaz_corp_mobile/core/location/domain/entity/building_entity.dart';
-import 'package:amaz_corp_mobile/core/location/domain/service/location_service.dart';
+import 'package:amaz_corp_mobile/core/building/entity/building_entity.dart';
+import 'package:amaz_corp_mobile/core/building/service/location_service.dart';
 import 'package:amaz_corp_mobile/core/user/data/repository/local_user_repo.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

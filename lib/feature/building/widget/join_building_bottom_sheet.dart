@@ -1,3 +1,4 @@
+import 'package:amaz_corp_mobile/shared/constant/app_size.dart';
 import 'package:flutter/material.dart';
 
 class JoinBuildingBottomSheet extends StatefulWidget {
@@ -36,7 +37,7 @@ class _JoinBuildingBottomSheetState extends State<JoinBuildingBottomSheet> {
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.all(32.0),
+              padding: const EdgeInsets.all(Sizes.p32),
               child: TextField(
                 decoration: const InputDecoration(
                   labelText: 'Create name as a building member!',

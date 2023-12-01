@@ -1,5 +1,5 @@
-import 'package:amaz_corp_mobile/core/location/domain/repository/hive_location_repo.dart';
-import 'package:amaz_corp_mobile/core/location/domain/repository/local_location_repo.dart';
+import 'package:amaz_corp_mobile/core/building/repository/hive_location_repo.dart';
+import 'package:amaz_corp_mobile/core/building/repository/local_location_repo.dart';
 import 'package:amaz_corp_mobile/db.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';

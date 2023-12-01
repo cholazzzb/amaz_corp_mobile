@@ -1,8 +1,8 @@
-import 'package:amaz_corp_mobile/core/location/domain/entity/building_entity.dart';
-import 'package:amaz_corp_mobile/core/location/domain/service/location_service.dart';
-import 'package:amaz_corp_mobile/feature/location/controller/location_controller.dart';
-import 'package:amaz_corp_mobile/feature/location/widget/join_building_bottom_sheet.dart';
-import 'package:amaz_corp_mobile/feature/location/widget/location_card.dart';
+import 'package:amaz_corp_mobile/core/building/entity/building_entity.dart';
+import 'package:amaz_corp_mobile/core/building/service/location_service.dart';
+import 'package:amaz_corp_mobile/feature/building/controller/building_controller.dart';
+import 'package:amaz_corp_mobile/feature/building/widget/join_building_bottom_sheet.dart';
+import 'package:amaz_corp_mobile/feature/building/widget/building_card.dart';
 import 'package:amaz_corp_mobile/routing/location_router.dart';
 import 'package:amaz_corp_mobile/shared/component/skeleton.dart';
 import 'package:amaz_corp_mobile/shared/constant/app_size.dart';
@@ -11,14 +11,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:shimmer/shimmer.dart';
 
-class PublicLocation extends ConsumerStatefulWidget {
-  const PublicLocation({super.key});
+class PublicBuilding extends ConsumerStatefulWidget {
+  const PublicBuilding({super.key});
 
   @override
-  ConsumerState<PublicLocation> createState() => _PublicLocationState();
+  ConsumerState<PublicBuilding> createState() => _PublicBuildingState();
 }
 
-class _PublicLocationState extends ConsumerState<PublicLocation> {
+class _PublicBuildingState extends ConsumerState<PublicBuilding> {
   String currentBuildingId = "0";
 
   void _onPressClose() {
@@ -56,7 +56,7 @@ class _PublicLocationState extends ConsumerState<PublicLocation> {
             );
           }
 
-          return LocationCard(
+          return BuildingCard(
             name: building.name,
             buildingId: building.id,
             isSelected: building.id == currentBuildingId,

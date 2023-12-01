@@ -1,5 +1,5 @@
-import 'package:amaz_corp_mobile/core/location/domain/entity/member_entity.dart';
-import 'package:amaz_corp_mobile/core/location/domain/service/location_service.dart';
+import 'package:amaz_corp_mobile/core/building/entity/member_entity.dart';
+import 'package:amaz_corp_mobile/core/building/service/location_service.dart';
 import 'package:amaz_corp_mobile/shared/component/primary_button.dart';
 import 'package:amaz_corp_mobile/shared/constant/app_size.dart';
 import 'package:flutter/material.dart';

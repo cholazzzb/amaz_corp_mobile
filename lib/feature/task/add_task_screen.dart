@@ -1,6 +1,6 @@
 import 'package:amaz_corp_mobile/app_dependencies.dart';
-import 'package:amaz_corp_mobile/core/location/domain/entity/member_entity.dart';
-import 'package:amaz_corp_mobile/core/location/domain/service/location_service.dart';
+import 'package:amaz_corp_mobile/core/building/entity/member_entity.dart';
+import 'package:amaz_corp_mobile/core/building/service/location_service.dart';
 import 'package:amaz_corp_mobile/core/task/entity/task_entity.dart';
 import 'package:amaz_corp_mobile/feature/task/controller/add_task_controller.dart';
 import 'package:amaz_corp_mobile/shared/async_value_ui.dart';

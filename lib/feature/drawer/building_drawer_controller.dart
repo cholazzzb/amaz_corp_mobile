@@ -1,5 +1,5 @@
-import 'package:amaz_corp_mobile/core/location/domain/entity/room_entity.dart';
-import 'package:amaz_corp_mobile/core/location/domain/service/location_service.dart';
+import 'package:amaz_corp_mobile/core/building/entity/room_entity.dart';
+import 'package:amaz_corp_mobile/core/building/service/location_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'building_drawer_controller.g.dart';

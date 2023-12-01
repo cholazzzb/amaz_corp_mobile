@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:amaz_corp_mobile/core/location/domain/entity/building_entity.dart';
-import 'package:amaz_corp_mobile/core/location/domain/entity/member_entity.dart';
-import 'package:amaz_corp_mobile/core/location/domain/entity/room_entity.dart';
-import 'package:amaz_corp_mobile/core/location/domain/repository/remote_location_repo.dart';
+import 'package:amaz_corp_mobile/core/building/entity/building_entity.dart';
+import 'package:amaz_corp_mobile/core/building/entity/member_entity.dart';
+import 'package:amaz_corp_mobile/core/building/entity/room_entity.dart';
+import 'package:amaz_corp_mobile/core/building/repository/remote_location_repo.dart';
 import 'package:dio/dio.dart';
 
 class HttpRemoteLocationRepo
@@ -41,6 +41,19 @@ class HttpRemoteLocationRepo
         .toList()
         .cast<BuildingMember>();
     return buildings;
+  }
+
+  @override
+  Future<void> postAddBuilding(
+    AddBuildingReq req,
+  ) async {
+    const uri = 'api/v1/buildings';
+
+    String body = json.encode(req.toJson());
+
+    await _dio.post(uri, data: body);
+
+    return;
   }
 
   @override

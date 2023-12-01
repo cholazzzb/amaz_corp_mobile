@@ -1,9 +1,9 @@
-import 'package:amaz_corp_mobile/core/location/domain/entity/building_entity.dart';
-import 'package:amaz_corp_mobile/core/location/domain/entity/member_entity.dart';
-import 'package:amaz_corp_mobile/core/location/domain/entity/room_entity.dart';
-import 'package:amaz_corp_mobile/core/location/domain/repository/hive_location_repo.dart';
-import 'package:amaz_corp_mobile/core/location/domain/repository/local_location_repo.dart';
-import 'package:amaz_corp_mobile/core/location/domain/repository/remote_location_repo.dart';
+import 'package:amaz_corp_mobile/core/building/entity/building_entity.dart';
+import 'package:amaz_corp_mobile/core/building/entity/member_entity.dart';
+import 'package:amaz_corp_mobile/core/building/entity/room_entity.dart';
+import 'package:amaz_corp_mobile/core/building/repository/hive_location_repo.dart';
+import 'package:amaz_corp_mobile/core/building/repository/local_location_repo.dart';
+import 'package:amaz_corp_mobile/core/building/repository/remote_location_repo.dart';
 import 'package:amaz_corp_mobile/core/user/data/repository/local_user_repo.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -14,6 +14,11 @@ class LocationService {
   final Ref ref;
 
   LocationService(this.ref);
+
+  Future<void> addBuilding(AddBuildingReq req) async {
+    final repo = ref.read(remoteLocationRepoProvider);
+    await repo.postAddBuilding(req);
+  }
 
   Future<void> joinBuilding(
     String name,
@@ -56,7 +61,7 @@ Future<List<Building>> getAllLocations(
 
 @riverpod
 Future<List<BuildingMember>> getMyLocations(GetMyLocationsRef ref) async {
-  return await ref.read(locationServiceProvider).getMyLocations();
+  return await ref.watch(locationServiceProvider).getMyLocations();
 }
 
 @riverpod

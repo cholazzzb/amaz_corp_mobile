@@ -1,8 +1,35 @@
-import 'package:amaz_corp_mobile/core/location/domain/service/location_service.dart';
+import 'package:amaz_corp_mobile/core/building/entity/building_entity.dart';
+import 'package:amaz_corp_mobile/core/building/service/location_service.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'location_controller.g.dart';
+part 'building_controller.g.dart';
+
+@riverpod
+class AddLocationController extends _$AddLocationController {
+  @override
+  FutureOr<void> build() {}
+
+  Future<void> addBuilding({
+    required AddBuildingReq req,
+    VoidCallback? onSuccess,
+  }) async {
+    state = const AsyncValue.loading();
+
+    try {
+      await _addBuilding(req);
+      onSuccess?.call();
+      state = const AsyncValue.data(null);
+    } catch (err, st) {
+      state = AsyncValue.error(err, st);
+    }
+  }
+
+  Future<void> _addBuilding(AddBuildingReq req) async {
+    final svc = ref.read(locationServiceProvider);
+    await svc.addBuilding(req);
+  }
+}
 
 @riverpod
 class JoinBuildingController extends _$JoinBuildingController {

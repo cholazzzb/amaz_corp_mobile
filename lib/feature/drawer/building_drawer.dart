@@ -1,5 +1,5 @@
-import 'package:amaz_corp_mobile/core/location/domain/entity/building_entity.dart';
-import 'package:amaz_corp_mobile/core/location/domain/service/building_service.dart';
+import 'package:amaz_corp_mobile/core/building/entity/building_entity.dart';
+import 'package:amaz_corp_mobile/core/building/service/building_service.dart';
 import 'package:amaz_corp_mobile/core/user/domain/service/user_service.dart';
 import 'package:amaz_corp_mobile/feature/drawer/building_drawer_controller.dart';
 import 'package:amaz_corp_mobile/feature/drawer/widget/building_drawer_header.dart';

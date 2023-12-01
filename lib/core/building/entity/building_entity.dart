@@ -27,3 +27,14 @@ class BuildingMember with _$BuildingMember {
   factory BuildingMember.fromJSON(Map<String, dynamic> json) =>
       _$$_BuildingMemberFromJson(json);
 }
+
+@Freezed(toJson: true)
+class AddBuildingReq with _$AddBuildingReq {
+  @JsonSerializable(explicitToJson: true)
+  const factory AddBuildingReq({
+    @JsonKey(name: 'name') required String name,
+  }) = _AddBuildingReq;
+
+  factory AddBuildingReq.fromJSON(Map<String, dynamic> json) =>
+      _$$_AddBuildingReqFromJson(json);
+}

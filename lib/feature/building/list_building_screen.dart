@@ -1,13 +1,13 @@
-import 'package:amaz_corp_mobile/feature/location/widget/my_location.dart';
-import 'package:amaz_corp_mobile/feature/location/widget/public_location.dart';
+import 'package:amaz_corp_mobile/feature/building/widget/my_building.dart';
+import 'package:amaz_corp_mobile/feature/building/widget/public_building.dart';
 import 'package:amaz_corp_mobile/shared/layout/plain.dart';
 import 'package:flutter/material.dart';
 
-class ListLocation extends StatefulWidget {
-  const ListLocation({super.key});
+class ListBuildingScreen extends StatefulWidget {
+  const ListBuildingScreen({super.key});
 
   @override
-  State<ListLocation> createState() => _ListLocationState();
+  State<ListBuildingScreen> createState() => _ListBuildingScreenState();
 }
 
 enum LocationType {
@@ -15,13 +15,13 @@ enum LocationType {
   mine,
 }
 
-class _ListLocationState extends State<ListLocation> {
+class _ListBuildingScreenState extends State<ListBuildingScreen> {
   LocationType selected = LocationType.public;
 
   @override
   Widget build(BuildContext context) {
     return PlainLayout(
-      title: 'List Location',
+      title: 'List Building',
       child: Column(
         children: [
           Row(
@@ -50,8 +50,8 @@ class _ListLocationState extends State<ListLocation> {
             ],
           ),
           switch (selected) {
-            LocationType.public => const PublicLocation(),
-            LocationType.mine => const MyLocation(),
+            LocationType.public => const PublicBuilding(),
+            LocationType.mine => const MyBuilding(),
           },
         ],
       ),

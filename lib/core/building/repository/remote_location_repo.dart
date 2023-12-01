@@ -1,7 +1,7 @@
-import 'package:amaz_corp_mobile/core/location/domain/entity/building_entity.dart';
-import 'package:amaz_corp_mobile/core/location/domain/entity/member_entity.dart';
-import 'package:amaz_corp_mobile/core/location/domain/entity/room_entity.dart';
-import 'package:amaz_corp_mobile/core/location/domain/repository/http_remote_location_repo.dart';
+import 'package:amaz_corp_mobile/core/building/entity/building_entity.dart';
+import 'package:amaz_corp_mobile/core/building/entity/member_entity.dart';
+import 'package:amaz_corp_mobile/core/building/entity/room_entity.dart';
+import 'package:amaz_corp_mobile/core/building/repository/http_remote_location_repo.dart';
 import 'package:amaz_corp_mobile/shared/api/dio_factory.dart';
 import 'package:amaz_corp_mobile/shared/env.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -9,6 +9,9 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'remote_location_repo.g.dart';
 
 abstract class RemoteBuildingRepoCommand {
+  Future<void> postAddBuilding(
+    AddBuildingReq req,
+  );
   Future<void> joinBuilding(
     String name,
     String buildingID,
