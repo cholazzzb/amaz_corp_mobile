@@ -20,11 +20,23 @@ class LocationService {
     await repo.postAddBuilding(req);
   }
 
+  Future<void> inviteMemberToBuilding(InviteMemberToBuildingReq req) async {
+    final repo = ref.read(remoteLocationRepoProvider);
+    await repo.inviteMemberToBuilding(req);
+  }
+
+  Future<void> renameMemberName(RenameMemberNameReq req) async {
+    final repo = ref.read(remoteLocationRepoProvider);
+    await repo.editMemberName(req);
+  }
+
   Future<void> joinBuilding(
-    String name,
+    String memberID,
     String buildingID,
   ) async {
-    await ref.read(remoteLocationRepoProvider).joinBuilding(name, buildingID);
+    JoinBuildingReq req =
+        JoinBuildingReq(memberID: memberID, buildingID: buildingID);
+    await ref.read(remoteLocationRepoProvider).joinBuilding(req);
     return;
   }
 
@@ -45,6 +57,16 @@ class LocationService {
         await ref.read(remoteLocationRepoProvider).getMyLocations(memberId);
     return res;
   }
+
+  Future<List<Member>> getListMemberByName(
+    String name,
+  ) async {
+    final req = GetListMemberByNameReq(name: name);
+    return await ref
+        .read(remoteLocationRepoProvider)
+        .getListUserByUsername(req);
+    // move to user domain
+  }
 }
 
 @Riverpod(keepAlive: true)
@@ -57,6 +79,13 @@ Future<List<Building>> getAllLocations(
   GetAllLocationsRef ref,
 ) async {
   return await ref.read(remoteLocationRepoProvider).getAllLocations();
+}
+
+@riverpod
+Future<List<Building>> getListMyOwnedBuildings(
+  GetListMyOwnedBuildingsRef ref,
+) async {
+  return await ref.read(remoteLocationRepoProvider).getListMyOwnedBuilding();
 }
 
 @riverpod

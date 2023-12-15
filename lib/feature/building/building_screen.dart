@@ -1,5 +1,4 @@
-import 'package:amaz_corp_mobile/core/building/entity/building_entity.dart';
-import 'package:amaz_corp_mobile/core/building/service/building_service.dart';
+import 'package:amaz_corp_mobile/feature/building/widget/invite_member_fab.dart';
 import 'package:amaz_corp_mobile/feature/building/widget/list_member.dart';
 import 'package:amaz_corp_mobile/feature/building/widget/list_room.dart';
 import 'package:amaz_corp_mobile/shared/layout/with_navigation.dart';
@@ -12,7 +11,12 @@ enum Tab {
 }
 
 class BuildingScreen extends ConsumerStatefulWidget {
-  const BuildingScreen({super.key});
+  final String buildingID;
+
+  const BuildingScreen({
+    super.key,
+    required this.buildingID,
+  });
 
   @override
   ConsumerState<BuildingScreen> createState() => _BuildingScreenState();
@@ -23,67 +27,47 @@ class _BuildingScreenState extends ConsumerState<BuildingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final async = ref.watch(getMyBuildingsProvider);
-
-    Widget loadingWidget() {
-      return const Text("Loading");
-    }
-
-    Widget errorWidget(Object err, StackTrace st) {
-      return const Text("error");
-    }
-
-    Widget successWidget(
-      (
-        String activeBuildingID,
-        List<BuildingMember> buildings,
-      ) data,
-    ) {
-      return WithNavigationLayout(
-        title: "List Room",
-        selectedIdx: 0,
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SegmentedButton<Tab>(
-                  segments: const <ButtonSegment<Tab>>[
-                    ButtonSegment<Tab>(
-                      value: Tab.room,
-                      label: Text('Rooms'),
-                      icon: Icon(Icons.door_back_door),
-                    ),
-                    ButtonSegment<Tab>(
-                      value: Tab.member,
-                      label: Text('Members'),
-                      icon: Icon(Icons.people),
-                    )
-                  ],
-                  selected: <Tab>{selectedTab},
-                  onSelectionChanged: (Set<Tab> newSelection) {
-                    setState(() {
-                      selectedTab = newSelection.first;
-                    });
-                  },
-                )
-              ],
-            ),
-            switch (selectedTab) {
-              Tab.room => ListRoom(buildingID: data.$1),
-              Tab.member => ListMember(
-                  buildingID: data.$1,
-                )
-            }
-          ],
-        ),
-      );
-    }
-
-    return async.when(
-      data: successWidget,
-      error: errorWidget,
-      loading: loadingWidget,
+    return WithNavigationLayout(
+      title: "List Room",
+      selectedIdx: 0,
+      floatingActionButton: InviteMemberFAB(
+        buildingID: widget.buildingID,
+      ),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SegmentedButton<Tab>(
+                segments: const <ButtonSegment<Tab>>[
+                  ButtonSegment<Tab>(
+                    value: Tab.room,
+                    label: Text('Rooms'),
+                    icon: Icon(Icons.door_back_door),
+                  ),
+                  ButtonSegment<Tab>(
+                    value: Tab.member,
+                    label: Text('Members'),
+                    icon: Icon(Icons.people),
+                  )
+                ],
+                selected: <Tab>{selectedTab},
+                onSelectionChanged: (Set<Tab> newSelection) {
+                  setState(() {
+                    selectedTab = newSelection.first;
+                  });
+                },
+              )
+            ],
+          ),
+          switch (selectedTab) {
+            Tab.room => ListRoom(buildingID: widget.buildingID),
+            Tab.member => ListMember(
+                buildingID: widget.buildingID,
+              )
+          }
+        ],
+      ),
     );
   }
 }

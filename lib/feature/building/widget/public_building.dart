@@ -1,8 +1,8 @@
 import 'package:amaz_corp_mobile/core/building/entity/building_entity.dart';
 import 'package:amaz_corp_mobile/core/building/service/location_service.dart';
-import 'package:amaz_corp_mobile/feature/building/controller/building_controller.dart';
-import 'package:amaz_corp_mobile/feature/building/widget/join_building_bottom_sheet.dart';
+import 'package:amaz_corp_mobile/feature/building/controller/member_controller.dart';
 import 'package:amaz_corp_mobile/feature/building/widget/building_card.dart';
+import 'package:amaz_corp_mobile/feature/building/widget/join_building_bottom_sheet.dart';
 import 'package:amaz_corp_mobile/routing/location_router.dart';
 import 'package:amaz_corp_mobile/shared/component/skeleton.dart';
 import 'package:amaz_corp_mobile/shared/constant/app_size.dart';
@@ -26,12 +26,15 @@ class _PublicBuildingState extends ConsumerState<PublicBuilding> {
   }
 
   Future<void> _onPressJoin(String name, Building building) async {
-    final controller = ref.read(joinBuildingControllerProvider.notifier);
-    await controller.joinBuilding(
+    final controller = ref.read(renameMemberControllerProvider.notifier);
+    await controller.renameMember(
       name: name,
       buildingID: building.id,
       onSuccess: () {
-        context.goNamed(LocationRouteName.roomID.name, extra: building);
+        context.goNamed(
+          LocationRouteName.buildingID.name,
+          pathParameters: {"buildingID": building.id},
+        );
       },
     );
   }

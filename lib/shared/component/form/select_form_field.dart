@@ -9,9 +9,10 @@ class SelectFormField<T> extends StatelessWidget {
   final String errorMessage;
   final String title;
   final T selectedValue;
-  final void Function(T selectedValue) onSelect;
   final List<T> list;
+  final void Function(T selectedValue) onSelect;
   final String Function(T value) selectValue;
+  final void Function(String value)? onSearch;
 
   const SelectFormField({
     super.key,
@@ -20,8 +21,9 @@ class SelectFormField<T> extends StatelessWidget {
     required this.title,
     required this.selectedValue,
     required this.list,
-    this.selectValue = defaultSelect,
     required this.onSelect,
+    this.selectValue = defaultSelect,
+    this.onSearch,
   });
 
   @override
@@ -59,6 +61,7 @@ class SelectFormField<T> extends StatelessWidget {
                           title: title,
                           onSelect: onSelect,
                           selectValue: selectValue,
+                          onSearch: onSearch,
                         );
                       },
                     ),

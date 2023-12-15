@@ -1,12 +1,13 @@
 import 'package:amaz_corp_mobile/feature/building/building_screen.dart';
-import 'package:amaz_corp_mobile/feature/home/home_screen.dart';
 import 'package:amaz_corp_mobile/feature/building/list_building_screen.dart';
+import 'package:amaz_corp_mobile/feature/home/home_screen.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 enum LocationRouteName {
   home,
   location,
-  roomID,
+  buildingID,
 }
 
 class LocationRoute {
@@ -15,7 +16,7 @@ class LocationRoute {
       GoRoute(
         path: 'home',
         name: LocationRouteName.home.name,
-        builder: (context, state) => const HomeScreen(),
+        builder: (context, state) => const ListBuildingScreen(),
       ),
       GoRoute(
         path: 'locations',
@@ -23,9 +24,18 @@ class LocationRoute {
         builder: (context, state) => const ListBuildingScreen(),
       ),
       GoRoute(
-        path: 'building/rooms',
-        name: LocationRouteName.roomID.name,
-        builder: (context, state) => const BuildingScreen(),
+        path: 'building/:buildingID',
+        name: LocationRouteName.buildingID.name,
+        redirect: (BuildContext context, GoRouterState state) {
+          final buildingID = state.pathParameters["buildingID"];
+          if (buildingID == null) {
+            return '/home';
+          }
+          return null;
+        },
+        builder: (context, state) => BuildingScreen(
+          buildingID: state.pathParameters["buildingID"]!,
+        ),
       ),
     ];
   }

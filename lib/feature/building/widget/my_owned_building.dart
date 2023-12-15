@@ -2,7 +2,6 @@ import 'package:amaz_corp_mobile/core/building/entity/building_entity.dart';
 import 'package:amaz_corp_mobile/core/building/service/location_service.dart';
 import 'package:amaz_corp_mobile/feature/building/controller/building_controller.dart';
 import 'package:amaz_corp_mobile/feature/building/widget/create_building_bottom_sheet.dart';
-import 'package:amaz_corp_mobile/feature/building/widget/my_building_card.dart';
 import 'package:amaz_corp_mobile/routing/location_router.dart';
 import 'package:amaz_corp_mobile/shared/component/primary_button.dart';
 import 'package:amaz_corp_mobile/shared/constant/app_size.dart';
@@ -10,19 +9,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
-class MyBuilding extends ConsumerWidget {
-  const MyBuilding({super.key});
+class MyOwnedBuilding extends ConsumerWidget {
+  const MyOwnedBuilding({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final locationAsync = ref.watch(getMyLocationsProvider);
+    final buildingsRef = ref.watch(getListMyOwnedBuildingsProvider);
 
-    Widget res = locationAsync.when(
+    Widget res = buildingsRef.when(
       data: (data) {
         if (data.isNotEmpty) {
-          return ListLocation(data: data);
+          return ListOwnedBuilding(data: data);
         }
-        return const EmptyLocation();
+        return const EmptyOwnedBuilding();
       },
       error: (e, st) {
         return Center(
@@ -38,8 +37,8 @@ class MyBuilding extends ConsumerWidget {
   }
 }
 
-class EmptyLocation extends ConsumerWidget {
-  const EmptyLocation({
+class EmptyOwnedBuilding extends ConsumerWidget {
+  const EmptyOwnedBuilding({
     super.key,
   });
 
@@ -51,7 +50,7 @@ class EmptyLocation extends ConsumerWidget {
 
     void onSuccess() {
       onPressClose();
-      ref.invalidate(getMyLocationsProvider);
+      ref.invalidate(getListMyOwnedBuildingsProvider);
     }
 
     Future<void> onPressCreate(String name) async {
@@ -87,45 +86,44 @@ class EmptyLocation extends ConsumerWidget {
   }
 }
 
-class ListLocation extends ConsumerWidget {
-  final List<BuildingMember> data;
+class ListOwnedBuilding extends StatelessWidget {
+  final List<Building> data;
 
-  const ListLocation({
+  const ListOwnedBuilding({
     super.key,
     required this.data,
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return Expanded(
       child: ListView.builder(
-        padding: const EdgeInsets.symmetric(vertical: Sizes.p16),
+        padding: const EdgeInsets.symmetric(vertical: Sizes.p12),
         itemCount: data.length,
         itemBuilder: (BuildContext context, int index) {
           final building = data[index];
 
           void onPressDetail() {
-            context.goNamed(
-              LocationRouteName.buildingID.name,
-            );
+            context.goNamed(LocationRouteName.buildingID.name, pathParameters: {
+              "buildingID": building.id,
+            });
           }
 
-          Future<void> onPressedLeave() async {
-            final controller =
-                ref.read(leaveBuildingControllerProvider.notifier);
-            await controller.leaveBuilding(
-              memberId: building.memberID,
-              buildingId: building.id,
-              onSuccess: () {
-                final _ = ref.refresh(getMyLocationsProvider);
-              },
-            );
-          }
-
-          return MyBuildingCard(
-            locationName: building.name,
-            onPressDetail: onPressDetail,
-            onPressLeave: onPressedLeave,
+          return Card(
+            margin: const EdgeInsets.symmetric(horizontal: Sizes.p12),
+            child: Padding(
+              padding: const EdgeInsets.all(Sizes.p12),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(building.name),
+                  PrimaryButton(
+                    text: "Detail",
+                    onPressed: onPressDetail,
+                  )
+                ],
+              ),
+            ),
           );
         },
       ),
