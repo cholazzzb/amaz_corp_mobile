@@ -66,8 +66,8 @@ class WithNavigationLayout extends ConsumerWidget {
       appBar: AppBar(title: Text(title)),
       drawerEnableOpenDragGesture: true,
       drawer: const BuildingDrawer(),
-      endDrawerEnableOpenDragGesture: true,
-      endDrawer: const MenuDrawer(),
+      // endDrawerEnableOpenDragGesture: true,
+      // endDrawer: const MenuDrawer(),
       onDrawerChanged: (isOpened) {
         ref.invalidate(getMyBuildingsProvider);
       },

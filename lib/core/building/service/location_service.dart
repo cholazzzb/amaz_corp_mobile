@@ -64,7 +64,7 @@ class LocationService {
     final req = GetListMemberByNameReq(name: name);
     return await ref
         .read(remoteLocationRepoProvider)
-        .getListUserByUsername(req);
+        .getListMemberByBuildingID(name); // TODO: Fix HERE!
     // move to user domain
   }
 }
