@@ -1,6 +1,7 @@
 import 'package:amaz_corp_mobile/core/user/domain/entity/credential_entity.dart';
 import 'package:amaz_corp_mobile/feature/user/controller/login_controller.dart';
 import 'package:amaz_corp_mobile/feature/user/screen/validator.dart';
+import 'package:amaz_corp_mobile/routing/location_router.dart';
 import 'package:amaz_corp_mobile/routing/user_router.dart';
 import 'package:amaz_corp_mobile/shared/async_value_ui.dart';
 import 'package:amaz_corp_mobile/shared/component/bottom_sheet/error_bottom_sheet.dart';
@@ -48,7 +49,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   Future<void> _submit(VoidCallback onSuccess) async {
     final controller = ref.read(loginControllerProvider.notifier);
-    await controller.login(Credential(username, password), onSuccess);
+    await controller.login(Credential(username, password));
+    onSuccess();
   }
 
   @override
@@ -66,7 +68,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     final state = ref.watch(loginControllerProvider);
 
     void onSuccess() {
-      context.push('/locations');
+      context.goNamed(LocationRouteName.location.name);
     }
 
     return PlainLayout(

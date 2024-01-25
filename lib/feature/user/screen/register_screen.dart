@@ -48,15 +48,20 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     super.dispose();
   }
 
-  Future<void> _submit(VoidCallback? onSuccess) async {
-    final controller = ref.read(registerControllerProvider.notifier);
-    await controller.register(Credential(username, password), onSuccess);
-  }
-
   final _formKey = GlobalKey<FormState>();
+
+  Future<void> _submit(VoidCallback onSuccess) async {
+    final controller = ref.read(registerControllerProvider.notifier);
+    await controller.register(Credential(username, password));
+    onSuccess();
+  }
 
   @override
   Widget build(BuildContext context) {
+    void onSuccessRegister() {
+      context.goNamed(UserRouteName.login.name);
+    }
+
     return PlainLayout(
       child: Center(
         child: Padding(
@@ -106,11 +111,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   ElevatedButton.icon(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        _submit(
-                          () => context.goNamed(
-                            UserRouteName.register.name,
-                          ),
-                        );
+                        _submit(onSuccessRegister);
                       }
                     },
                     icon: const Icon(Icons.app_registration),

@@ -1,6 +1,5 @@
 import 'package:amaz_corp_mobile/feature/building/building_screen.dart';
 import 'package:amaz_corp_mobile/feature/building/list_building_screen.dart';
-import 'package:amaz_corp_mobile/feature/home/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
