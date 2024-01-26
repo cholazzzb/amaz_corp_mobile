@@ -25,8 +25,22 @@ class HttpRemoteLocationRepo implements RemoteBuildingRepo {
   }
 
   @override
+  Future<List<BuildingMember>> getListInvitedBuildings() async {
+    const uri = 'api/v1/buildings/invitation';
+    final response = await _dio.get(uri);
+
+    final List<BuildingMember> buildings = response.data["data"]!
+        .map((b) {
+          return BuildingMember.fromJSON(b);
+        })
+        .toList()
+        .cast<BuildingMember>();
+    return buildings;
+  }
+
+  @override
   Future<List<BuildingMember>> getMyLocations(String memberId) async {
-    const uri = 'api/v1/buildings';
+    const uri = 'api/v1/buildings/joined';
 
     // final Map<String, dynamic> qp = Map.from({"memberId": memberId});
 

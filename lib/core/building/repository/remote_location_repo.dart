@@ -33,6 +33,7 @@ abstract class RemoteBuildingRepoCommand {
 
 abstract class RemoteBuildingRepoQuery {
   Future<List<Building>> getAllLocations();
+  Future<List<BuildingMember>> getListInvitedBuildings();
   Future<List<Building>> getListMyOwnedBuilding();
   Future<List<BuildingMember>> getMyLocations(String memberID);
   Future<List<Member>> getListMemberByBuildingID(String buildingID);

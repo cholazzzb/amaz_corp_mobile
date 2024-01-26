@@ -37,20 +37,20 @@ class JoinBuildingController extends _$JoinBuildingController {
   FutureOr<void> build() => Future.value();
 
   Future<void> joinBuilding({
-    required String name,
+    required String memberID,
     required String buildingID,
     VoidCallback? onSuccess,
   }) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
-      await _joinBuilding(name, buildingID);
+      await _joinBuilding(memberID, buildingID);
       onSuccess?.call();
     });
   }
 
-  Future<void> _joinBuilding(String name, String buildingId) async {
+  Future<void> _joinBuilding(String memberID, String buildingID) async {
     final locationService = ref.read(locationServiceProvider);
-    await locationService.joinBuilding(name, buildingId);
+    await locationService.joinBuilding(memberID, buildingID);
   }
 }
 

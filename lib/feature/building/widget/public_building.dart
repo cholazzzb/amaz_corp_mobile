@@ -25,19 +25,19 @@ class _PublicBuildingState extends ConsumerState<PublicBuilding> {
     Navigator.pop(context);
   }
 
-  Future<void> _onPressJoin(String name, Building building) async {
-    final controller = ref.read(renameMemberControllerProvider.notifier);
-    await controller.renameMember(
-      name: name,
-      buildingID: building.id,
-      onSuccess: () {
-        context.goNamed(
-          LocationRouteName.buildingID.name,
-          pathParameters: {"buildingID": building.id},
-        );
-      },
-    );
-  }
+  // Future<void> _onPressJoin(String name, Building building) async {
+  //   final controller = ref.read(renameMemberControllerProvider.notifier);
+  //   await controller.renameMember(
+  //     name: name,
+  //     buildingID: building.id,
+  //     onSuccess: () {
+  //       context.goNamed(
+  //         LocationRouteName.buildingID.name,
+  //         pathParameters: {"buildingID": building.id},
+  //       );
+  //     },
+  //   );
+  // }
 
   Widget successWidget(List<Building> data) {
     return Expanded(
@@ -48,15 +48,15 @@ class _PublicBuildingState extends ConsumerState<PublicBuilding> {
           final building = data[index];
 
           Future<void> onPressed(String buildingID) async {
-            showModalBottomSheet<void>(
-              context: context,
-              builder: (BuildContext context) {
-                return JoinBuildingBottomSheet(
-                  onPressJoin: (name) => _onPressJoin(name, building),
-                  onPressClose: _onPressClose,
-                );
-              },
-            );
+            // showModalBottomSheet<void>(
+            //   context: context,
+            //   builder: (BuildContext context) {
+            //     return JoinBuildingBottomSheet(
+            //       onPressJoin: (name) => _onPressJoin(name, building),
+            //       onPressClose: _onPressClose,
+            //     );
+            //   },
+            // );
           }
 
           return BuildingCard(

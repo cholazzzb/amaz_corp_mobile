@@ -36,13 +36,13 @@ class RenameMemberController extends _$RenameMemberController {
   FutureOr<void> build() => Future.value();
 
   Future<void> renameMember({
+    required String memberID,
     required String name,
-    required String buildingID,
     void Function()? onSuccess,
   }) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
-      await _renameMember(name, buildingID);
+      await _renameMember(memberID, name);
       onSuccess?.call();
     });
   }

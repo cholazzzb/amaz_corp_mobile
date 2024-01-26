@@ -82,6 +82,13 @@ Future<List<Building>> getAllLocations(
 }
 
 @riverpod
+Future<List<BuildingMember>> getListInvitedBuildings(
+  GetListInvitedBuildingsRef ref,
+) async {
+  return await ref.read(remoteLocationRepoProvider).getListInvitedBuildings();
+}
+
+@riverpod
 Future<List<Building>> getListMyOwnedBuildings(
   GetListMyOwnedBuildingsRef ref,
 ) async {

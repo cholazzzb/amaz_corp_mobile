@@ -22,3 +22,6 @@ clean:
 
 clean-cache:
 	@flutter pub cache clean
+
+check-dep:
+	@flutter pub outdated
