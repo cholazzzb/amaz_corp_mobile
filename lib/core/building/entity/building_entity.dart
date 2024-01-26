@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'building_entity.freezed.dart';
@@ -37,4 +38,51 @@ class AddBuildingReq with _$AddBuildingReq {
 
   factory AddBuildingReq.fromJSON(Map<String, dynamic> json) =>
       _$$_AddBuildingReqFromJson(json);
+}
+
+@Freezed(toJson: true)
+class JoinBuildingReq with _$JoinBuildingReq {
+  @JsonSerializable(explicitToJson: true)
+  const factory JoinBuildingReq({
+    @JsonKey(name: 'memberID') required String memberID,
+    @JsonKey(name: 'buildingID') required String buildingID,
+  }) = _JoinBuildingReq;
+
+  factory JoinBuildingReq.fromJSON(Map<String, dynamic> json) =>
+      _$$_JoinBuildingReqFromJson(json);
+}
+
+@Freezed(toJson: true)
+class InviteMemberToBuildingReq with _$InviteMemberToBuildingReq {
+  @JsonSerializable(explicitToJson: true)
+  const factory InviteMemberToBuildingReq({
+    @JsonKey(name: 'userID') required String userID,
+    @JsonKey(name: "buildingID") required String buildingID,
+  }) = _InviteMemberToBuildingReq;
+
+  factory InviteMemberToBuildingReq.fromJSON(Map<String, dynamic> json) =>
+      _$$_InviteMemberToBuildingReqFromJson(json);
+}
+
+@Freezed(toJson: true)
+class RenameMemberNameReq with _$RenameMemberNameReq {
+  @JsonSerializable(explicitToJson: true)
+  const factory RenameMemberNameReq({
+    @JsonKey(name: 'memberID') required String memberID,
+    @JsonKey(name: "name") required String name,
+  }) = _RenameMemberNameReq;
+
+  factory RenameMemberNameReq.fromJSON(Map<String, dynamic> json) =>
+      _$$_RenameMemberNameReqFromJson(json);
+}
+
+@Freezed(toJson: true)
+class GetListMemberByNameReq with _$GetListMemberByNameReq {
+  @JsonSerializable(explicitToJson: true)
+  const factory GetListMemberByNameReq({
+    @JsonKey(name: 'name') required String name,
+  }) = _GetListMemberByNameReq;
+
+  factory GetListMemberByNameReq.fromJSON(Map<String, dynamic> json) =>
+      _$$_GetListMemberByNameReqFromJson(json);
 }

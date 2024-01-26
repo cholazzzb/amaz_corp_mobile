@@ -12,6 +12,7 @@ class ListMember extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    print("listmember $buildingID");
     final AsyncValue<List<Member>> members =
         ref.watch(getListMemberByBuildingIDProvider(buildingID));
 

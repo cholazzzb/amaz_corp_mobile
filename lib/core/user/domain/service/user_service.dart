@@ -20,8 +20,8 @@ class UserService {
       credential.password,
     );
 
-    localUserRepo.setToken(token);
-    localUserRepo.setIsLoggedIn(true);
+    await localUserRepo.setToken(token);
+    await localUserRepo.setIsLoggedIn(true);
   }
 
   Future<void> register(Credential credential) async {

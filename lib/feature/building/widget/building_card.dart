@@ -25,6 +25,7 @@ class BuildingCard extends ConsumerWidget {
       child: Padding(
         padding: const EdgeInsets.all(Sizes.p16),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(name),
             PrimaryButton(

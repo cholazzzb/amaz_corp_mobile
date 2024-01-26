@@ -1,5 +1,6 @@
 import 'package:amaz_corp_mobile/core/user/domain/entity/credential_entity.dart';
 import 'package:amaz_corp_mobile/feature/user/controller/register_controller.dart';
+import 'package:amaz_corp_mobile/feature/user/screen/validator.dart';
 import 'package:amaz_corp_mobile/routing/user_router.dart';
 import 'package:amaz_corp_mobile/shared/layout/plain.dart';
 import 'package:flutter/material.dart';
@@ -47,24 +48,20 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
     super.dispose();
   }
 
-  Future<void> _submit(VoidCallback? onSuccess) async {
-    final controller = ref.read(registerControllerProvider.notifier);
-    await controller.register(Credential(username, password), onSuccess);
-  }
-
   final _formKey = GlobalKey<FormState>();
-  String? usernameValidator(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'username is required';
-    }
-    if (value.length < 5) {
-      return 'username must at least 5 characters';
-    }
-    return null;
+
+  Future<void> _submit(VoidCallback onSuccess) async {
+    final controller = ref.read(registerControllerProvider.notifier);
+    await controller.register(Credential(username, password));
+    onSuccess();
   }
 
   @override
   Widget build(BuildContext context) {
+    void onSuccessRegister() {
+      context.goNamed(UserRouteName.login.name);
+    }
+
     return PlainLayout(
       child: Center(
         child: Padding(
@@ -114,11 +111,7 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
                   ElevatedButton.icon(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        _submit(
-                          () => context.goNamed(
-                            UserRouteName.login.name,
-                          ),
-                        );
+                        _submit(onSuccessRegister);
                       }
                     },
                     icon: const Icon(Icons.app_registration),

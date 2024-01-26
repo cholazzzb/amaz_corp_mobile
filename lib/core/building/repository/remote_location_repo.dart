@@ -8,13 +8,22 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'remote_location_repo.g.dart';
 
+abstract class RemoteBuildingRepo
+    implements
+        RemoteBuildingRepoCommand,
+        RemoteBuildingRepoQuery,
+        RemoteMemberRepoCommand,
+        RemoteMemberRepoQuery {}
+
 abstract class RemoteBuildingRepoCommand {
   Future<void> postAddBuilding(
     AddBuildingReq req,
   );
+  Future<void> inviteMemberToBuilding(
+    InviteMemberToBuildingReq req,
+  );
   Future<void> joinBuilding(
-    String name,
-    String buildingID,
+    JoinBuildingReq req,
   );
   Future<void> leaveBuilding(
     String memberID,
@@ -24,10 +33,18 @@ abstract class RemoteBuildingRepoCommand {
 
 abstract class RemoteBuildingRepoQuery {
   Future<List<Building>> getAllLocations();
+  Future<List<BuildingMember>> getListInvitedBuildings();
+  Future<List<Building>> getListMyOwnedBuilding();
   Future<List<BuildingMember>> getMyLocations(String memberID);
   Future<List<Member>> getListMemberByBuildingID(String buildingID);
   Future<List<Room>> getListRoomsByBuildingID(String buildingID);
 }
+
+abstract class RemoteMemberRepoCommand {
+  Future<void> editMemberName(RenameMemberNameReq req);
+}
+
+abstract class RemoteMemberRepoQuery {}
 
 @riverpod
 HttpRemoteLocationRepo remoteLocationRepo(

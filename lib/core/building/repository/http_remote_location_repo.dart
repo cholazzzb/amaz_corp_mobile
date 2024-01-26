@@ -6,8 +6,7 @@ import 'package:amaz_corp_mobile/core/building/entity/room_entity.dart';
 import 'package:amaz_corp_mobile/core/building/repository/remote_location_repo.dart';
 import 'package:dio/dio.dart';
 
-class HttpRemoteLocationRepo
-    implements RemoteBuildingRepoCommand, RemoteBuildingRepoQuery {
+class HttpRemoteLocationRepo implements RemoteBuildingRepo {
   const HttpRemoteLocationRepo(this._dio);
 
   final Dio _dio;
@@ -26,8 +25,22 @@ class HttpRemoteLocationRepo
   }
 
   @override
+  Future<List<BuildingMember>> getListInvitedBuildings() async {
+    const uri = 'api/v1/buildings/invitation';
+    final response = await _dio.get(uri);
+
+    final List<BuildingMember> buildings = response.data["data"]!
+        .map((b) {
+          return BuildingMember.fromJSON(b);
+        })
+        .toList()
+        .cast<BuildingMember>();
+    return buildings;
+  }
+
+  @override
   Future<List<BuildingMember>> getMyLocations(String memberId) async {
-    const uri = 'api/v1/buildings';
+    const uri = 'api/v1/buildings/joined';
 
     // final Map<String, dynamic> qp = Map.from({"memberId": memberId});
 
@@ -40,6 +53,20 @@ class HttpRemoteLocationRepo
         .map((b) => BuildingMember.fromJSON(b))
         .toList()
         .cast<BuildingMember>();
+    return buildings;
+  }
+
+  @override
+  Future<List<Building>> getListMyOwnedBuilding() async {
+    const uri = 'api/v1/buildings/owned';
+
+    final response = await _dio.get(uri);
+
+    final List<Building> buildings = response.data["data"]!
+        .map((blndg) => Building.fromJSON(blndg))
+        .toList()
+        .cast<Building>();
+
     return buildings;
   }
 
@@ -57,16 +84,25 @@ class HttpRemoteLocationRepo
   }
 
   @override
+  Future<void> inviteMemberToBuilding(
+    InviteMemberToBuildingReq req,
+  ) async {
+    const uri = 'api/v1/buildings/invite';
+
+    String body = json.encode(req.toJson());
+
+    await _dio.post(uri, data: body);
+
+    return;
+  }
+
+  @override
   Future<void> joinBuilding(
-    String name,
-    String buildingID,
+    JoinBuildingReq req,
   ) async {
     const uri = 'api/v1/buildings/join';
-    final Map<String, dynamic> rawbody = {
-      "name": name,
-      "buildingID": buildingID,
-    };
-    String body = json.encode(rawbody);
+
+    String body = json.encode(req.toJson());
 
     await _dio.post(uri, data: body);
     return;
@@ -85,6 +121,16 @@ class HttpRemoteLocationRepo
     String body = json.encode(rawbody);
 
     await _dio.delete(uri, data: body);
+    return;
+  }
+
+  @override
+  Future<void> editMemberName(RenameMemberNameReq req) async {
+    String uri = 'api/v1/members/';
+
+    String body = json.encode(req.toJson());
+
+    await _dio.put(uri, data: body);
     return;
   }
 

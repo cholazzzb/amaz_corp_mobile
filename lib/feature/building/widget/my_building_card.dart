@@ -2,8 +2,8 @@ import 'package:amaz_corp_mobile/shared/component/primary_button.dart';
 import 'package:amaz_corp_mobile/shared/constant/app_size.dart';
 import 'package:flutter/material.dart';
 
-class MyBuildingCard extends StatelessWidget {
-  const MyBuildingCard({
+class JoinedBuildingCard extends StatelessWidget {
+  const JoinedBuildingCard({
     super.key,
     required this.locationName,
     required this.onPressDetail,
@@ -20,15 +20,21 @@ class MyBuildingCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(Sizes.p16),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(locationName),
-            PrimaryButton(
-              text: "Detail",
-              onPressed: onPressDetail,
-            ),
-            PrimaryButton(
-              text: "Leave",
-              onPressed: onPressLeave,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                PrimaryButton(
+                  text: "Detail",
+                  onPressed: onPressDetail,
+                ),
+                PrimaryButton(
+                  text: "Leave",
+                  onPressed: onPressLeave,
+                ),
+              ],
             )
           ],
         ),
