@@ -1,6 +1,9 @@
 # amaz_corp_mobile
- 
+
+[![Codemagic build status](https://api.codemagic.io/apps/655719ffe4f8743cfef7f270/655719ffe4f8743cfef7f26f/status_badge.svg)](https://codemagic.io/apps/655719ffe4f8743cfef7f270/655719ffe4f8743cfef7f26f/latest_build)
+
 # Project Structure (latest)
+
 ```
 lib
 |_core -> All code related to logic
@@ -19,12 +22,10 @@ lib
 main.dart
 ```
 
-# apiUrl: 
-https://amaz-corp-be-staging.onrender.com/
-
 # Setup:
+
 1. Install the dependencies
- 
+
 ```sh
 flutter pub get
 ```
@@ -33,14 +34,18 @@ flutter pub get
 
 ```sh
 dart run build_runner watch -d
-``` 
+```
 
 # Notes:
+
 - Add Dependencies
+
 ```shell
 dart pub add name
 ```
+
 - Add Dev Dependencies
+
 ```powershell
 dart pub add dev:name
 ```
