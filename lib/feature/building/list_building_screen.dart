@@ -1,5 +1,5 @@
 import 'package:amaz_corp_mobile/feature/building/widget/invited_building.dart';
-import 'package:amaz_corp_mobile/feature/building/widget/my_building.dart';
+import 'package:amaz_corp_mobile/feature/building/widget/joined_building.dart';
 import 'package:amaz_corp_mobile/feature/building/widget/my_owned_building.dart';
 import 'package:amaz_corp_mobile/feature/building/widget/public_building.dart';
 import 'package:amaz_corp_mobile/shared/constant/app_size.dart';

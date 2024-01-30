@@ -1,11 +1,8 @@
 import 'package:amaz_corp_mobile/core/building/entity/building_entity.dart';
 import 'package:amaz_corp_mobile/core/building/service/building_service.dart';
-import 'package:amaz_corp_mobile/core/user/domain/service/user_service.dart';
 import 'package:amaz_corp_mobile/feature/drawer/building_drawer_controller.dart';
-import 'package:amaz_corp_mobile/feature/drawer/widget/building_drawer_header.dart';
 import 'package:amaz_corp_mobile/feature/drawer/widget/building_expansion_panel_body.dart';
 import 'package:amaz_corp_mobile/routing/location_router.dart';
-import 'package:amaz_corp_mobile/routing/user_router.dart';
 import 'package:amaz_corp_mobile/shared/component/primary_button.dart';
 import 'package:amaz_corp_mobile/shared/component/skeleton.dart';
 import 'package:amaz_corp_mobile/shared/constant/app_size.dart';
@@ -26,15 +23,8 @@ class _BuildingDrawerState extends ConsumerState<BuildingDrawer> {
   @override
   Widget build(BuildContext context) {
     final myBuildingAsync = ref.watch(getMyBuildingsProvider);
-    final userService = ref.watch(userServiceProvider);
     final buildingDrawerController =
         ref.watch(buildingDrawerControllerProvider.notifier);
-
-    void logout() {
-      userService.logout(() {
-        context.goNamed(UserRouteName.login.name);
-      });
-    }
 
     List<Widget> loadingWidget() {
       return [const Skeleton()];
@@ -112,17 +102,8 @@ class _BuildingDrawerState extends ConsumerState<BuildingDrawer> {
       data: successWidget,
     );
 
-    return Drawer(
-      child: Center(
-        child: Column(
-          children: [
-            BuildingDrawerHeader(
-              logout: logout,
-            ),
-            ...drawer,
-          ],
-        ),
-      ),
+    return Column(
+      children: [...drawer],
     );
   }
 }

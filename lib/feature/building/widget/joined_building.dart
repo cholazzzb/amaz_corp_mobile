@@ -1,7 +1,7 @@
 import 'package:amaz_corp_mobile/core/building/entity/building_entity.dart';
 import 'package:amaz_corp_mobile/core/building/service/location_service.dart';
 import 'package:amaz_corp_mobile/feature/building/controller/building_controller.dart';
-import 'package:amaz_corp_mobile/feature/building/widget/my_building_card.dart';
+import 'package:amaz_corp_mobile/feature/building/widget/joined_building_card.dart';
 import 'package:amaz_corp_mobile/routing/location_router.dart';
 import 'package:amaz_corp_mobile/shared/constant/app_size.dart';
 import 'package:flutter/material.dart';

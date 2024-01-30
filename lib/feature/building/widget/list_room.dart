@@ -1,9 +1,11 @@
 import 'package:amaz_corp_mobile/core/building/entity/room_entity.dart';
 import 'package:amaz_corp_mobile/core/building/service/location_service.dart';
+import 'package:amaz_corp_mobile/routing/schedule_router.dart';
 import 'package:amaz_corp_mobile/shared/component/primary_button.dart';
 import 'package:amaz_corp_mobile/shared/constant/app_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class ListRoom extends ConsumerWidget {
   const ListRoom({super.key, required this.buildingID});
@@ -73,12 +75,23 @@ class RoomCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Future<void> onPress() async {
+      context.goNamed(ScheduleRouteName.schedules.name,
+          pathParameters: {"roomID": item.id});
+    }
+
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(Sizes.p12),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [Text(item.name), const PrimaryButton(text: 'Coba')],
+          children: [
+            Text(item.name),
+            PrimaryButton(
+              text: 'Schedule',
+              onPressed: onPress,
+            )
+          ],
         ),
       ),
     );

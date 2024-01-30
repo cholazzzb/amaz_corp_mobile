@@ -30,9 +30,12 @@ class _BuildingScreenState extends ConsumerState<BuildingScreen> {
     return WithNavigationLayout(
       title: "List Room",
       selectedIdx: 0,
-      floatingActionButton: InviteMemberFAB(
-        buildingID: widget.buildingID,
-      ),
+      floatingActionButton: switch (selectedTab) {
+        Tab.room => null,
+        Tab.member => InviteMemberFAB(
+            buildingID: widget.buildingID,
+          )
+      },
       child: Column(
         children: [
           Row(
