@@ -1,3 +1,4 @@
+import 'package:amaz_corp_mobile/shared/constant/app_size.dart';
 import 'package:flutter/material.dart';
 
 class ErrorBottomSheet extends StatelessWidget {
@@ -32,13 +33,25 @@ class ErrorBottomSheet extends StatelessWidget {
             ),
           ),
           Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                Text(errorMessage),
-                if (child != null) child!,
-              ],
+            child: Padding(
+              padding: const EdgeInsets.all(Sizes.p32),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  const Icon(
+                    Icons.warning_amber_rounded,
+                    size: Sizes.p64,
+                    color: Colors.amber,
+                  ),
+                  Text(
+                    errorMessage,
+                    textAlign: TextAlign.center,
+                  ),
+                  if (child != null) child!,
+                ],
+              ),
             ),
           ),
         ],

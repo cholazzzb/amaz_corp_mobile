@@ -4,7 +4,6 @@ import 'package:amaz_corp_mobile/feature/building/controller/building_controller
 import 'package:amaz_corp_mobile/feature/building/controller/member_controller.dart';
 import 'package:amaz_corp_mobile/feature/building/widget/building_card.dart';
 import 'package:amaz_corp_mobile/feature/building/widget/join_building_bottom_sheet.dart';
-import 'package:amaz_corp_mobile/shared/component/skeleton.dart';
 import 'package:amaz_corp_mobile/shared/constant/app_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -40,15 +39,12 @@ class _InvitedBuildingState extends ConsumerState<InvitedBuilding> {
     return const Center(
       child: Padding(
         padding: EdgeInsets.all(Sizes.p8),
-        child: Skeleton(
-          width: 1000,
-        ),
+        child: CircularProgressIndicator(),
       ),
     );
   }
 
   Future<void> _onEditMemberName(String name, String memberID) async {
-    print("PIKA");
     final controller = ref.read(renameMemberControllerProvider.notifier);
     await controller.renameMember(name: name, memberID: memberID);
   }

@@ -4,7 +4,7 @@ import 'package:amaz_corp_mobile/feature/user/screen/validator.dart';
 import 'package:amaz_corp_mobile/routing/location_router.dart';
 import 'package:amaz_corp_mobile/routing/user_router.dart';
 import 'package:amaz_corp_mobile/shared/async_value_ui.dart';
-import 'package:amaz_corp_mobile/shared/component/bottom_sheet/error_bottom_sheet.dart';
+import 'package:amaz_corp_mobile/shared/component/bottom_sheet/error/error_bottom_sheet_500.dart';
 import 'package:amaz_corp_mobile/shared/component/primary_button.dart';
 import 'package:amaz_corp_mobile/shared/layout/plain.dart';
 import 'package:flutter/material.dart';
@@ -49,8 +49,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   Future<void> _submit(VoidCallback onSuccess) async {
     final controller = ref.read(loginControllerProvider.notifier);
-    await controller.login(Credential(username, password));
-    onSuccess();
+    await controller.login(Credential(username, password), onSuccess);
   }
 
   @override
@@ -59,16 +58,22 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
       loginControllerProvider,
       (previous, state) => state.showErrorBottomSheet(
         context,
-        child: ErrorBottomSheet(
-          errorMessage: state.error.toString(),
+        child: ErrorBottomSheet500(
           onPressClose: () => Navigator.pop(context),
         ),
       ),
     );
     final state = ref.watch(loginControllerProvider);
 
-    void onSuccess() {
+    void onSuccessLogin() {
       context.goNamed(LocationRouteName.location.name);
+
+      final snackBar = SnackBar(
+        backgroundColor: Theme.of(context).snackBarTheme.backgroundColor,
+        content: const Text("Login Success!"),
+      );
+
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
 
     return PlainLayout(
@@ -126,7 +131,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                     isLoading: state.isLoading,
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
-                        _submit(onSuccess);
+                        _submit(onSuccessLogin);
                       }
                     },
                   )

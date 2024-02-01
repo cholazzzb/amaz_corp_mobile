@@ -2,17 +2,12 @@ import 'package:amaz_corp_mobile/core/user/domain/entity/credential_entity.dart'
 import 'package:amaz_corp_mobile/feature/user/controller/register_controller.dart';
 import 'package:amaz_corp_mobile/feature/user/screen/validator.dart';
 import 'package:amaz_corp_mobile/routing/user_router.dart';
+import 'package:amaz_corp_mobile/shared/async_value_ui.dart';
+import 'package:amaz_corp_mobile/shared/component/bottom_sheet/error/error_bottom_sheet_500.dart';
 import 'package:amaz_corp_mobile/shared/layout/plain.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-
-enum Status {
-  idle,
-  loading,
-  success,
-  error,
-}
 
 class RegisterScreen extends ConsumerStatefulWidget {
   const RegisterScreen({
@@ -52,14 +47,30 @@ class _RegisterScreenState extends ConsumerState<RegisterScreen> {
 
   Future<void> _submit(VoidCallback onSuccess) async {
     final controller = ref.read(registerControllerProvider.notifier);
-    await controller.register(Credential(username, password));
-    onSuccess();
+    await controller.register(Credential(username, password), onSuccess);
   }
 
   @override
   Widget build(BuildContext context) {
+    ref.listen<AsyncValue>(
+      registerControllerProvider,
+      (prev, state) => state.showErrorBottomSheet(
+        context,
+        child: ErrorBottomSheet500(
+          onPressClose: () => Navigator.pop(context),
+        ),
+      ),
+    );
+
     void onSuccessRegister() {
       context.goNamed(UserRouteName.login.name);
+
+      final snackBar = SnackBar(
+        backgroundColor: Theme.of(context).snackBarTheme.backgroundColor,
+        content: const Text("Register Success!"),
+      );
+
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
 
     return PlainLayout(

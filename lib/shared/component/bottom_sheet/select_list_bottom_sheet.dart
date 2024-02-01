@@ -94,7 +94,6 @@ class _SearchInputState extends State<SearchInput> {
   final _debouncedOnSearch = Debouncer(const Duration(milliseconds: 700));
 
   void _onChanged(String text) {
-    print("Text $text");
     _debouncedOnSearch(() => widget.onSearch(text));
   }
 

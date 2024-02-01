@@ -2,7 +2,7 @@ import 'package:amaz_corp_mobile/core/schedule/entity/schedule_entity.dart';
 import 'package:amaz_corp_mobile/feature/schedule/controller/add_schedule_controller.dart';
 import 'package:amaz_corp_mobile/routing/schedule_router.dart';
 import 'package:amaz_corp_mobile/shared/async_value_ui.dart';
-import 'package:amaz_corp_mobile/shared/component/bottom_sheet/error_bottom_sheet.dart';
+import 'package:amaz_corp_mobile/shared/component/bottom_sheet/error/error_bottom_sheet_500.dart';
 import 'package:amaz_corp_mobile/shared/component/primary_button.dart';
 import 'package:amaz_corp_mobile/shared/constant/app_size.dart';
 import 'package:amaz_corp_mobile/shared/layout/with_navigation_custom.dart';
@@ -50,8 +50,7 @@ class _AddScheduleScreenState extends ConsumerState<AddScheduleScreen> {
       addScheduleControllerProvider,
       (prev, state) => state.showErrorBottomSheet(
         context,
-        child: ErrorBottomSheet(
-          errorMessage: state.error.toString(),
+        child: ErrorBottomSheet500(
           onPressClose: () => Navigator.pop(context),
         ),
       ),
