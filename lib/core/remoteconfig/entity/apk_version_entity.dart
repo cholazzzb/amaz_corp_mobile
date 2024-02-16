@@ -11,5 +11,5 @@ class APKVersion with _$APKVersion {
   }) = _APKVersion;
 
   factory APKVersion.fromJSON(Map<String, dynamic> json) =>
-      _$$_APKVersionFromJson(json);
+      _$$APKVersionImplFromJson(json);
 }

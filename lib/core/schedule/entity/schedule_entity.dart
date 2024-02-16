@@ -13,7 +13,7 @@ class Schedule with _$Schedule {
   }) = _Schedule;
 
   factory Schedule.fromJSON(Map<String, dynamic> json) =>
-      _$$_ScheduleFromJson(json);
+      _$$ScheduleImplFromJson(json);
 }
 
 @Freezed(toJson: true)

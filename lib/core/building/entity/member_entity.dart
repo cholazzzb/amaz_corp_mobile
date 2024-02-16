@@ -15,5 +15,5 @@ class Member with _$Member {
   }) = _Member;
 
   factory Member.fromJSON(Map<String, dynamic> json) =>
-      _$$_MemberFromJson(json);
+      _$$MemberImplFromJson(json);
 }

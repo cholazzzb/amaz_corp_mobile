@@ -12,5 +12,5 @@ class UserQuery with _$UserQuery {
   }) = _UserQuery;
 
   factory UserQuery.fromJSON(Map<String, dynamic> json) =>
-      _$$_UserQueryFromJson(json);
+      _$$UserQueryImplFromJson(json);
 }

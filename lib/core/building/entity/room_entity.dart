@@ -11,5 +11,5 @@ class Room with _$Room {
     @JsonKey(name: 'name') required String name,
   }) = _Room;
 
-  factory Room.fromJSON(Map<String, dynamic> json) => _$$_RoomFromJson(json);
+  factory Room.fromJSON(Map<String, dynamic> json) => _$$RoomImplFromJson(json);
 }

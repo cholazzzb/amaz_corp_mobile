@@ -13,7 +13,7 @@ class Building with _$Building {
   }) = _Building;
 
   factory Building.fromJSON(Map<String, dynamic> json) =>
-      _$$_BuildingFromJson(json);
+      _$$BuildingImplFromJson(json);
 }
 
 @freezed
@@ -26,7 +26,7 @@ class BuildingMember with _$BuildingMember {
   }) = _BuildingMember;
 
   factory BuildingMember.fromJSON(Map<String, dynamic> json) =>
-      _$$_BuildingMemberFromJson(json);
+      _$$BuildingMemberImplFromJson(json);
 }
 
 @Freezed(toJson: true)
@@ -37,7 +37,7 @@ class AddBuildingReq with _$AddBuildingReq {
   }) = _AddBuildingReq;
 
   factory AddBuildingReq.fromJSON(Map<String, dynamic> json) =>
-      _$$_AddBuildingReqFromJson(json);
+      _$$AddBuildingReqImplFromJson(json);
 }
 
 @Freezed(toJson: true)
@@ -49,7 +49,7 @@ class JoinBuildingReq with _$JoinBuildingReq {
   }) = _JoinBuildingReq;
 
   factory JoinBuildingReq.fromJSON(Map<String, dynamic> json) =>
-      _$$_JoinBuildingReqFromJson(json);
+      _$$JoinBuildingReqImplFromJson(json);
 }
 
 @Freezed(toJson: true)
@@ -61,7 +61,7 @@ class InviteMemberToBuildingReq with _$InviteMemberToBuildingReq {
   }) = _InviteMemberToBuildingReq;
 
   factory InviteMemberToBuildingReq.fromJSON(Map<String, dynamic> json) =>
-      _$$_InviteMemberToBuildingReqFromJson(json);
+      _$$InviteMemberToBuildingReqImplFromJson(json);
 }
 
 @Freezed(toJson: true)
@@ -73,7 +73,7 @@ class RenameMemberNameReq with _$RenameMemberNameReq {
   }) = _RenameMemberNameReq;
 
   factory RenameMemberNameReq.fromJSON(Map<String, dynamic> json) =>
-      _$$_RenameMemberNameReqFromJson(json);
+      _$$RenameMemberNameReqImplFromJson(json);
 }
 
 @Freezed(toJson: true)
@@ -84,5 +84,5 @@ class GetListMemberByNameReq with _$GetListMemberByNameReq {
   }) = _GetListMemberByNameReq;
 
   factory GetListMemberByNameReq.fromJSON(Map<String, dynamic> json) =>
-      _$$_GetListMemberByNameReqFromJson(json);
+      _$$GetListMemberByNameReqImplFromJson(json);
 }

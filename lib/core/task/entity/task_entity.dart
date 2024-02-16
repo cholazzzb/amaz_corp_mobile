@@ -16,7 +16,7 @@ class Task with _$Task {
     @JsonKey(name: "taskDetailID") required String taskDetailID,
   }) = _Task;
 
-  factory Task.fromJSON(Map<String, dynamic> json) => _$$_TaskFromJson(json);
+  factory Task.fromJSON(Map<String, dynamic> json) => _$$TaskImplFromJson(json);
 }
 
 @Freezed(toJson: true)
@@ -33,5 +33,5 @@ class AddTaskReq with _$AddTaskReq {
   }) = _AddTaskReq;
 
   factory AddTaskReq.fromJSON(Map<String, dynamic> json) =>
-      _$$_AddTaskReqFromJson(json);
+      _$$AddTaskReqImplFromJson(json);
 }
