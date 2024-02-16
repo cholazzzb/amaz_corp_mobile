@@ -44,7 +44,9 @@ abstract class RemoteMemberRepoCommand {
   Future<void> editMemberName(RenameMemberNameReq req);
 }
 
-abstract class RemoteMemberRepoQuery {}
+abstract class RemoteMemberRepoQuery {
+  Future<List<Member>> getListMemberByName(GetListMemberByNameReq req);
+}
 
 @riverpod
 HttpRemoteLocationRepo remoteLocationRepo(

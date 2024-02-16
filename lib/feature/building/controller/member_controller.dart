@@ -11,21 +11,29 @@ class InviteMemberController extends _$InviteMemberController {
   FutureOr<void> build() => Future.value();
 
   Future<void> inviteMember({
-    required String name,
+    required String userID,
     required String buildingID,
     void Function()? onSuccess,
   }) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
-      await _inviteMember(name, buildingID);
+      await _inviteMember(
+        userID: userID,
+        buildingID: buildingID,
+      );
       onSuccess?.call();
     });
   }
 
-  Future<void> _inviteMember(String userID, String buildingID) async {
+  Future<void> _inviteMember({
+    required String userID,
+    required String buildingID,
+  }) async {
     final svc = ref.read(locationServiceProvider);
-    final req =
-        InviteMemberToBuildingReq(userID: userID, buildingID: buildingID);
+    final req = InviteMemberToBuildingReq(
+      userID: userID,
+      buildingID: buildingID,
+    );
     await svc.inviteMemberToBuilding(req);
   }
 }

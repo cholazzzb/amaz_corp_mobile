@@ -35,7 +35,7 @@ class _BuildingDrawerState extends ConsumerState<BuildingDrawer> {
     }
 
     List<Widget> successWidget((String, List<BuildingMember>) data) {
-      final (selectedBuildingID, buildings) = data;
+      final (_, buildings) = data;
 
       ExpansionPanelList xList = ExpansionPanelList(
         expansionCallback: (int index, bool isExpaned) {
@@ -53,8 +53,6 @@ class _BuildingDrawerState extends ConsumerState<BuildingDrawer> {
         },
         children: buildings.map<ExpansionPanel>(
           (bm) {
-            final selected = bm.id == selectedBuildingID;
-
             return ExpansionPanel(
               isExpanded: expandedIDs.contains(bm.id),
               headerBuilder: (BuildContext context, bool isExpanded) {

@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:amaz_corp_mobile/core/user/data/dto/auth_dto.dart';
 import 'package:amaz_corp_mobile/core/user/data/repository/remote_user_repo.dart';
 import 'package:amaz_corp_mobile/core/user/domain/entity/credential_entity.dart';
-import 'package:amaz_corp_mobile/core/user/user_entity.dart';
+import 'package:amaz_corp_mobile/core/user/entity/user_entity.dart';
 import 'package:dio/dio.dart';
 
 class HttpRemoteUserRepo implements RemoteUserRepo {
@@ -53,7 +53,7 @@ class HttpRemoteUserRepo implements RemoteUserRepo {
 
   @override
   Future<List<UserQuery>> getListUserByUsername(String req) async {
-    const uri = 'api/v1/users/username';
+    const uri = 'api/v1/users';
 
     final response = await _dio.get(uri, queryParameters: {
       "username": req,

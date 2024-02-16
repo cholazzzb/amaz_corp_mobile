@@ -1,11 +1,8 @@
 import 'package:amaz_corp_mobile/core/building/service/building_service.dart';
 import 'package:amaz_corp_mobile/core/remoteconfig/service/force_update_service.dart';
 import 'package:amaz_corp_mobile/feature/drawer/left_drawer.dart';
-import 'package:amaz_corp_mobile/routing/app_router.dart';
-import 'package:amaz_corp_mobile/routing/schedule_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 
 class WithNavigationLayout extends ConsumerWidget {
   final Widget child;
@@ -44,22 +41,22 @@ class WithNavigationLayout extends ConsumerWidget {
       ),
     );
 
-    void onItemTapped(int index, BuildContext context) {
-      switch (index) {
-        case 0:
-          context.goNamed(
-            ScheduleRouteName.schedules.name,
-            pathParameters: {'scheduleID': ''},
-          );
-          break;
-        case 1:
-          context.goNamed(ScheduleRouteName.tasks.name);
-          break;
-        case 2:
-          context.goNamed(AppRoute.profile.name);
-          break;
-      }
-    }
+    // void onItemTapped(int index, BuildContext context) {
+    //   switch (index) {
+    //     case 0:
+    //       context.goNamed(
+    //         ScheduleRouteName.schedules.name,
+    //         pathParameters: {'scheduleID': ''},
+    //       );
+    //       break;
+    //     case 1:
+    //       context.goNamed(ScheduleRouteName.tasks.name);
+    //       break;
+    //     case 2:
+    //       context.goNamed(AppRoute.profile.name);
+    //       break;
+    //   }
+    // }
 
     return Scaffold(
       appBar: AppBar(title: Text(title)),

@@ -1,35 +1,28 @@
-import 'package:amaz_corp_mobile/shared/component/bottom_sheet/select_list_bottom_sheet.dart';
 import 'package:amaz_corp_mobile/shared/constant/app_size.dart';
 import 'package:flutter/material.dart';
 
-String defaultSelect(value) => "";
-
-class SelectFormField<T> extends StatelessWidget {
+class SelectFormFieldCustom extends StatelessWidget {
   final bool loading;
   final String errorMessage;
   final String title;
-  final T selectedValue;
-  final List<T> list;
-  final void Function(T selectedValue) onSelect;
-  final String Function(T value) selectValue;
+  final String selectedValue;
+  final void Function() onPressOpen;
   final void Function(String value)? onSearch;
 
-  const SelectFormField({
+  const SelectFormFieldCustom({
     super.key,
     this.loading = false,
     this.errorMessage = "",
     required this.title,
     required this.selectedValue,
-    required this.list,
-    required this.onSelect,
-    this.selectValue = defaultSelect,
+    required this.onPressOpen,
     this.onSearch,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(context) {
     return FormField(
-      builder: (FormFieldState formState) {
+      builder: (FormFieldState formmState) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -51,18 +44,11 @@ class SelectFormField<T> extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(selectValue(selectedValue)),
+                    Text(selectedValue),
                     IconButton(
                       icon: const Icon(Icons.arrow_drop_down),
                       onPressed: () {
-                        SingleSelectList.showBottomSheet<T>(
-                          context,
-                          list: list,
-                          title: title,
-                          onSelect: onSelect,
-                          selectValue: selectValue,
-                          onSearch: onSearch,
-                        );
+                        onPressOpen();
                       },
                     ),
                   ],

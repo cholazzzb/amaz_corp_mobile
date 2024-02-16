@@ -47,6 +47,7 @@ class _InvitedBuildingState extends ConsumerState<InvitedBuilding> {
   Future<void> _onEditMemberName(String name, String memberID) async {
     final controller = ref.read(renameMemberControllerProvider.notifier);
     await controller.renameMember(name: name, memberID: memberID);
+    ref.invalidate(getListInvitedBuildingsProvider);
   }
 
   @override

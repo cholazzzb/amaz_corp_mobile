@@ -158,4 +158,18 @@ class HttpRemoteLocationRepo implements RemoteBuildingRepo {
         .cast<Member>();
     return members;
   }
+
+  @override
+  Future<List<Member>> getListMemberByName(GetListMemberByNameReq req) async {
+    const uri = 'api/v1/members';
+
+    final response = await _dio.get(uri, queryParameters: {
+      "name": req.name,
+    });
+    final List<Member> members = response.data["members"]!
+        .map((m) => Member.fromJSON(m))
+        .toList()
+        .cast<Member>();
+    return members;
+  }
 }

@@ -46,7 +46,10 @@ class _JoinBuildingBottomSheetState extends State<JoinBuildingBottomSheet> {
               ),
             ),
             ElevatedButton(
-              onPressed: () => widget.onPressJoin(name),
+              onPressed: () {
+                widget.onPressJoin(name);
+                Navigator.pop(context);
+              },
               child: const Text("Join"),
             )
           ],

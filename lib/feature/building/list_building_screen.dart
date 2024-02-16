@@ -64,7 +64,7 @@ class _ListBuildingScreenState extends State<ListBuildingScreen> {
             ),
           ),
           switch (selected) {
-            LocationType.joined => const JoinedBuilding(), // TODO
+            LocationType.joined => const JoinedBuilding(),
             LocationType.invited => const InvitedBuilding(),
             LocationType.mine => const MyOwnedBuilding(),
             LocationType.public => const PublicBuilding(),

@@ -62,10 +62,9 @@ class LocationService {
     String name,
   ) async {
     final req = GetListMemberByNameReq(name: name);
-    return await ref
-        .read(remoteLocationRepoProvider)
-        .getListMemberByBuildingID(name); // TODO: Fix HERE!
-    // move to user domain
+    final res =
+        await ref.read(remoteLocationRepoProvider).getListMemberByName(req);
+    return res;
   }
 }
 

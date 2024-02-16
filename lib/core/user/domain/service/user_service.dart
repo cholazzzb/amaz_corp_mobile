@@ -1,6 +1,7 @@
 import 'package:amaz_corp_mobile/core/user/data/repository/local_user_repo.dart';
 import 'package:amaz_corp_mobile/core/user/data/repository/remote_user_repo.dart';
 import 'package:amaz_corp_mobile/core/user/domain/entity/credential_entity.dart';
+import 'package:amaz_corp_mobile/core/user/entity/user_entity.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -37,6 +38,14 @@ class UserService {
     final localUserRepo = ref.watch(localUserRepoProvider);
     await localUserRepo.clearStorage();
     cb.call();
+  }
+
+  Future<List<UserQuery>> getListUserByUsername(
+    String username,
+  ) async {
+    return await ref
+        .read(remoteUserRepoProvider)
+        .getListUserByUsername(username);
   }
 }
 

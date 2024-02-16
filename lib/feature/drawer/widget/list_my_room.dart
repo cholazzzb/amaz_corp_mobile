@@ -28,7 +28,7 @@ class ListMyRoom extends ConsumerWidget {
     }
 
     Widget errorWidget(e, st) {
-      return Text("data");
+      return const Text("data");
     }
 
     void onTap(String roomID) {
