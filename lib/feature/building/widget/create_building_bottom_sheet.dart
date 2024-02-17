@@ -1,3 +1,5 @@
+import 'package:amaz_corp_mobile/shared/component/bottom_sheet/bottom_sheet_header.dart';
+import 'package:amaz_corp_mobile/shared/component/button.dart';
 import 'package:amaz_corp_mobile/shared/constant/app_size.dart';
 import 'package:flutter/material.dart';
 
@@ -28,13 +30,22 @@ class _CreateBuildingBottomSheetState extends State<CreateBuildingBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 300,
-      child: Center(
+    return Padding(
+      padding:
+          EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      child: Container(
+        height: 250,
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.background,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(Sizes.p24),
+            topRight: Radius.circular(Sizes.p24),
+          ),
+        ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
+          children: [
+            const BottomSheetHeader(title: "Create your building"),
             Padding(
               padding: const EdgeInsets.all(Sizes.p32),
               child: TextField(
@@ -44,9 +55,9 @@ class _CreateBuildingBottomSheetState extends State<CreateBuildingBottomSheet> {
                 controller: _nameController,
               ),
             ),
-            ElevatedButton(
+            Button(
               onPressed: () => widget.onPressCreate(name),
-              child: const Text("Create"),
+              text: "Create",
             )
           ],
         ),
