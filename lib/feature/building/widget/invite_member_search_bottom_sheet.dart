@@ -60,37 +60,31 @@ class InviteMemberSearchBottomSheet extends ConsumerWidget {
       },
     );
 
-    return StatefulBuilder(
-      builder: (context, setState) {
-        return DraggableScrollableSheet(
-          initialChildSize: 0.5,
-          minChildSize: 0.2,
-          maxChildSize: 0.75,
-          builder: (_, controller) {
-            return Container(
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(Sizes.p24),
-                  topRight: Radius.circular(Sizes.p24),
-                ),
-              ),
-              child: Column(
-                children: [
-                  Icon(Icons.remove, color: Colors.grey[600]),
-                  BottomSheetHeader(
-                    title: title,
-                  ),
-                  SearchInput(
-                    onSearch: onSearch,
-                  ),
-                  listWidget,
-                ],
-              ),
-            );
-          },
-        );
-      },
+    return Padding(
+      padding:
+          EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+      child: Container(
+        height: 500,
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.background,
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(Sizes.p24),
+            topRight: Radius.circular(Sizes.p24),
+          ),
+        ),
+        child: Column(
+          children: [
+            Icon(Icons.remove, color: Colors.grey[600]),
+            BottomSheetHeader(
+              title: title,
+            ),
+            SearchInput(
+              onSearch: onSearch,
+            ),
+            listWidget,
+          ],
+        ),
+      ),
     );
   }
 }
