@@ -84,8 +84,8 @@ class _InviteMemberBottomSheetState
               selectedValue: selectedMember.username,
               onPressOpen: () {
                 showAmzBottomSheet(
-                  context,
-                  (context) => InviteMemberSearchBottomSheet(
+                  context: context,
+                  builder: (context) => InviteMemberSearchBottomSheet(
                     title: "Member",
                     onSelect: onSelectMember,
                   ),

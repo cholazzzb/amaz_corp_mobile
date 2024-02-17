@@ -3,6 +3,9 @@ import 'package:amaz_corp_mobile/core/building/service/location_service.dart';
 import 'package:amaz_corp_mobile/feature/building/controller/building_controller.dart';
 import 'package:amaz_corp_mobile/feature/building/widget/create_building_bottom_sheet.dart';
 import 'package:amaz_corp_mobile/routing/location_router.dart';
+import 'package:amaz_corp_mobile/shared/async_value_ui.dart';
+import 'package:amaz_corp_mobile/shared/component/bottom_sheet/bottom_sheet.dart';
+import 'package:amaz_corp_mobile/shared/component/bottom_sheet/error/error_bottom_sheet_500.dart';
 import 'package:amaz_corp_mobile/shared/component/primary_button.dart';
 import 'package:amaz_corp_mobile/shared/constant/app_size.dart';
 import 'package:flutter/material.dart';
@@ -44,6 +47,18 @@ class EmptyOwnedBuilding extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    ref.listen(
+      addLocationControllerProvider,
+      (previous, state) {
+        state.showErrorBottomSheet(
+          context,
+          child: ErrorBottomSheet500(
+            onPressClose: () => Navigator.pop(context),
+          ),
+        );
+      },
+    );
+
     void onPressClose() {
       Navigator.pop(context);
     }
@@ -61,7 +76,7 @@ class EmptyOwnedBuilding extends ConsumerWidget {
     }
 
     Future<void> onPressOpenBottomSheet() async {
-      showModalBottomSheet<void>(
+      showAmzBottomSheet(
         context: context,
         builder: (BuildContext context) {
           return CreateBuildingBottomSheet(

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-void showAmzBottomSheet<T>(
-  BuildContext context,
-  Widget Function(BuildContext) builder,
-) {
+void showAmzBottomSheet<T>({
+  required BuildContext context,
+  required Widget Function(BuildContext) builder,
+}) {
   showModalBottomSheet(
     context: context,
     isScrollControlled: true,
