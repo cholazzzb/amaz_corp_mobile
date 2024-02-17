@@ -9,33 +9,24 @@ enum LocationRouteName {
   buildingID,
 }
 
-class LocationRoute {
-  static List<GoRoute> create() {
-    return [
-      GoRoute(
-        path: 'home',
-        name: LocationRouteName.home.name,
-        builder: (context, state) => const ListBuildingScreen(),
-      ),
-      GoRoute(
-        path: 'locations',
-        name: LocationRouteName.location.name,
-        builder: (context, state) => const ListBuildingScreen(),
-      ),
-      GoRoute(
-        path: 'building/:buildingID',
-        name: LocationRouteName.buildingID.name,
-        redirect: (BuildContext context, GoRouterState state) {
-          final buildingID = state.pathParameters["buildingID"];
-          if (buildingID == null) {
-            return '/home';
-          }
-          return null;
-        },
-        builder: (context, state) => BuildingScreen(
-          buildingID: state.pathParameters["buildingID"]!,
-        ),
-      ),
-    ];
-  }
-}
+final List<GoRoute> locationRoute = [
+  GoRoute(
+    path: 'locations',
+    name: LocationRouteName.location.name,
+    builder: (context, state) => const ListBuildingScreen(),
+  ),
+  GoRoute(
+    path: 'building/:buildingID',
+    name: LocationRouteName.buildingID.name,
+    redirect: (BuildContext context, GoRouterState state) {
+      final buildingID = state.pathParameters["buildingID"];
+      if (buildingID == null) {
+        return '/home';
+      }
+      return null;
+    },
+    builder: (context, state) => BuildingScreen(
+      buildingID: state.pathParameters["buildingID"]!,
+    ),
+  ),
+];

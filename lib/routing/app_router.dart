@@ -2,6 +2,7 @@ import 'package:amaz_corp_mobile/core/user/data/repository/local_user_repo.dart'
 import 'package:amaz_corp_mobile/feature/profile/profile_screen.dart';
 import 'package:amaz_corp_mobile/feature/remoteconfig/force_update_screen.dart';
 import 'package:amaz_corp_mobile/main.dart';
+import 'package:amaz_corp_mobile/routing/home_router.dart';
 import 'package:amaz_corp_mobile/routing/location_router.dart';
 import 'package:amaz_corp_mobile/routing/schedule_router.dart';
 import 'package:amaz_corp_mobile/routing/user_router.dart';
@@ -48,9 +49,10 @@ GoRouter goRouter(GoRouterRef ref) {
           title: "Welcome to Amaz",
         ),
         routes: [
-          ...UserRoute.create(),
-          ...LocationRoute.create(),
-          ...ScheduleRoute.create(),
+          ...homeRoutes,
+          ...userRoute,
+          ...locationRoute,
+          ...scheduleRoute,
           GoRoute(
             path: 'profile',
             name: AppRoute.profile.name,

@@ -8,19 +8,15 @@ enum UserRouteName {
   register,
 }
 
-class UserRoute {
-  static List<GoRoute> create() {
-    return [
-      GoRoute(
-        path: 'login',
-        name: UserRouteName.login.name,
-        builder: (context, state) => const LoginScreen(),
-      ),
-      GoRoute(
-        path: 'register',
-        name: UserRouteName.register.name,
-        builder: (context, state) => const RegisterScreen(),
-      ),
-    ];
-  }
-}
+final List<GoRoute> userRoute = [
+  GoRoute(
+    path: 'login',
+    name: UserRouteName.login.name,
+    builder: (context, state) => const LoginScreen(),
+  ),
+  GoRoute(
+    path: 'register',
+    name: UserRouteName.register.name,
+    builder: (context, state) => const RegisterScreen(),
+  ),
+];
