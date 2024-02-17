@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-void showAmzBottomSheet<T>({
+Future<T?> showAmzBottomSheet<T>({
   required BuildContext context,
   required Widget Function(BuildContext) builder,
 }) {
-  showModalBottomSheet(
+  return showModalBottomSheet<T>(
     context: context,
     isScrollControlled: true,
     isDismissible: true,

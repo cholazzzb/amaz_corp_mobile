@@ -4,6 +4,7 @@ import 'package:amaz_corp_mobile/feature/building/controller/building_controller
 import 'package:amaz_corp_mobile/feature/building/controller/member_controller.dart';
 import 'package:amaz_corp_mobile/feature/building/widget/building_card.dart';
 import 'package:amaz_corp_mobile/feature/building/widget/join_building_bottom_sheet.dart';
+import 'package:amaz_corp_mobile/shared/component/bottom_sheet/bottom_sheet.dart';
 import 'package:amaz_corp_mobile/shared/constant/app_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -56,8 +57,8 @@ class _InvitedBuildingState extends ConsumerState<InvitedBuilding> {
       Navigator.pop(context);
     }
 
-    Future<void> onJoinSuccess(String memberID) {
-      return showModalBottomSheet<void>(
+    void onJoinSuccess(String memberID) {
+      showAmzBottomSheet(
         context: context,
         builder: (BuildContext context) {
           return JoinBuildingBottomSheet(
@@ -81,7 +82,7 @@ class _InvitedBuildingState extends ConsumerState<InvitedBuilding> {
                   ref.read(joinBuildingControllerProvider.notifier);
               await joinController.joinBuilding(
                   memberID: building.memberID, buildingID: buildingID);
-              await onJoinSuccess(building.memberID);
+              onJoinSuccess(building.memberID);
             }
 
             return BuildingCard(
