@@ -1,26 +1,76 @@
+import 'package:amaz_corp_mobile/feature/building/widget/invited_building.dart';
+import 'package:amaz_corp_mobile/feature/building/widget/joined_building.dart';
+import 'package:amaz_corp_mobile/feature/building/widget/my_owned_building.dart';
+import 'package:amaz_corp_mobile/feature/building/widget/public_building.dart';
+import 'package:amaz_corp_mobile/shared/constant/app_size.dart';
+import 'package:amaz_corp_mobile/shared/layout/with_navigation.dart';
 import 'package:flutter/material.dart';
 
-import 'package:flutter/widgets.dart';
-import 'package:amaz_corp_mobile/shared/layout/with_navigation.dart';
-
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+enum LocationType {
+  joined,
+  invited,
+  public,
+  mine,
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  LocationType selected = LocationType.joined;
+
+  @override
   Widget build(BuildContext context) {
-    // TODO: Rethinking about this
-    // Get My Buildings
-    /**
-     * If my buildings === 0
-     *  you dont have any buildings yet -> Button to Search Building
-     * else
-     *  check the buildingID from hive
-     *  if found => redirect to /building/[buildingID]
-     */
-    return const WithNavigationLayout(
-      title: 'Home',
+    return WithNavigationLayout(
+      title: 'List Building',
       selectedIdx: 0,
-      child: Text("You don'"),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(Sizes.p12),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SegmentedButton<LocationType>(
+                  segments: const <ButtonSegment<LocationType>>[
+                    ButtonSegment<LocationType>(
+                      value: LocationType.joined,
+                      label: Text('Joined'),
+                      icon: Icon(Icons.badge),
+                    ),
+                    ButtonSegment<LocationType>(
+                      value: LocationType.invited,
+                      label: Text('Invited'),
+                      icon: Icon(Icons.mail_outline_rounded),
+                    ),
+                    ButtonSegment<LocationType>(
+                      value: LocationType.mine,
+                      label: Text('Owned'),
+                      icon: Icon(Icons.location_city),
+                    ),
+                  ],
+                  selected: <LocationType>{selected},
+                  onSelectionChanged: (Set<LocationType> newSelection) {
+                    setState(() {
+                      selected = newSelection.first;
+                    });
+                  },
+                ),
+              ],
+            ),
+          ),
+          switch (selected) {
+            LocationType.joined => const JoinedBuilding(),
+            LocationType.invited => const InvitedBuilding(),
+            LocationType.mine => const MyOwnedBuilding(),
+            LocationType.public => const PublicBuilding(),
+          },
+        ],
+      ),
     );
   }
 }

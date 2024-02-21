@@ -1,3 +1,4 @@
+import 'package:amaz_corp_mobile/core/user/data/repository/local_user_repo.dart';
 import 'package:amaz_corp_mobile/core/user/domain/entity/credential_entity.dart';
 import 'package:amaz_corp_mobile/core/user/domain/repository/http_remote_user_repo.dart';
 import 'package:amaz_corp_mobile/core/user/entity/user_entity.dart';
@@ -25,11 +26,11 @@ abstract class RemoteUserRepoQuery {
 @riverpod
 RemoteUserRepo remoteUserRepo(RemoteUserRepoRef ref) {
   final baseUrl = Environment.getBaseUrl();
+  final localUserRepo = ref.watch(localUserRepoProvider);
 
   return HttpRemoteUserRepo(
     DioFactory(
       baseUrl: baseUrl,
-      interceptor: InterceptorType.auth,
-    ).create(),
+    ).create(localUserRepo: localUserRepo),
   );
 }

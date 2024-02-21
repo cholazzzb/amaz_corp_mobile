@@ -1,3 +1,4 @@
+import 'package:amaz_corp_mobile/core/building/repository/local_location_repo.dart';
 import 'package:amaz_corp_mobile/core/user/data/repository/local_user_repo.dart';
 import 'package:amaz_corp_mobile/feature/profile/profile_screen.dart';
 import 'package:amaz_corp_mobile/feature/remoteconfig/force_update_screen.dart';
@@ -23,6 +24,7 @@ final publicRoute = {"/", "/register", "/login"};
 @Riverpod(keepAlive: true)
 GoRouter goRouter(GoRouterRef ref) {
   final localUserRepo = ref.watch(localUserRepoProvider);
+
   return GoRouter(
     initialLocation: '/',
     redirect: (BuildContext context, GoRouterState state) async {
@@ -33,8 +35,14 @@ GoRouter goRouter(GoRouterRef ref) {
         return '/login';
       }
 
+      String buildingID =
+          await ref.watch(localBuildingRepoProvider).getActiveBuildingID();
+
       if (isLoggedIn && isPublicLocation) {
-        return '/home';
+        if (buildingID.isEmpty) {
+          return '/home';
+        }
+        return '/building/$buildingID';
       }
 
       return null;

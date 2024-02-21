@@ -2,6 +2,7 @@ import 'package:amaz_corp_mobile/core/building/entity/building_entity.dart';
 import 'package:amaz_corp_mobile/core/building/entity/member_entity.dart';
 import 'package:amaz_corp_mobile/core/building/entity/room_entity.dart';
 import 'package:amaz_corp_mobile/core/building/repository/http_remote_location_repo.dart';
+import 'package:amaz_corp_mobile/core/user/data/repository/local_user_repo.dart';
 import 'package:amaz_corp_mobile/shared/api/dio_factory.dart';
 import 'package:amaz_corp_mobile/shared/env.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -53,11 +54,11 @@ HttpRemoteLocationRepo remoteLocationRepo(
   RemoteLocationRepoRef ref,
 ) {
   final baseUrl = Environment.getBaseUrl();
+  final localUserRepo = ref.watch(localUserRepoProvider);
 
   return HttpRemoteLocationRepo(
     DioFactory(
       baseUrl: baseUrl,
-      interceptor: InterceptorType.auth,
-    ).create(),
+    ).create(localUserRepo: localUserRepo),
   );
 }

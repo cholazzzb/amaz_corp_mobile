@@ -1,4 +1,5 @@
 import 'package:amaz_corp_mobile/core/building/entity/building_entity.dart';
+import 'package:amaz_corp_mobile/core/building/repository/local_location_repo.dart';
 import 'package:amaz_corp_mobile/core/building/service/location_service.dart';
 import 'package:amaz_corp_mobile/feature/building/controller/building_controller.dart';
 import 'package:amaz_corp_mobile/feature/building/widget/joined_building_card.dart';
@@ -61,12 +62,26 @@ class ListLocation extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final localLocationRepo = ref.watch(localBuildingRepoProvider);
+
+    final buildingID = ref.watch(activeBuildingControllerProvider);
+
     return Expanded(
       child: ListView.builder(
         padding: const EdgeInsets.symmetric(vertical: Sizes.p16),
         itemCount: data.length,
         itemBuilder: (BuildContext context, int index) {
-          final building = data[index];
+          final BuildingMember building = data[index];
+          final selected =
+              buildingID.hasValue ? buildingID.value == building.id : false;
+
+          void onSelectBuilding() {
+            localLocationRepo.setActiveBuildingID(building.id);
+            context.pushNamed(
+              LocationRouteName.buildingID.name,
+              pathParameters: {"buildingID": building.id},
+            );
+          }
 
           void onPressDetail() {
             context.goNamed(
@@ -89,8 +104,10 @@ class ListLocation extends ConsumerWidget {
 
           return JoinedBuildingCard(
             locationName: building.name,
+            selected: selected,
             onPressDetail: onPressDetail,
             onPressLeave: onPressedLeave,
+            onSelectBuilding: onSelectBuilding,
           );
         },
       ),

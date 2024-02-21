@@ -1,4 +1,3 @@
-import 'package:amaz_corp_mobile/app_dependencies.dart';
 import 'package:amaz_corp_mobile/core/building/entity/member_entity.dart';
 import 'package:amaz_corp_mobile/core/building/service/location_service.dart';
 import 'package:amaz_corp_mobile/core/task/entity/task_entity.dart';
@@ -90,16 +89,7 @@ class _AddTaskScreenState extends ConsumerState<AddTaskScreen> {
       ),
     );
 
-    // requireValue is possible because appDependenciesProvider is loaded before
-    // anything. See: lib/src/app.dart
-    final buildingID = ref
-        .watch(appDependenciesProvider)
-        .requireValue
-        .database
-        .locationRepo
-        .getSelectedBuildingID();
-
-    final listMember = ref.watch(getListMemberByBuildingIDProvider(buildingID));
+    final listMember = ref.watch(getListMemberByActiveBuildingIDProvider);
 
     return WithNavigationCustomLayout(
       title: 'Add Task',

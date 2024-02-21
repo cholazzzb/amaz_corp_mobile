@@ -1,7 +1,7 @@
-import 'package:amaz_corp_mobile/core/building/repository/hive_location_repo.dart';
+import 'package:isar/isar.dart';
 
 class Database {
-  final HiveBuildingRepo locationRepo;
+  final Isar isar;
 
-  const Database({required this.locationRepo});
+  const Database({required this.isar});
 }

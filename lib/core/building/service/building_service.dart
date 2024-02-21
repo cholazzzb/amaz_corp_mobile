@@ -1,6 +1,6 @@
 import 'package:amaz_corp_mobile/core/building/entity/building_entity.dart';
+import 'package:amaz_corp_mobile/core/building/repository/local_location_repo.dart';
 import 'package:amaz_corp_mobile/core/building/service/location_service.dart';
-import 'package:amaz_corp_mobile/core/user/data/repository/local_user_repo.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -13,7 +13,7 @@ class BuildingService {
   void updateSelectedBuilding(
     String activeBuildingID,
   ) {
-    LocalUserRepo repo = ref.watch(localUserRepoProvider);
+    LocalBuildingRepo repo = ref.watch(localBuildingRepoProvider);
     repo.setActiveBuildingID(activeBuildingID);
   }
 }
@@ -27,11 +27,11 @@ BuildingService buildingService(BuildingServiceRef ref) {
 Future<(String, List<BuildingMember>)> getMyBuildings(
   GetMyBuildingsRef ref,
 ) async {
-  LocalUserRepo localUserRepo = ref.watch(localUserRepoProvider);
-  final activeBuildingID = await localUserRepo.getActiveBuildingID();
+  LocalBuildingRepo localBuildingRepo = ref.watch(localBuildingRepoProvider);
+  final activeBuildingID = await localBuildingRepo.getActiveBuildingID();
   final myLocations = await ref.watch(getMyLocationsProvider.future);
   if (activeBuildingID.isEmpty && myLocations.isNotEmpty) {
-    await localUserRepo.setActiveBuildingID(myLocations[0].id);
+    await localBuildingRepo.setActiveBuildingID(myLocations[0].id);
   }
   final selectedBuildingID = switch ((
     activeBuildingID,

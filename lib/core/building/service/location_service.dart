@@ -1,7 +1,6 @@
 import 'package:amaz_corp_mobile/core/building/entity/building_entity.dart';
 import 'package:amaz_corp_mobile/core/building/entity/member_entity.dart';
 import 'package:amaz_corp_mobile/core/building/entity/room_entity.dart';
-import 'package:amaz_corp_mobile/core/building/repository/hive_location_repo.dart';
 import 'package:amaz_corp_mobile/core/building/repository/local_location_repo.dart';
 import 'package:amaz_corp_mobile/core/building/repository/remote_location_repo.dart';
 import 'package:amaz_corp_mobile/core/user/data/repository/local_user_repo.dart';
@@ -113,8 +112,9 @@ Future<List<Room>> getListRoomsByBuildingID(
 Future<List<Room>> getListRoom(
   GetListRoomRef ref,
 ) async {
-  HiveBuildingRepo hbr = await ref.watch(hiveBuildingRepoProvider.future);
-  String buildingID = hbr.getSelectedBuildingID();
+  final buildingID =
+      await ref.watch(localBuildingRepoProvider).getActiveBuildingID();
+
   return await ref
       .read(remoteLocationRepoProvider)
       .getListRoomsByBuildingID(buildingID);
@@ -125,6 +125,17 @@ Future<List<Member>> getListMemberByBuildingID(
   GetListMemberByBuildingIDRef ref,
   String buildingID,
 ) async {
+  return await ref
+      .read(remoteLocationRepoProvider)
+      .getListMemberByBuildingID(buildingID);
+}
+
+@riverpod
+Future<List<Member>> getListMemberByActiveBuildingID(
+  GetListMemberByActiveBuildingIDRef ref,
+) async {
+  final buildingID =
+      await ref.read(localBuildingRepoProvider).getActiveBuildingID();
   return await ref
       .read(remoteLocationRepoProvider)
       .getListMemberByBuildingID(buildingID);

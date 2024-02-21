@@ -6,11 +6,12 @@ enum FssKey {
   token,
   isLoggedIn,
   memberId,
-  buildingID,
 }
 
 class FssLocalUserRepo implements LocalUserRepo {
-  final storage = const FlutterSecureStorage();
+  final FlutterSecureStorage storage;
+
+  FssLocalUserRepo({required this.storage});
 
   @override
   Future<String> getToken() async {
@@ -23,12 +24,12 @@ class FssLocalUserRepo implements LocalUserRepo {
 
   @override
   Future<void> setToken(Token token) async {
-    try {
-      await storage.write(key: FssKey.token.name, value: token);
-      return;
-    } on Exception {
-      //
-    }
+    await storage.write(key: FssKey.token.name, value: token);
+  }
+
+  @override
+  Future<void> removeToken() async {
+    await storage.delete(key: FssKey.token.name);
   }
 
   @override
@@ -67,24 +68,5 @@ class FssLocalUserRepo implements LocalUserRepo {
     } on Exception {
       //
     }
-  }
-
-  @override
-  Future<String> getActiveBuildingID() async {
-    String? res = await storage.read(key: FssKey.buildingID.name);
-    if (res == null) {
-      return "";
-    }
-    return res;
-  }
-
-  @override
-  Future<void> setActiveBuildingID(String buildingID) async {
-    await storage.write(key: FssKey.buildingID.name, value: buildingID);
-  }
-
-  @override
-  Future<void> clearStorage() async {
-    await storage.deleteAll();
   }
 }

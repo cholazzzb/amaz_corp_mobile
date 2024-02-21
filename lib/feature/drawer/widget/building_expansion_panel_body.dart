@@ -1,4 +1,4 @@
-import 'package:amaz_corp_mobile/app_dependencies.dart';
+import 'package:amaz_corp_mobile/core/building/repository/local_location_repo.dart';
 import 'package:amaz_corp_mobile/feature/drawer/building_drawer_controller.dart';
 import 'package:amaz_corp_mobile/routing/schedule_router.dart';
 import 'package:amaz_corp_mobile/shared/component/skeleton.dart';
@@ -21,8 +21,7 @@ class BuildingExpansionPanelBody extends ConsumerWidget {
     if (!controller.containsKey(buildingID)) {
       return const Column();
     }
-    final locationRepo =
-        ref.watch(appDependenciesProvider).requireValue.database.locationRepo;
+    final locationRepo = ref.watch(localBuildingRepoProvider);
     final buildingAsync = controller[buildingID];
 
     List<Widget> children = switch (buildingAsync!.$1) {
@@ -48,9 +47,8 @@ class BuildingExpansionPanelBody extends ConsumerWidget {
                 Padding(
                   padding: const EdgeInsets.only(right: Sizes.p24),
                   child: ElevatedButton(
-                    onPressed: () {
-                      locationRepo.setSelectedBuildingID(buildingID);
-                      locationRepo.setSelectedRoomID(room.id);
+                    onPressed: () async {
+                      locationRepo.setActiveBuildingID(buildingID);
                       context.goNamed(
                         ScheduleRouteName.schedules.name,
                         pathParameters: {'roomID': room.id},

@@ -1,21 +1,22 @@
-import 'package:amaz_corp_mobile/core/building/repository/hive_location_repo.dart';
-import 'package:hive/hive.dart';
+import 'package:amaz_corp_mobile/app_dependencies.dart';
+import 'package:amaz_corp_mobile/core/building/repository/fss_location_repo.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'local_location_repo.g.dart';
 
+abstract class LocalBuildingRepo
+    implements LocalBuildingRepoCommand, LocalBuildingRepoQuery {}
+
 abstract class LocalBuildingRepoCommand {
-  void setSelectedBuildingID(String selectedBuildingID);
-  void setSelectedRoomID(String selectedRoomID);
+  Future<void> setActiveBuildingID(String buildingID);
 }
 
 abstract class LocalBuildingRepoQuery {
-  String getSelectedBuildingID();
-  String getSelectedRoomID();
+  Future<String> getActiveBuildingID();
 }
 
 @Riverpod(keepAlive: true)
-Future<HiveBuildingRepo> hiveBuildingRepo(HiveBuildingRepoRef ref) async {
-  final storage = await Hive.openBox(HiveBuilding.boxKeyBuilding.name);
-  return HiveBuildingRepo(storage: storage);
+LocalBuildingRepo localBuildingRepo(LocalBuildingRepoRef ref) {
+  final fssDB = ref.watch(appDependenciesProvider).requireValue.fssDB;
+  return FssLocationRepo(storage: fssDB);
 }

@@ -1,27 +1,23 @@
-import 'package:amaz_corp_mobile/core/user/domain/repository/fss_local_user_repo.dart';
+import 'package:amaz_corp_mobile/core/user/data/repository/local_user_repo.dart';
 import 'package:amaz_corp_mobile/shared/api/auth_interceptor.dart';
 import 'package:dio/dio.dart';
 
-enum InterceptorType { auth }
-
 class DioFactory {
-  DioFactory({required this.baseUrl, this.interceptor});
-
   final String baseUrl;
-  final InterceptorType? interceptor;
 
-  Dio create() {
+  DioFactory({
+    required this.baseUrl,
+  });
+
+  Dio create({LocalUserRepo? localUserRepo}) {
     final dio = Dio(_createBaseOptions());
-    switch (interceptor) {
-      case InterceptorType.auth:
-        dio.interceptors.add(
-          AuthInterceptor(
-            localUserRepo: FssLocalUserRepo(),
-          ),
-        );
-        break;
-      case null:
-        break;
+
+    if (localUserRepo != null) {
+      dio.interceptors.add(
+        AuthInterceptor(
+          localUserRepo: localUserRepo,
+        ),
+      );
     }
     return dio;
   }

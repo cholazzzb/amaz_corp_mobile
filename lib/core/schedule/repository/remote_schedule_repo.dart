@@ -1,5 +1,6 @@
 import 'package:amaz_corp_mobile/core/schedule/entity/schedule_entity.dart';
 import 'package:amaz_corp_mobile/core/schedule/repository/http_remote_schedule_repo.dart';
+import 'package:amaz_corp_mobile/core/user/data/repository/local_user_repo.dart';
 import 'package:amaz_corp_mobile/shared/api/dio_factory.dart';
 import 'package:amaz_corp_mobile/shared/env.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -19,11 +20,11 @@ HttpRemoteScheduleRepo remoteScheduleRepo(
   RemoteScheduleRepoRef ref,
 ) {
   final baseUrl = Environment.getBaseUrl();
+  final localUserRepo = ref.watch(localUserRepoProvider);
 
   return HttpRemoteScheduleRepo(
     DioFactory(
       baseUrl: baseUrl,
-      interceptor: InterceptorType.auth,
-    ).create(),
+    ).create(localUserRepo: localUserRepo),
   );
 }

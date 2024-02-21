@@ -1,4 +1,5 @@
 import 'package:amaz_corp_mobile/core/building/entity/building_entity.dart';
+import 'package:amaz_corp_mobile/core/building/repository/local_location_repo.dart';
 import 'package:amaz_corp_mobile/core/building/service/location_service.dart';
 import 'package:flutter/material.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -74,5 +75,18 @@ class LeaveBuildingController extends _$LeaveBuildingController {
   Future<void> _leaveBuilding(String memberId, String buildingId) async {
     final locationService = ref.read(locationServiceProvider);
     await locationService.leaveBuilding(memberId, buildingId);
+  }
+}
+
+@riverpod
+class ActiveBuildingController extends _$ActiveBuildingController {
+  @override
+  Future<String> build() => Future.value("");
+
+  void getActiveBuildingID() async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      return await ref.watch(localBuildingRepoProvider).getActiveBuildingID();
+    });
   }
 }

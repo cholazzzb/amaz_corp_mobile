@@ -36,7 +36,7 @@ class UserService {
 
   Future<void> logout(VoidCallback cb) async {
     final localUserRepo = ref.watch(localUserRepoProvider);
-    await localUserRepo.clearStorage();
+    await localUserRepo.removeToken();
     cb.call();
   }
 

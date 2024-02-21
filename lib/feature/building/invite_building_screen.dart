@@ -1,4 +1,3 @@
-import 'package:amaz_corp_mobile/app_dependencies.dart';
 import 'package:amaz_corp_mobile/core/building/entity/member_entity.dart';
 import 'package:amaz_corp_mobile/core/building/service/location_service.dart';
 import 'package:amaz_corp_mobile/feature/task/add_task_screen.dart';
@@ -8,7 +7,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class InviteBuildingScreen extends ConsumerStatefulWidget {
-  const InviteBuildingScreen({super.key});
+  final String buildingID;
+  const InviteBuildingScreen({
+    super.key,
+    required this.buildingID,
+  });
 
   @override
   ConsumerState<InviteBuildingScreen> createState() =>
@@ -20,14 +23,8 @@ class _InviteBuildingScreenState extends ConsumerState<InviteBuildingScreen> {
   Widget build(BuildContext context) {
     Member member = emptyMember;
 
-    final buildingID = ref
-        .watch(appDependenciesProvider)
-        .requireValue
-        .database
-        .locationRepo
-        .getSelectedBuildingID();
-
-    final listMember = ref.watch(getListMemberByBuildingIDProvider(buildingID));
+    final listMember =
+        ref.watch(getListMemberByBuildingIDProvider(widget.buildingID));
 
     return WithNavigationLayout(
       title: "title",
