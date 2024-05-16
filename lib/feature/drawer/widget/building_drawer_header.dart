@@ -13,7 +13,12 @@ class BuildingDrawerHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     void onPressHome() {
-      context.goNamed(LocationRouteName.home.name);
+      final currentRoute = ModalRoute.of(context)?.settings.name ?? "";
+      if (currentRoute == LocationRouteName.home.name) {
+        Navigator.pop(context);
+      } else {
+        context.goNamed(LocationRouteName.home.name);
+      }
     }
 
     return DrawerHeader(
