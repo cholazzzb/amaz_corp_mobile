@@ -28,27 +28,30 @@ class _CreateBuildingBottomSheetState extends State<CreateBuildingBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 300,
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(Sizes.p32),
-              child: TextField(
-                decoration: const InputDecoration(
-                  labelText: 'Create name as a location!',
+    return Padding(
+      padding: MediaQuery.of(context).viewInsets,
+      child: SizedBox(
+        height: 300,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(Sizes.p32),
+                child: TextField(
+                  decoration: const InputDecoration(
+                    labelText: 'Create name as a location!',
+                  ),
+                  controller: _nameController,
                 ),
-                controller: _nameController,
               ),
-            ),
-            ElevatedButton(
-              onPressed: () => widget.onPressCreate(name),
-              child: const Text("Create"),
-            )
-          ],
+              ElevatedButton(
+                onPressed: () => widget.onPressCreate(name),
+                child: const Text("Create"),
+              )
+            ],
+          ),
         ),
       ),
     );

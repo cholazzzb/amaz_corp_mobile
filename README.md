@@ -49,3 +49,7 @@ dart pub add name
 ```powershell
 dart pub add dev:name
 ```
+
+# Dev on android simulator
+
+- Change `localhost` to `10.0.2.2` on `.env` file
