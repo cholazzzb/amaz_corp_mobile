@@ -1,6 +1,8 @@
+import 'package:amaz_corp_mobile/app_dependencies.dart';
 import 'package:amaz_corp_mobile/core/building/entity/room_entity.dart';
 import 'package:amaz_corp_mobile/core/building/service/location_service.dart';
 import 'package:amaz_corp_mobile/routing/schedule_router.dart';
+import 'package:amaz_corp_mobile/shared/component/emty_layout.dart';
 import 'package:amaz_corp_mobile/shared/constant/app_size.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +22,9 @@ class ListMyRoom extends ConsumerWidget {
       );
     }
 
+    final locationRepo =
+        ref.watch(appDependenciesProvider).requireValue.database.locationRepo;
+
     final listRoomAsync =
         ref.watch(getListRoomsByBuildingIDProvider(buildingID));
 
@@ -28,10 +33,12 @@ class ListMyRoom extends ConsumerWidget {
     }
 
     Widget errorWidget(e, st) {
-      return const Text("data");
+      return const EmptyLayout(
+          title: "List Room", message: "No room available");
     }
 
     void onTap(String roomID) {
+      locationRepo.setSelectedRoomID(roomID);
       context.pushNamed(
         ScheduleRouteName.schedules.name,
         pathParameters: {"roomID": roomID},

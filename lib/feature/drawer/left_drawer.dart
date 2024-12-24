@@ -1,3 +1,4 @@
+import 'package:amaz_corp_mobile/app_dependencies.dart';
 import 'package:amaz_corp_mobile/core/user/domain/service/user_service.dart';
 import 'package:amaz_corp_mobile/feature/drawer/widget/building_drawer_header.dart';
 import 'package:amaz_corp_mobile/feature/drawer/widget/list_my_building.dart';
@@ -19,10 +20,14 @@ class _LeftDrawerState extends ConsumerState<LeftDrawer> {
 
   @override
   Widget build(BuildContext context) {
+    final locationRepo =
+        ref.watch(appDependenciesProvider).requireValue.database.locationRepo;
+
     void onSelectBuilding(buildingID) {
       setState(() {
         selectedBuildingID = buildingID;
       });
+      locationRepo.setSelectedBuildingID(buildingID);
     }
 
     final userSvc = ref.watch(userServiceProvider);
