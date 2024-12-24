@@ -23,6 +23,11 @@ class _LeftDrawerState extends ConsumerState<LeftDrawer> {
     final locationRepo =
         ref.watch(appDependenciesProvider).requireValue.database.locationRepo;
 
+    final localSelectedBuildingID = locationRepo.getSelectedBuildingID();
+    final mergedSelectedBuildingID = selectedBuildingID.isNotEmpty
+        ? selectedBuildingID
+        : localSelectedBuildingID;
+
     void onSelectBuilding(buildingID) {
       setState(() {
         selectedBuildingID = buildingID;
@@ -62,7 +67,7 @@ class _LeftDrawerState extends ConsumerState<LeftDrawer> {
                     Expanded(
                       child: Container(
                         color: Theme.of(context).colorScheme.background,
-                        child: ListMyRoom(buildingID: selectedBuildingID),
+                        child: ListMyRoom(buildingID: mergedSelectedBuildingID),
                       ),
                     )
                   ]),
