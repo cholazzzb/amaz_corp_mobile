@@ -2,7 +2,7 @@ import 'package:amaz_corp_mobile/app_dependencies.dart';
 import 'package:amaz_corp_mobile/core/building/entity/room_entity.dart';
 import 'package:amaz_corp_mobile/core/building/service/location_service.dart';
 import 'package:amaz_corp_mobile/routing/schedule_router.dart';
-import 'package:amaz_corp_mobile/shared/component/emty_layout.dart';
+import 'package:amaz_corp_mobile/shared/component/empty.dart';
 import 'package:amaz_corp_mobile/shared/constant/app_size.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -33,15 +33,17 @@ class ListMyRoom extends ConsumerWidget {
     }
 
     Widget errorWidget(e, st) {
-      return const EmptyLayout(
-          title: "List Room", message: "No room available");
+      return const Empty(message: "No room available");
     }
 
-    void onTap(String roomID) {
+    void onTap(String roomID, String roomName) {
       locationRepo.setSelectedRoomID(roomID);
       context.pushNamed(
         ScheduleRouteName.schedules.name,
-        pathParameters: {"roomID": roomID},
+        pathParameters: {
+          "roomID": roomID,
+          "roomName": roomName,
+        },
       );
     }
 
@@ -53,7 +55,10 @@ class ListMyRoom extends ConsumerWidget {
               padding: const EdgeInsets.all(Sizes.p12),
               child: InkWell(
                 onTap: () {
-                  onTap(room.id);
+                  onTap(
+                    room.id,
+                    room.name,
+                  );
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

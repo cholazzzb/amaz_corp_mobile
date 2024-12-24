@@ -16,11 +16,25 @@ class EmptyLayout extends StatelessWidget {
     return WithNavigationCustomLayout(
       title: title,
       selectedIdx: 0,
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [Text(message)],
-        ),
+      child: Empty(message: message),
+    );
+  }
+}
+
+class Empty extends StatelessWidget {
+  final String message;
+
+  const Empty({
+    super.key,
+    required this.message,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [Text(message)],
       ),
     );
   }

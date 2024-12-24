@@ -17,17 +17,19 @@ class ScheduleRoute {
   static List<GoRoute> create() {
     return [
       GoRoute(
-        path: 'rooms/:roomID/schedules',
+        path: 'rooms/:roomID/:roomName/schedules',
         name: ScheduleRouteName.schedules.name,
         redirect: (BuildContext context, GoRouterState state) {
           final roomID = state.pathParameters["roomID"];
-          if (roomID == null) {
+          final roomName = state.pathParameters["roomName"];
+          if (roomID == null || roomName == null) {
             return '/home';
           }
           return null;
         },
         builder: (context, state) => ListScheduleScreen(
           roomID: state.pathParameters['roomID']!,
+          roomName: state.pathParameters['roomName']!,
         ),
       ),
       GoRoute(

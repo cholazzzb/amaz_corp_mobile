@@ -58,7 +58,7 @@ class _AddScheduleScreenState extends ConsumerState<AddScheduleScreen> {
     final state = ref.watch(addScheduleControllerProvider);
 
     void onSuccess() {
-      context.goNamed(
+      context.pushReplacementNamed(
         ScheduleRouteName.schedules.name,
         pathParameters: {
           "roomID": widget.roomID,
