@@ -69,7 +69,7 @@ class ListLocation extends ConsumerWidget {
           final building = data[index];
 
           void onPressDetail() {
-            context.goNamed(
+            context.pushNamed(
               LocationRouteName.buildingID.name,
               pathParameters: {"buildingID": building.id},
             );

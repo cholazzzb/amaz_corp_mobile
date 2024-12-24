@@ -76,7 +76,7 @@ class RoomCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Future<void> onPress() async {
-      context.goNamed(ScheduleRouteName.schedules.name,
+      context.pushNamed(ScheduleRouteName.schedules.name,
           pathParameters: {"roomID": item.id});
     }
 

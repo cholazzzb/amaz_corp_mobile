@@ -66,7 +66,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     final state = ref.watch(loginControllerProvider);
 
     void onSuccessLogin() {
-      context.goNamed(LocationRouteName.location.name);
+      context.pushReplacementNamed(LocationRouteName.location.name);
 
       final snackBar = SnackBar(
         backgroundColor: Theme.of(context).snackBarTheme.backgroundColor,

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:amaz_corp_mobile/core/task/entity/task_entity.dart';
 import 'package:amaz_corp_mobile/core/task/repository/remote_task_repo.dart';
+import 'package:amaz_corp_mobile/shared/date.dart';
 import 'package:dio/dio.dart';
 
 class HttpRemoteTaskRepo implements RemoteTaskRepoQuery, RemoteTaskRepoCommand {
@@ -11,7 +12,12 @@ class HttpRemoteTaskRepo implements RemoteTaskRepoQuery, RemoteTaskRepoCommand {
 
   @override
   Future<List<Task>> getListTaskByScheduleID(String scheduleID) async {
-    String uri = 'api/v1/schedules/$scheduleID/tasks';
+    final startTime =
+        dateToUTCSTring(DateTime.now().subtract(const Duration(days: 7)));
+    final endTime = dateToUTCSTring(DateTime.now());
+
+    String uri =
+        'api/v1/schedules/$scheduleID/tasks?start-time=$startTime&end-time=$endTime';
 
     final response = await _dio.get(uri);
 

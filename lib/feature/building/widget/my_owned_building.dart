@@ -111,7 +111,8 @@ class ListOwnedBuilding extends StatelessWidget {
           final building = data[index];
 
           void onPressDetail() {
-            context.goNamed(LocationRouteName.buildingID.name, pathParameters: {
+            context
+                .pushNamed(LocationRouteName.buildingID.name, pathParameters: {
               "buildingID": building.id,
             });
           }

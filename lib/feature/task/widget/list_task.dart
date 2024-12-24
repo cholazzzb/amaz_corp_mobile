@@ -18,7 +18,31 @@ class ListTask extends ConsumerWidget {
     }
 
     Widget errorWidget(Object err, StackTrace st) {
-      return const Text("Error");
+      return Expanded(
+        flex: 1,
+        child: RefreshIndicator(
+          onRefresh: onPressRefetch,
+          child: ListView.builder(
+              padding: const EdgeInsets.symmetric(
+                vertical: Sizes.p16,
+                horizontal: Sizes.p8,
+              ),
+              shrinkWrap: true,
+              itemCount: 1,
+              itemBuilder: (BuildContext context, int index) {
+                return const Card(
+                  child: Padding(
+                    padding: EdgeInsets.all(Sizes.p16),
+                    child: Row(
+                      children: [
+                        Text("Error"),
+                      ],
+                    ),
+                  ),
+                );
+              }),
+        ),
+      );
     }
 
     Widget loadingWidget() {
@@ -26,6 +50,35 @@ class ListTask extends ConsumerWidget {
     }
 
     Widget successWidget(List<Task> data) {
+      if (data.length == 0) {
+        return Expanded(
+          flex: 1,
+          child: RefreshIndicator(
+            onRefresh: onPressRefetch,
+            child: ListView.builder(
+              padding: const EdgeInsets.symmetric(
+                vertical: Sizes.p16,
+                horizontal: Sizes.p8,
+              ),
+              shrinkWrap: true,
+              itemCount: 1,
+              itemBuilder: (BuildContext context, int index) {
+                return const Card(
+                  child: Padding(
+                    padding: EdgeInsets.all(Sizes.p16),
+                    child: Row(
+                      children: [
+                        Text("You don't have any tasks yet!"),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            ),
+          ),
+        );
+      }
+
       return Expanded(
         flex: 1,
         child: RefreshIndicator(

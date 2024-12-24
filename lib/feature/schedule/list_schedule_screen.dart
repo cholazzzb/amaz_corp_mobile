@@ -84,7 +84,7 @@ class ListSchedule extends StatelessWidget {
                     ElevatedButton(
                       child: const Text('See Tasks'),
                       onPressed: () {
-                        context.goNamed(
+                        context.pushNamed(
                           ScheduleRouteName.scheduleID.name,
                           pathParameters: {
                             'scheduleID': sch.id,
