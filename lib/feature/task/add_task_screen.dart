@@ -5,16 +5,17 @@ import 'package:amaz_corp_mobile/core/task/entity/task_entity.dart';
 import 'package:amaz_corp_mobile/feature/task/controller/add_task_controller.dart';
 import 'package:amaz_corp_mobile/shared/async_value_ui.dart';
 import 'package:amaz_corp_mobile/shared/component/bottom_sheet/error/error_bottom_sheet_500.dart';
+import 'package:amaz_corp_mobile/shared/component/emty_layout.dart';
 import 'package:amaz_corp_mobile/shared/component/form/date_form_field.dart';
 import 'package:amaz_corp_mobile/shared/component/form/select_form_field.dart';
 import 'package:amaz_corp_mobile/shared/component/primary_button.dart';
 import 'package:amaz_corp_mobile/shared/constant/app_size.dart';
+import 'package:amaz_corp_mobile/shared/date.dart';
 import 'package:amaz_corp_mobile/shared/extension/numerical_range_formatter.dart';
 import 'package:amaz_corp_mobile/shared/layout/with_navigation_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 
 const emptyMember = Member(
   id: '',
@@ -56,8 +57,7 @@ class _AddTaskScreenState extends ConsumerState<AddTaskScreen> {
   }
 
   Future<void> _submit(VoidCallback onSuccess) async {
-    final formatter = DateFormat('E, d MMM yyyy HH:mm:ss');
-    final formatted = "${formatter.format(startTime.toUtc())} GMT";
+    final formatted = dateToUTCSTring(startTime.toUtc());
 
     final req = AddTaskReq(
       scheduleID: widget.scheduleID,
@@ -98,6 +98,13 @@ class _AddTaskScreenState extends ConsumerState<AddTaskScreen> {
         .database
         .locationRepo
         .getSelectedBuildingID();
+
+    if (buildingID.isEmpty) {
+      return const EmptyLayout(
+        title: 'Add Task',
+        message: "No building selected, please select building first",
+      );
+    }
 
     final listMember = ref.watch(getListMemberByBuildingIDProvider(buildingID));
 

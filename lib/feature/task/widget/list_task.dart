@@ -50,7 +50,7 @@ class ListTask extends ConsumerWidget {
     }
 
     Widget successWidget(List<Task> data) {
-      if (data.length == 0) {
+      if (data.isEmpty) {
         return Expanded(
           flex: 1,
           child: RefreshIndicator(
