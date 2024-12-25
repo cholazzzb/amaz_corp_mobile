@@ -3,6 +3,7 @@ import 'package:amaz_corp_mobile/core/building/entity/member_entity.dart';
 import 'package:amaz_corp_mobile/core/building/service/location_service.dart';
 import 'package:amaz_corp_mobile/core/task/entity/task_entity.dart';
 import 'package:amaz_corp_mobile/feature/task/controller/add_task_controller.dart';
+import 'package:amaz_corp_mobile/routing/schedule_router.dart';
 import 'package:amaz_corp_mobile/shared/async_value_ui.dart';
 import 'package:amaz_corp_mobile/shared/component/bottom_sheet/error/error_bottom_sheet_500.dart';
 import 'package:amaz_corp_mobile/shared/component/empty.dart';
@@ -16,6 +17,7 @@ import 'package:amaz_corp_mobile/shared/layout/with_navigation_custom.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 const emptyMember = Member(
   id: '',
@@ -48,7 +50,7 @@ class _AddTaskScreenState extends ConsumerState<AddTaskScreen> {
       : "0";
   Member ownerID = emptyMember;
   Member assigneeID = emptyMember;
-  Member status = emptyMember;
+  TaskStatus status = const TaskStatus(id: "", name: "");
 
   @override
   void dispose() {
@@ -66,15 +68,21 @@ class _AddTaskScreenState extends ConsumerState<AddTaskScreen> {
       durationDay: int.parse(durationDay),
       ownerID: ownerID.id,
       assigneeID: assigneeID.id,
-      status: status.id,
+      statusID: status.id,
     );
+
     final controller = ref.read(addTaskControllerProvider.notifier);
     await controller.addTask(req: req);
+    onSuccess.call();
   }
 
   Future<void> submit() async {
     _submit(() {
-      // context.goNamed(name);
+      print("BRO");
+      context.goNamed(
+        ScheduleRouteName.scheduleID.name,
+        pathParameters: {"scheduleID": widget.scheduleID},
+      );
     });
   }
 
@@ -107,6 +115,7 @@ class _AddTaskScreenState extends ConsumerState<AddTaskScreen> {
     }
 
     final listMember = ref.watch(getListMemberByBuildingIDProvider(buildingID));
+    final listTaskStatus = ref.watch(getListTaskStatusProvider);
 
     return WithNavigationCustomLayout(
       title: 'Add Task',
@@ -187,12 +196,12 @@ class _AddTaskScreenState extends ConsumerState<AddTaskScreen> {
                     const SizedBox(
                       height: Sizes.p12,
                     ),
-                    SelectFormField<Member>(
-                      loading: listMember.isLoading,
-                      errorMessage: listMember.error.toString(),
+                    SelectFormField<TaskStatus>(
+                      loading: listTaskStatus.isLoading,
+                      errorMessage: listTaskStatus.error.toString(),
                       title: "Status",
                       selectedValue: status,
-                      list: listMember.value ?? [],
+                      list: listTaskStatus.value ?? [],
                       selectValue: (value) => value.name,
                       onSelect: (selectedValue) {
                         setState(() {

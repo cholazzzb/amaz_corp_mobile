@@ -19,6 +19,18 @@ class Task with _$Task {
   factory Task.fromJSON(Map<String, dynamic> json) => _$$TaskImplFromJson(json);
 }
 
+@freezed
+class TaskStatus with _$TaskStatus {
+  @JsonSerializable(explicitToJson: true)
+  const factory TaskStatus({
+    @JsonKey(name: "ID") required String id,
+    @JsonKey(name: "name") required String name,
+  }) = _TaskStatus;
+
+  factory TaskStatus.fromJSON(Map<String, dynamic> json) =>
+      _$$TaskStatusImplFromJson(json);
+}
+
 @Freezed(toJson: true)
 class AddTaskReq with _$AddTaskReq {
   @JsonSerializable(explicitToJson: true)
@@ -29,7 +41,7 @@ class AddTaskReq with _$AddTaskReq {
     @JsonKey(name: "name") required String name,
     @JsonKey(name: "ownerID") required String ownerID,
     @JsonKey(name: "assigneeID") required String assigneeID,
-    @JsonKey(name: "status") required String status,
+    @JsonKey(name: "statusID") required String statusID,
   }) = _AddTaskReq;
 
   factory AddTaskReq.fromJSON(Map<String, dynamic> json) =>

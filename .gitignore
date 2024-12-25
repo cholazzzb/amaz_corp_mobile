@@ -1,6 +1,7 @@
 secrets
 .env
 .env.dev
+local.properties
 
 # Generated
 *.freezed.dart

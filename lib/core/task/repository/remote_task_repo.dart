@@ -7,6 +7,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 part 'remote_task_repo.g.dart';
 
 abstract class RemoteTaskRepoQuery {
+  Future<List<TaskStatus>> getListTaskStatus();
   Future<List<Task>> getListTaskByScheduleID(String scheduleID);
 }
 

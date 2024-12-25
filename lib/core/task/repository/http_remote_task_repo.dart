@@ -11,10 +11,25 @@ class HttpRemoteTaskRepo implements RemoteTaskRepoQuery, RemoteTaskRepoCommand {
   final Dio _dio;
 
   @override
+  Future<List<TaskStatus>> getListTaskStatus() async {
+    String uri = "api/v1/tasks/status";
+
+    final response = await _dio.get(uri);
+
+    final List<TaskStatus> taskStatus = response.data["data"]!
+        .map((taskStatus) => TaskStatus.fromJSON(taskStatus))
+        .toList()
+        .cast<TaskStatus>();
+
+    return taskStatus;
+  }
+
+  @override
   Future<List<Task>> getListTaskByScheduleID(String scheduleID) async {
     final startTime =
         dateToUTCSTring(DateTime.now().subtract(const Duration(days: 7)));
-    final endTime = dateToUTCSTring(DateTime.now());
+    final endTime =
+        dateToUTCSTring(DateTime.now().add(const Duration(days: 1)));
 
     String uri =
         'api/v1/schedules/$scheduleID/tasks?start-time=$startTime&end-time=$endTime';

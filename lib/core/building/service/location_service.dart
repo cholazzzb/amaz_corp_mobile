@@ -4,6 +4,8 @@ import 'package:amaz_corp_mobile/core/building/entity/room_entity.dart';
 import 'package:amaz_corp_mobile/core/building/repository/hive_location_repo.dart';
 import 'package:amaz_corp_mobile/core/building/repository/local_location_repo.dart';
 import 'package:amaz_corp_mobile/core/building/repository/remote_location_repo.dart';
+import 'package:amaz_corp_mobile/core/task/entity/task_entity.dart';
+import 'package:amaz_corp_mobile/core/task/repository/remote_task_repo.dart';
 import 'package:amaz_corp_mobile/core/user/data/repository/local_user_repo.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
@@ -122,10 +124,17 @@ Future<List<Room>> getListRoom(
 
 @riverpod
 Future<List<Member>> getListMemberByBuildingID(
-  GetListMemberByBuildingIDRef ref,
+  Ref ref,
   String buildingID,
 ) async {
   return await ref
       .read(remoteLocationRepoProvider)
       .getListMemberByBuildingID(buildingID);
+}
+
+@riverpod
+Future<List<TaskStatus>> getListTaskStatus(
+  Ref ref,
+) async {
+  return await ref.read(remoteTaskRepoProvider).getListTaskStatus();
 }
