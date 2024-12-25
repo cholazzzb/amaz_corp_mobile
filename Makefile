@@ -16,6 +16,9 @@ build-apk:
 watch:
 	@dart run build_runner watch -d
 
+upgrade:
+	@flutter pub upgrade 
+	
 clean:
 	#[[Deleting previous abb file and update local.properties versionCode]]
 	@flutter clean
