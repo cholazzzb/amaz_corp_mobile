@@ -29,30 +29,33 @@ class _JoinBuildingBottomSheetState extends State<JoinBuildingBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 300,
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.all(Sizes.p32),
-              child: TextField(
-                decoration: const InputDecoration(
-                  labelText: 'Create name as a building member!',
+    return Padding(
+      padding: MediaQuery.of(context).viewInsets,
+      child: SizedBox(
+        height: 300,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Padding(
+                padding: const EdgeInsets.all(Sizes.p32),
+                child: TextField(
+                  decoration: const InputDecoration(
+                    labelText: 'Create name as a building member!',
+                  ),
+                  controller: _nameController,
                 ),
-                controller: _nameController,
               ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                widget.onPressJoin(name);
-                Navigator.pop(context);
-              },
-              child: const Text("Join"),
-            )
-          ],
+              ElevatedButton(
+                onPressed: () {
+                  widget.onPressJoin(name);
+                  Navigator.pop(context);
+                },
+                child: const Text("Join"),
+              )
+            ],
+          ),
         ),
       ),
     );

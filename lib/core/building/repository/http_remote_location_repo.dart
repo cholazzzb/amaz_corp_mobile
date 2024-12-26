@@ -125,6 +125,18 @@ class HttpRemoteLocationRepo implements RemoteBuildingRepo {
   }
 
   @override
+  Future<void> createRoom(
+    CreateRoomReq req,
+  ) async {
+    const uri = 'api/v1/rooms';
+
+    String body = json.encode(req.toJson());
+
+    await _dio.post(uri, data: body);
+    return;
+  }
+
+  @override
   Future<void> editMemberName(RenameMemberNameReq req) async {
     String uri = 'api/v1/members/';
 

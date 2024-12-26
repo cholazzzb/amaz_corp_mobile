@@ -1,3 +1,4 @@
+import 'package:amaz_corp_mobile/feature/building/widget/create_room_fab.dart';
 import 'package:amaz_corp_mobile/feature/building/widget/invite_member_fab.dart';
 import 'package:amaz_corp_mobile/feature/building/widget/list_member.dart';
 import 'package:amaz_corp_mobile/feature/building/widget/list_room.dart';
@@ -31,7 +32,9 @@ class _BuildingScreenState extends ConsumerState<BuildingScreen> {
       title: "List Room",
       selectedIdx: 0,
       floatingActionButton: switch (selectedTab) {
-        Tab.room => null,
+        Tab.room => CreateRoomFAB(
+            buildingID: widget.buildingID,
+          ),
         Tab.member => InviteMemberFAB(
             buildingID: widget.buildingID,
           )

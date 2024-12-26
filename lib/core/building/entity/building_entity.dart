@@ -65,6 +65,18 @@ class InviteMemberToBuildingReq with _$InviteMemberToBuildingReq {
 }
 
 @Freezed(toJson: true)
+class CreateRoomReq with _$CreateRoomReq {
+  @JsonSerializable(explicitToJson: true)
+  const factory CreateRoomReq({
+    @JsonKey(name: 'name') required String name,
+    @JsonKey(name: "buildingID") required String buildingID,
+  }) = _CreateRoomReq;
+
+  factory CreateRoomReq.fromJSON(Map<String, dynamic> json) =>
+      _$$CreateRoomReqImplFromJson(json);
+}
+
+@Freezed(toJson: true)
 class RenameMemberNameReq with _$RenameMemberNameReq {
   @JsonSerializable(explicitToJson: true)
   const factory RenameMemberNameReq({

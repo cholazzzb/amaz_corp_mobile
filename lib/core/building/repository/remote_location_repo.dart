@@ -29,6 +29,9 @@ abstract class RemoteBuildingRepoCommand {
     String memberID,
     String buildingID,
   );
+  Future<void> createRoom(
+    CreateRoomReq req,
+  );
 }
 
 abstract class RemoteBuildingRepoQuery {

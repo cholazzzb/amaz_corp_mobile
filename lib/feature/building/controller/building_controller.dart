@@ -76,3 +76,28 @@ class LeaveBuildingController extends _$LeaveBuildingController {
     await locationService.leaveBuilding(memberId, buildingId);
   }
 }
+
+@riverpod
+class CreateRoomController extends _$CreateRoomController {
+  @override
+  Future<void> build() => Future.value();
+
+  Future<void> createRoom({
+    required String roomName,
+    required String buildingID,
+    VoidCallback? onSuccess,
+  }) async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      await _createRoom(roomName, buildingID);
+      onSuccess?.call();
+    });
+  }
+
+  Future<void> _createRoom(String roomName, String buildingID) async {
+    final locationService = ref.read(locationServiceProvider);
+    await locationService.createRoom(
+      CreateRoomReq(name: roomName, buildingID: buildingID),
+    );
+  }
+}

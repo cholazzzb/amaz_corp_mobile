@@ -52,6 +52,11 @@ class LocationService {
     return;
   }
 
+  Future<void> createRoom(CreateRoomReq req) async {
+    final repo = ref.read(remoteLocationRepoProvider);
+    await repo.createRoom(req);
+  }
+
   Future<List<BuildingMember>> getMyLocations() async {
     final localUserRepo = ref.watch(localUserRepoProvider);
     final memberId = await localUserRepo.getMemberId();

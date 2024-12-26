@@ -62,33 +62,36 @@ class InviteMemberSearchBottomSheet extends ConsumerWidget {
 
     return StatefulBuilder(
       builder: (context, setState) {
-        return DraggableScrollableSheet(
-          initialChildSize: 0.5,
-          minChildSize: 0.2,
-          maxChildSize: 0.75,
-          builder: (_, controller) {
-            return Container(
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(Sizes.p24),
-                  topRight: Radius.circular(Sizes.p24),
+        return Padding(
+          padding: MediaQuery.of(context).viewInsets,
+          child: DraggableScrollableSheet(
+            initialChildSize: 0.5,
+            minChildSize: 0.2,
+            maxChildSize: 0.75,
+            builder: (_, controller) {
+              return Container(
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(Sizes.p24),
+                    topRight: Radius.circular(Sizes.p24),
+                  ),
                 ),
-              ),
-              child: Column(
-                children: [
-                  Icon(Icons.remove, color: Colors.grey[600]),
-                  BottomSheetHeader(
-                    title: title,
-                  ),
-                  SearchInput(
-                    onSearch: onSearch,
-                  ),
-                  listWidget,
-                ],
-              ),
-            );
-          },
+                child: Column(
+                  children: [
+                    Icon(Icons.remove, color: Colors.grey[600]),
+                    BottomSheetHeader(
+                      title: title,
+                    ),
+                    SearchInput(
+                      onSearch: onSearch,
+                    ),
+                    listWidget,
+                  ],
+                ),
+              );
+            },
+          ),
         );
       },
     );
