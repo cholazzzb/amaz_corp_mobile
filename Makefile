@@ -7,7 +7,7 @@ fix:
 dev:
 	@flutter run
 
-build-abb:
+build-aab:
 	@flutter build appbundle
 
 build-apk:
