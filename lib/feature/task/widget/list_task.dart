@@ -1,8 +1,11 @@
 import 'package:amaz_corp_mobile/core/task/entity/task_entity.dart';
 import 'package:amaz_corp_mobile/core/task/service/task_service.dart';
+import 'package:amaz_corp_mobile/routing/schedule_router.dart';
+import 'package:amaz_corp_mobile/shared/component/primary_button.dart';
 import 'package:amaz_corp_mobile/shared/constant/app_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class ListTask extends ConsumerWidget {
   final String scheduleID;
@@ -15,6 +18,13 @@ class ListTask extends ConsumerWidget {
 
     Future<void> onPressRefetch() async {
       final _ = ref.refresh(getListTaskByScheduleIDProvider(scheduleID));
+    }
+
+    Future<void> onPressDetail(String taskID) async {
+      context.pushNamed(ScheduleRouteName.taskID.name, pathParameters: {
+        "scheduleID": scheduleID,
+        "taskID": taskID,
+      });
     }
 
     Widget errorWidget(Object err, StackTrace st) {
@@ -96,8 +106,13 @@ class ListTask extends ConsumerWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(Sizes.p16),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(task.name),
+                      PrimaryButton(
+                        text: 'See Detail',
+                        onPressed: () => onPressDetail(task.id),
+                      )
                     ],
                   ),
                 ),

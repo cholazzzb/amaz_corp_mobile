@@ -9,6 +9,7 @@ part 'remote_task_repo.g.dart';
 abstract class RemoteTaskRepoQuery {
   Future<List<TaskStatus>> getListTaskStatus();
   Future<List<Task>> getListTaskByScheduleID(String scheduleID);
+  Future<TaskDetail> getTaskDetail(String taskID);
 }
 
 abstract class RemoteTaskRepoCommand {

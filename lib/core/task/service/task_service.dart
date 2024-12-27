@@ -17,16 +17,24 @@ class TaskService {
 }
 
 @Riverpod(keepAlive: true)
-TaskService taskService(TaskServiceRef ref) {
+TaskService taskService(Ref ref) {
   return TaskService(ref);
 }
 
 @riverpod
 Future<List<Task>> getListTaskByScheduleID(
-  GetListTaskByScheduleIDRef ref,
+  Ref ref,
   String scheduleID,
 ) async {
   return await ref
       .watch(remoteTaskRepoProvider)
       .getListTaskByScheduleID(scheduleID);
+}
+
+@riverpod
+Future<TaskDetail> getTaskDetail(
+  Ref ref,
+  String taskID,
+) async {
+  return await ref.watch(remoteTaskRepoProvider).getTaskDetail(taskID);
 }

@@ -1,6 +1,7 @@
 import 'package:amaz_corp_mobile/feature/schedule/add_schedule_screen.dart';
 import 'package:amaz_corp_mobile/feature/schedule/list_schedule_screen.dart';
 import 'package:amaz_corp_mobile/feature/task/add_task_screen.dart';
+import 'package:amaz_corp_mobile/feature/task/task_detail_screen.dart';
 import 'package:amaz_corp_mobile/feature/task/task_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -10,6 +11,7 @@ enum ScheduleRouteName {
   scheduleID,
   scheduleAdd,
   tasks,
+  taskID,
   taskAdd,
 }
 
@@ -44,6 +46,23 @@ class ScheduleRoute {
         },
         builder: (context, state) => TaskScreen(
           scheduleID: state.pathParameters['scheduleID']!,
+        ),
+      ),
+      GoRoute(
+        path: 'schedules/:scheduleID/tasks/:taskID',
+        name: ScheduleRouteName.taskID.name,
+        redirect: (BuildContext context, GoRouterState state) {
+          final scheduleID = state.pathParameters["scheduleID"];
+          final taskID = state.pathParameters["taskID"];
+
+          if (scheduleID == null || taskID == null) {
+            return '/home';
+          }
+          return null;
+        },
+        builder: (context, state) => TaskDetailScreen(
+          scheduleID: state.pathParameters['scheduleID']!,
+          taskID: state.pathParameters['taskID']!,
         ),
       ),
       GoRoute(

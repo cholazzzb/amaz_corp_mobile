@@ -45,6 +45,17 @@ class HttpRemoteTaskRepo implements RemoteTaskRepoQuery, RemoteTaskRepoCommand {
   }
 
   @override
+  Future<TaskDetail> getTaskDetail(String taskID) async {
+    String uri = 'api/v1/tasks/$taskID';
+
+    final response = await _dio.get(uri);
+
+    final TaskDetail taskDetail = TaskDetail.fromJSON(response.data["data"]!);
+
+    return taskDetail;
+  }
+
+  @override
   Future<void> postAddTask(AddTaskReq req) async {
     String uri = 'api/v1/tasks';
 

@@ -31,6 +31,24 @@ class TaskStatus with _$TaskStatus {
       _$$TaskStatusImplFromJson(json);
 }
 
+@freezed
+class TaskDetail with _$TaskDetail {
+  @JsonSerializable(explicitToJson: true)
+  const factory TaskDetail({
+    @JsonKey(name: "ID") required String id,
+    @JsonKey(name: "name") required String name,
+    @JsonKey(name: "startTime") required String startTime,
+    @JsonKey(name: "endTime") required String endTime,
+    @JsonKey(name: "status") required String status,
+    @JsonKey(name: "scheduleName") required String scheduleName,
+    @JsonKey(name: "ownerName") required String ownerName,
+    @JsonKey(name: "assigneeName") required String assigneeName,
+  }) = _TaskDetail;
+
+  factory TaskDetail.fromJSON(Map<String, dynamic> json) =>
+      _$$TaskDetailImplFromJson(json);
+}
+
 @Freezed(toJson: true)
 class AddTaskReq with _$AddTaskReq {
   @JsonSerializable(explicitToJson: true)
