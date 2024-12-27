@@ -645,6 +645,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.0"
+  mix:
+    dependency: "direct main"
+    description:
+      name: mix
+      sha256: "7ce7b733b082e6702925b382272d16c82bf691eefefb5e7d3f7fc945485ea08c"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.5.3"
+  mix_annotations:
+    dependency: transitive
+    description:
+      name: mix_annotations
+      sha256: "2562df9177715e35f1cce9e8967e1f6b539364b34aea88d3f4098593a0fb2d6f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.1"
   onesignal_flutter:
     dependency: "direct main"
     description:
