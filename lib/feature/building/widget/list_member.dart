@@ -1,6 +1,5 @@
 import 'package:amaz_corp_mobile/core/building/entity/member_entity.dart';
 import 'package:amaz_corp_mobile/core/building/service/location_service.dart';
-import 'package:amaz_corp_mobile/shared/component/primary_button.dart';
 import 'package:amaz_corp_mobile/shared/constant/app_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -78,7 +77,9 @@ class MemberCard extends StatelessWidget {
         padding: const EdgeInsets.all(Sizes.p12),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [Text(item.name), const PrimaryButton(text: 'Coba')],
+          children: [
+            Text(item.name),
+          ],
         ),
       ),
     );
