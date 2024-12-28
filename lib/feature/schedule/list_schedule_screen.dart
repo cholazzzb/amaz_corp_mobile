@@ -9,6 +9,7 @@ import 'package:amaz_corp_mobile/shared/layout/with_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mix/mix.dart';
 
 class ListScheduleScreen extends ConsumerWidget {
   final String roomID;
@@ -30,7 +31,7 @@ class ListScheduleScreen extends ConsumerWidget {
     }
 
     Widget res = listScheduleAsync.when(
-      loading: () => const Skeleton(),
+      loading: () => _ListScheduleSkeleton(),
       error: (err, st) =>
           EmptyLayout(title: "Room $roomName", message: "Error load schedules"),
       data: (data) => data.isEmpty
@@ -141,6 +142,44 @@ class EmptySchedule extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _ListScheduleSkeleton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: Padding(
+        padding: EdgeInsets.all(Sizes.p24),
+        child: VBox(
+          children: [
+            ShimmerEffect(
+              child: Skeleton(
+                height: 60,
+              ),
+            ),
+            gapH20,
+            ShimmerEffect(
+              child: Skeleton(
+                height: 60,
+              ),
+            ),
+            gapH20,
+            ShimmerEffect(
+              child: Skeleton(
+                height: 60,
+              ),
+            ),
+            gapH20,
+            ShimmerEffect(
+              child: Skeleton(
+                height: 60,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
