@@ -29,7 +29,7 @@ class ListMyRoom extends ConsumerWidget {
         ref.watch(getListRoomsByBuildingIDProvider(buildingID));
 
     Widget loadingWidget() {
-      return const CircularProgressIndicator();
+      return const Center(child: CircularProgressIndicator());
     }
 
     Widget errorWidget(e, st) {
