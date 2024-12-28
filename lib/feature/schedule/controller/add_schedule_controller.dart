@@ -19,8 +19,8 @@ class AddScheduleController extends _$AddScheduleController {
 
     try {
       await _addSchedule(scheduleReq);
-      onSuccess?.call();
       state = const AsyncValue.data(null);
+      onSuccess?.call();
     } catch (err, st) {
       state = AsyncValue.error(err, st);
     }

@@ -28,3 +28,6 @@ clean-cache:
 
 check-dep:
 	@flutter pub outdated
+
+get-ip:
+	@ipconfig getifaddr en0

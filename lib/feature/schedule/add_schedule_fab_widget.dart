@@ -4,10 +4,12 @@ import 'package:go_router/go_router.dart';
 
 class AddScheduleFAB extends StatelessWidget {
   final String roomID;
+  final String roomName;
 
   const AddScheduleFAB({
     super.key,
     required this.roomID,
+    required this.roomName,
   });
 
   @override
@@ -20,6 +22,7 @@ class AddScheduleFAB extends StatelessWidget {
           ScheduleRouteName.scheduleAdd.name,
           pathParameters: {
             "roomID": roomID,
+            "roomName": roomName,
           },
         );
       },

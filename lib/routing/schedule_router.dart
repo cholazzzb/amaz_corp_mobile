@@ -66,17 +66,19 @@ class ScheduleRoute {
         ),
       ),
       GoRoute(
-        path: 'schedules/:roomID/add',
+        path: 'schedules/:roomID/:roomName/add',
         name: ScheduleRouteName.scheduleAdd.name,
         redirect: (BuildContext context, GoRouterState state) {
           final roomID = state.pathParameters["roomID"];
-          if (roomID == null) {
+          final roomName = state.pathParameters["roomName"];
+          if (roomID == null || roomName == null) {
             return '/home';
           }
           return null;
         },
         builder: (context, state) => AddScheduleScreen(
           roomID: state.pathParameters["roomID"]!,
+          roomName: state.pathParameters["roomName"]!,
         ),
       ),
       GoRoute(

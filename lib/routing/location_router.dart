@@ -16,6 +16,7 @@ class LocationRoute {
         path: 'home',
         name: LocationRouteName.home.name,
         builder: (context, state) => const ListBuildingScreen(),
+        redirect: (context, state) => null,
       ),
       GoRoute(
         path: 'locations',

@@ -22,7 +22,10 @@ final publicRoute = {"/", "/register", "/login"};
 @Riverpod(keepAlive: true)
 GoRouter goRouter(GoRouterRef ref) {
   final localUserRepo = ref.watch(localUserRepoProvider);
+  final rootNavigatorKey = GlobalKey<NavigatorState>();
+
   return GoRouter(
+    navigatorKey: rootNavigatorKey,
     initialLocation: '/',
     redirect: (BuildContext context, GoRouterState state) async {
       final bool isLoggedIn = await localUserRepo.isLoggedIn();
@@ -45,7 +48,7 @@ GoRouter goRouter(GoRouterRef ref) {
         path: '/',
         name: AppRoute.welcome.name,
         builder: (context, state) => const LandingPage(
-          title: "Welcome to Amaz",
+          title: "Hidden and not used lol",
         ),
         routes: [
           ...UserRoute.create(),

@@ -51,6 +51,7 @@ class ListScheduleScreen extends ConsumerWidget {
       selectedIdx: 0,
       floatingActionButton: AddScheduleFAB(
         roomID: roomID,
+        roomName: roomName,
       ),
       child: res,
     );

@@ -1,3 +1,4 @@
+import 'package:amaz_corp_mobile/routing/user_router.dart';
 import 'package:amaz_corp_mobile/shared/layout/plain.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -23,13 +24,14 @@ class WelcomeScreen extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   ElevatedButton.icon(
-                    onPressed: () => context.push('/register'),
+                    onPressed: () =>
+                        context.goNamed(UserRouteName.register.name),
                     icon: const Icon(Icons.app_registration),
                     label: const Text('Register'),
                   ),
                   const SizedBox(width: 12.0),
                   ElevatedButton.icon(
-                    onPressed: () => context.push('/login'),
+                    onPressed: () => context.goNamed(UserRouteName.login.name),
                     icon: const Icon(Icons.login),
                     label: const Text('Login'),
                   ),

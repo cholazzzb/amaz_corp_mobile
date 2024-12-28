@@ -12,10 +12,12 @@ import 'package:go_router/go_router.dart';
 
 class AddScheduleScreen extends ConsumerStatefulWidget {
   final String roomID;
+  final String roomName;
 
   const AddScheduleScreen({
     super.key,
     required this.roomID,
+    required this.roomName,
   });
 
   @override
@@ -62,6 +64,7 @@ class _AddScheduleScreenState extends ConsumerState<AddScheduleScreen> {
         ScheduleRouteName.schedules.name,
         pathParameters: {
           "roomID": widget.roomID,
+          "roomName": widget.roomName,
         },
       );
     }
